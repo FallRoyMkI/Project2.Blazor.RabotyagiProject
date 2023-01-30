@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>RabotyagiProject.Db</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{dd6f1864-60d1-4093-aab7-6aba852a4213}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>RabotyagiProject.Db</RootNamespace>
+    <AssemblyName>RabotyagiProject.Db</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\BusyTime.sql" />
+    <Build Include="dbo\Tables\Client.sql" />
+    <Build Include="dbo\Tables\Order.sql" />
+    <Build Include="dbo\Tables\Order_Service_Worker.sql" />
+    <Build Include="dbo\Tables\Rate.sql" />
+    <Build Include="dbo\Tables\Service.sql" />
+    <Build Include="dbo\Tables\Timetable.sql" />
+    <Build Include="dbo\Tables\Worker.sql" />
+    <Build Include="dbo\Tables\Worker_Service.sql" />
+    <Build Include="dbo\Tables\WorkingDay.sql" />
+    <Build Include="dbo\Stored Procedures\Client_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Service_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Client_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\Service_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_AddNewService.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_UpdateService.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_GetAllServicesByWorkerId.sql" />
+    <Build Include="dbo\Stored Procedures\Order_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Order_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\Order_GetAllByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\Client_UpdateById.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_UpdateById.sql" />
+    <Build Include="dbo\Stored Procedures\Order_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\Order_UpdateById.sql" />
+    <Build Include="dbo\Stored Procedures\Service_UpdateById.sql" />
+    <Build Include="dbo\Stored Procedures\Order_AddNewService.sql" />
+    <Build Include="dbo\Stored Procedures\Order_UpdateServiceById.sql" />
+    <Build Include="dbo\Stored Procedures\Client_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\Order_GetAllCompleted.sql" />
+    <Build Include="dbo\Stored Procedures\Order_GetAllNotCompleted.sql" />
+    <Build Include="dbo\Stored Procedures\Service_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\Worker_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\WorkingDay_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\Timetable_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\Timetable_UpdateById.sql" />
+    <Build Include="dbo\Stored Procedures\Timetable_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Timetable_GetAllByWorkerId.sql" />
+    <Build Include="dbo\Stored Procedures\BusyTime_AddNew.sql" />
+    <Build Include="dbo\Stored Procedures\BusyTime_UpdateById.sql" />
+    <Build Include="dbo\Stored Procedures\BusyTime_GetAllByTimetableId.sql" />
+    <Build Include="dbo\Stored Procedures\BusyTIme_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\WorkingDay_UpdateById.sql" />
+  </ItemGroup>
+</Project>
