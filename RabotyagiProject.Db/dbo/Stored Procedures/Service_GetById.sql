@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[Service_GetById]
 @Id int
 AS
-Select [Type],[IsDeleted] from [Service]
+Select [Id], [Type],[IsDeleted] from [Service]
 Where [Id] = @Id

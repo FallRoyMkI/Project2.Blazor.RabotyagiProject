@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[Worker_GetAllServicesByWorkerId]
 @Id int
 AS
-Select s.[Id], S.[Type], WS.[Cost] from [dbo].[Worker_Service] as WS
-INNER JOIN [dbo].[Service] as S on WS.ServiceId = S.Id
-Where WS.[WorkerId] = @Id
+Select S.[Id], S.[Type], WS.[Cost] from [Worker_Service] AS WS
+LEFT JOIN [dbo].[Service] AS S ON WS.[ServiceId] = S.[Id]
+Where [WorkerId] = @Id and S.[IsDeleted] <> 1

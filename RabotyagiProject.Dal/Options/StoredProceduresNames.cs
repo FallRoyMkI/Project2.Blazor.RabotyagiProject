@@ -1,7 +1,7 @@
 ﻿
 namespace RabotyagiProject.Dal.Options
 {
-    public class StoredProcedures
+    public class StoredProceduresNames
     {
         public static string AddNewBusyTime = "BusyTime_AddNew";
         public static string GetAllBusyTime = "BusyTIme_GetAll";
@@ -18,6 +18,7 @@ namespace RabotyagiProject.Dal.Options
         public static string GetAllCompletedOrders = "Order_GetAllCompleted";
         public static string GetAllNotCompletedOrders = "Order_GetAllNotCompleted";
         public static string GetOrderById = "Order_GetById";
+        public static string GetAllOrderServicesByOrderId = "Order_GetAllServiceByOrderId";
         public static string UpdateOrderById = "Order_UpdateById";
         public static string UpdateOrderServiceById = "Order_UpdateServiceById";
         public static string AddNewService = "Service_AddNew";

@@ -6,15 +6,20 @@ using System.Numerics;
 
 namespace RabotyagiProject.Dal;
 
-public class WorkerProcedures
+public class WorkerRepository
 {
     public List<WorkerDto> GetAllWorkers()
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
-        {
-            sqlConnection.Open();
-            return sqlConnection.Query<WorkerDto>(Options.StoredProcedures.GetAllWorkers,
+        { 
+            sqlConnection.Open(); 
+            var result = sqlConnection.Query<WorkerDto>(Options.StoredProceduresNames.GetAllWorkers,
                 commandType: CommandType.StoredProcedure).ToList();
+           foreach (var worker in result)
+           {
+               worker.Service = GetAllWorkerServicesByWorkerId(worker.Id);
+           }
+            return result;
         }
     }
     public WorkerDto GetWorkerById(int Id)
@@ -22,8 +27,10 @@ public class WorkerProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            return sqlConnection.QueryFirst<WorkerDto>(Options.StoredProcedures.GetWorkerById,
+            var result = sqlConnection.QueryFirst<WorkerDto>(Options.StoredProceduresNames.GetWorkerById,
                 new { Id }, commandType: CommandType.StoredProcedure);
+            result.Service = GetAllWorkerServicesByWorkerId(result.Id);
+            return result;
         }
     }
     public void AddNewWorker(string name, string phone, string mail)
@@ -31,7 +38,7 @@ public class WorkerProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.AddNewWorker, new { name, phone, mail }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.AddNewWorker, new { name, phone, mail }, commandType: CommandType.StoredProcedure);
         }
     }
     public void UpdateWorkerById(int id, string name, string phone, string mail, bool isDeleted)
@@ -39,7 +46,7 @@ public class WorkerProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.UpdateWorkerById, new { id, name, phone, mail, isDeleted }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateWorkerById, new { id, name, phone, mail, isDeleted }, commandType: CommandType.StoredProcedure);
         }
     }
     public void AddNewServiceToWorker(int workerId, int serviceId, int cost)
@@ -47,16 +54,7 @@ public class WorkerProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.AddNewServiceToWorker, new { workerId, serviceId, cost }, commandType: CommandType.StoredProcedure);
-        }
-    }
-    public List<ServiceDto> GetAllWorkerServicesByWorkerId(int id)
-    {
-        using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
-        {
-            sqlConnection.Open();
-            return sqlConnection.Query<ServiceDto>(Options.StoredProcedures.GetAllWorkerServicesByWorkerId,
-                new{id}, commandType: CommandType.StoredProcedure).ToList();
+            sqlConnection.Execute(Options.StoredProceduresNames.AddNewServiceToWorker, new { workerId, serviceId, cost }, commandType: CommandType.StoredProcedure);
         }
     }
     public void UpdateWorkerService(int workerId, int serviceId, int cost, bool isDeleted)
@@ -64,8 +62,18 @@ public class WorkerProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.UpdateWorkerService, new { workerId, serviceId, cost, isDeleted}, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateWorkerService, new { workerId, serviceId, cost, isDeleted }, commandType: CommandType.StoredProcedure);
         }
     }
-
+    private List<ServiceDto> GetAllWorkerServicesByWorkerId(int id)
+    {
+        using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
+        {
+            sqlConnection.Open();
+            return sqlConnection.Query<ServiceDto>(Options.StoredProceduresNames.GetAllWorkerServicesByWorkerId, 
+                new{id}, commandType: CommandType.StoredProcedure).ToList();
+            
+        }
+    }
+    
 }

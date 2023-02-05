@@ -5,25 +5,25 @@ using Dapper;
 
 namespace RabotyagiProject.Dal;
 
-public class TimetableProcedures
+public class TimetableRepository
 {
     public List<TimetableDto> GetAllTimetable()
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            return sqlConnection.Query<TimetableDto>(Options.StoredProcedures.GetAllTimetable,
+            return sqlConnection.Query<TimetableDto>(Options.StoredProceduresNames.GetAllTimetable,
                 commandType: CommandType.StoredProcedure).ToList();
         }
     }
 
-    public List<TimetableDto> GetAllTimetableByWorkerId(int id)
+    public List<TimetableDto> GetAllTimetableByWorkerId(int workerId)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            return sqlConnection.Query<TimetableDto>(Options.StoredProcedures.GetAllTimetableByWorkerId,
-                new{id},commandType: CommandType.StoredProcedure).ToList();
+            return sqlConnection.Query<TimetableDto>(Options.StoredProceduresNames.GetAllTimetableByWorkerId,
+                new{ workerId },commandType: CommandType.StoredProcedure).ToList();
         }
     }
 
@@ -32,7 +32,7 @@ public class TimetableProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.UpdateTimetableById,
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateTimetableById,
                 new { id, workerId, workingDayId,isDeleted }, commandType: CommandType.StoredProcedure);
         }
     }
@@ -42,7 +42,7 @@ public class TimetableProcedures
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.AddNewTimetable,
+            sqlConnection.Execute(Options.StoredProceduresNames.AddNewTimetable,
                 new { workerId, workingDayId}, commandType: CommandType.StoredProcedure);
         }
     }

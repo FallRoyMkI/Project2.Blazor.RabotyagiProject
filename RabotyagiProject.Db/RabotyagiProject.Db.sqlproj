@@ -108,5 +108,6 @@
     <Build Include="dbo\Stored Procedures\BusyTIme_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\WorkingDay_UpdateById.sql" />
     <Build Include="dbo\Stored Procedures\WorkingDay_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Order_GetAllServiceByOrderId.sql" />
   </ItemGroup>
 </Project>

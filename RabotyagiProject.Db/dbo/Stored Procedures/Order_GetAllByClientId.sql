@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[Order_GetAllByClientId]
 @Id int
 AS
-SELECT [Id],[IsCompleted],[Adress],[Date],[Cost],[Rate],[Report],[IsDeleted] from [Order]
-where [ClientId] = @Id
+SELECT [Id],[ClientId],[IsCompleted],[Adress],[Date],[Cost],[Rate],[Report] from [Order]
+where [ClientId] = @Id and [IsDeleted] <> 1

@@ -5,14 +5,14 @@ using Dapper;
 
 namespace RabotyagiProject.Dal;
 
-public class ServiceProcedure
+public class ServiceRepository
 {
     public List<ServiceDto> GetAllServices()
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            return sqlConnection.Query<ServiceDto>(Options.StoredProcedures.GetAllServices,
+            return sqlConnection.Query<ServiceDto>(Options.StoredProceduresNames.GetAllServices,
                 commandType: CommandType.StoredProcedure).ToList();
         }
     }
@@ -21,7 +21,7 @@ public class ServiceProcedure
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            return sqlConnection.QueryFirst<ServiceDto>(Options.StoredProcedures.GetServiceById,
+            return sqlConnection.QueryFirst<ServiceDto>(Options.StoredProceduresNames.GetServiceById,
                 new { id }, commandType: CommandType.StoredProcedure);
         }
     }
@@ -30,7 +30,7 @@ public class ServiceProcedure
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.AddNewService,
+            sqlConnection.Execute(Options.StoredProceduresNames.AddNewService,
                 new { type}, commandType: CommandType.StoredProcedure);
         }
     }
@@ -39,7 +39,7 @@ public class ServiceProcedure
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProcedures.UpdateServiceById,
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateServiceById,
                 new { id, type, isDeleted }, commandType: CommandType.StoredProcedure);
         }
     }
