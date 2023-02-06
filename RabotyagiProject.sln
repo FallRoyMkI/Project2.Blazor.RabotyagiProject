@@ -9,6 +9,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RabotyagiProject.Db", "Rabo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotyagiProjectConsoleTEST", "RabotyagiConsoleTEST\RabotyagiProjectConsoleTEST.csproj", "{84BBC334-DF66-4A7F-88B9-DFE30AE4FA9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotyagiProject.Bll", "RabotyagiProject.Bll\RabotyagiProject.Bll.csproj", "{8F65C668-8E94-483B-983D-51B2ADF12CF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{84BBC334-DF66-4A7F-88B9-DFE30AE4FA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84BBC334-DF66-4A7F-88B9-DFE30AE4FA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84BBC334-DF66-4A7F-88B9-DFE30AE4FA9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
