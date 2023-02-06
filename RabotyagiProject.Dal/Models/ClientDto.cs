@@ -7,4 +7,5 @@ public class ClientDto
     public string Phone { get; set; }
     public string Mail { get; set; }
     public List<OrderDto> Orders { get; set; }
+    public bool IsDeleted { get; set; }
 }

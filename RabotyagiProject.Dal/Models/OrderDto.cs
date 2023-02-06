@@ -12,6 +12,7 @@ public class OrderDto
     public int? Cost { get; set; }
     public Rate Rate { get; set; }
     public string Report { get; set; }
-    public List<OrderServiceWorkerDto> Services { get; set; }
-    
+    public List<ServiceWorkerDto> Services { get; set; } = new List<ServiceWorkerDto>();
+    public bool IsDeleted { get; set; }
+
 }
