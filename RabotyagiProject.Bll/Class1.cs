@@ -1,6 +1,6 @@
 ﻿namespace RabotyagiProject.Bll
 {
-    public class Class1
+    public class Manager
     {
 
     }
