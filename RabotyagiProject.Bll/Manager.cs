@@ -11,7 +11,7 @@ namespace RabotyagiProject.Bll
 
         public List<ClientOutputModel> GetAllClients()
         {
-            ClientProcedures cp = new ClientProcedures();
+            ClientRepository cp = new ClientRepository();
             var clients = cp.GetAllClients();
             var result = _mapperX.MapClientDtoToClientOutputModel(clients);
             return result;

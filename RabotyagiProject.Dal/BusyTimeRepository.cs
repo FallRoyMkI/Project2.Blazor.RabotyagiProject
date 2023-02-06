@@ -2,10 +2,11 @@
 using RabotyagiProject.Dal.Models;
 using System.Data;
 using Dapper;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class BusyTimeRepository
+public class BusyTimeRepository : IBusyTimeAdder, IBusyTimeGetter, IBusyTimeUpdater
 {
     public List<BusyTimeDto> GetAllBusyTime()
     {

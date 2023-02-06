@@ -2,10 +2,11 @@
 using RabotyagiProject.Dal.Models;
 using System.Data;
 using Dapper;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class WorkingDayRepository
+public class WorkingDayRepository : IWorkingDayAdder, IWorkingDayGetter, IWorkingDayUpdater
 {
     public List<WorkingDayDto> GetAllWorkingDays()
     {

@@ -2,10 +2,11 @@
 using RabotyagiProject.Dal.Models;
 using System.Data;
 using Dapper;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class TimetableRepository
+public class TimetableRepository : ITimetableGetter, ITimetableAdder, ITimetableUpdater
 {
     public List<TimetableDto> GetAllTimetable()
     {

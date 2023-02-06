@@ -2,10 +2,11 @@
 using RabotyagiProject.Dal.Models;
 using System.Data;
 using Dapper;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class ServiceRepository
+public class ServiceRepository : IServiceAdder, IServiceUpdater, IServiceGetter
 {
     public List<ServiceDto> GetAllServices()
     {

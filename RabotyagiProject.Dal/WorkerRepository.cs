@@ -3,10 +3,11 @@ using RabotyagiProject.Dal.Models;
 using System.Data;
 using Dapper;
 using System.Numerics;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class WorkerRepository
+public class WorkerRepository : IWorkerGetter, IWorkerAdder, IWorkerUpdater, IWorkerServiceAdder, IWorkerServiceUpdater
 {
     public List<WorkerDto> GetAllWorkers()
     {
@@ -75,5 +76,4 @@ public class WorkerRepository
             
         }
     }
-    
 }

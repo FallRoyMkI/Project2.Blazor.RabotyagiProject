@@ -1,13 +1,12 @@
 ﻿using System.Data;
-using System.Data.Common;
-using Microsoft.VisualBasic;
 using RabotyagiProject.Dal.Models;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class ClientRepository
+public class ClientRepository : IClientGetter, IClientAdder, IClientUpdater
 {
     public List<ClientDto> GetAllClients()
     {

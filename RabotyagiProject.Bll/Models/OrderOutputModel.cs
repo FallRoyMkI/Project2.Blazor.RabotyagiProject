@@ -4,7 +4,6 @@ namespace RabotyagiProject.Bll.Models;
 
 public class OrderOutputModel
 {
-    public int Id { get; set; }
     public int ClientId { get; set; }
     public bool IsCompleted { get; set; }
     public string Adress { get; set; }

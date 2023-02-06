@@ -2,10 +2,11 @@
 using Microsoft.Data.SqlClient;
 using RabotyagiProject.Dal.Models;
 using System.Data;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class OrderRepository
+public class OrderRepository : IOrderGetter, IOrderAdder, IOrderUpdater, IOrderServiceAdder, IOrderServiceUpdater
 {
     public List<OrderDto> GetAllOrders()
     {
@@ -111,7 +112,6 @@ public class OrderRepository
                 new { id, orderId, serviceId, workerId, workload }, commandType: CommandType.StoredProcedure);
         }
     }
-
     private List<ServiceWorkerDto> GetAllOrderServicesByOrderId(int id)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
