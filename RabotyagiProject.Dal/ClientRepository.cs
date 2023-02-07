@@ -6,7 +6,7 @@ using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class ClientRepository : IClientGetter, IClientAdder, IClientUpdater
+public class ClientRepository : IClientRepository
 {
     public List<ClientDto> GetAllClients()
     {
@@ -24,25 +24,30 @@ public class ClientRepository : IClientGetter, IClientAdder, IClientUpdater
         {
             sqlConnection.Open();
             return sqlConnection.QueryFirst<ClientDto>(Options.StoredProceduresNames.GetClientById,
-            new {Id}, commandType: CommandType.StoredProcedure);
+            new { Id }, 
+            commandType: CommandType.StoredProcedure);
         }
     }
 
-    public void AddNewClient(string name, string phone, string mail)
+    public void AddNewClient(ClientDto newDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProceduresNames.AddNewClient, new { name,phone,mail }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.AddNewClient,
+                new { newDto.Name,newDto.Phone, newDto.Mail }, 
+                commandType: CommandType.StoredProcedure);
         }
     }
 
-    public void UpdateClientById(int id, string name, string phone, string mail, bool isDeleted)
+    public void UpdateClientById(ClientDto updatedDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProceduresNames.UpdateClientById, new {id, name, phone, mail, isDeleted }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateClientById, 
+                new { updatedDto.Id, updatedDto.Name, updatedDto.Phone, updatedDto.Mail, updatedDto.IsDeleted }, 
+                commandType: CommandType.StoredProcedure);
         }
     }
 }

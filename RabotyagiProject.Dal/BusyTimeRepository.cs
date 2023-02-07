@@ -6,7 +6,7 @@ using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class BusyTimeRepository : IBusyTimeAdder, IBusyTimeGetter, IBusyTimeUpdater
+public class BusyTimeRepository : IBusyTImeRepository
 {
     public List<BusyTimeDto> GetAllBusyTime()
     {
@@ -27,21 +27,25 @@ public class BusyTimeRepository : IBusyTimeAdder, IBusyTimeGetter, IBusyTimeUpda
                 commandType: CommandType.StoredProcedure).ToList();
         }
     }
-    public void AddNewBusyTime(TimeSpan startTime, TimeSpan endTime, int timetableId)
+    public void AddNewBusyTime(BusyTimeDto newDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProceduresNames.AddNewBusyTime, new { startTime,endTime,timetableId }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.AddNewBusyTime, 
+                new { newDto.StartTime, newDto.EndTime, newDto.TimetableId }, 
+                commandType: CommandType.StoredProcedure);
         }
     }
 
-    public void UpdateBusyTimeById(int id, TimeSpan startTime, TimeSpan endTime, int timetableId, bool isDeleted)
+    public void UpdateBusyTimeById(BusyTimeDto updatedDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProceduresNames.UpdateBusyTimeById, new { id, startTime, endTime, timetableId, isDeleted }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateBusyTimeById, 
+                new { updatedDto.Id, updatedDto.StartTime, updatedDto.EndTime, updatedDto.TimetableId, updatedDto.IsDeleted }, 
+                commandType: CommandType.StoredProcedure);
         }
     }
 }
