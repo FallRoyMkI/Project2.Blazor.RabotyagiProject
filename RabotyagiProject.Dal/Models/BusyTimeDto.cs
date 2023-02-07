@@ -7,4 +7,14 @@ public class BusyTimeDto
     public DateTime EndTime { get; set; }
     public int TimetableId { get; set; }
     public bool IsDeleted { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is BusyTimeDto dto &&
+               Id == dto.Id &&
+               StartTime.Equals(dto.StartTime) &&
+               EndTime.Equals(dto.EndTime) &&
+               TimetableId == dto.TimetableId &&
+               IsDeleted == dto.IsDeleted;
+    }
 }

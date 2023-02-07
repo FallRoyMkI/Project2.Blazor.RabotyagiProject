@@ -15,4 +15,18 @@ public class OrderDto
     public List<ServiceWorkerDto> Services { get; set; } = new List<ServiceWorkerDto>();
     public bool IsDeleted { get; set; }
 
+    public override bool Equals(object? obj)
+    {
+        return obj is OrderDto dto &&
+               Id == dto.Id &&
+               ClientId == dto.ClientId &&
+               IsCompleted == dto.IsCompleted &&
+               Adress == dto.Adress &&
+               Date == dto.Date &&
+               Cost == dto.Cost &&
+               Rate == dto.Rate &&
+               Report == dto.Report &&
+               EqualityComparer<List<ServiceWorkerDto>>.Default.Equals(Services, dto.Services) &&
+               IsDeleted == dto.IsDeleted;
+    }
 }

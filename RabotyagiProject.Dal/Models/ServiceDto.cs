@@ -6,4 +6,13 @@ public class ServiceDto
     public string Type { get; set; }
     public int? Cost { get; set; }
     public bool IsDeleted { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is ServiceDto dto &&
+               Id == dto.Id &&
+               Type == dto.Type &&
+               Cost == dto.Cost &&
+               IsDeleted == dto.IsDeleted;
+    }
 }
