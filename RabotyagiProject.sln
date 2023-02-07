@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProject.Dal", "Rab
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RabotyagiProject.Db", "RabotyagiProject.Db\RabotyagiProject.Db.sqlproj", "{DD6F1864-60D1-4093-AAB7-6ABA852A4213}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotyagiProjectConsoleTEST", "RabotyagiConsoleTEST\RabotyagiProjectConsoleTEST.csproj", "{84BBC334-DF66-4A7F-88B9-DFE30AE4FA9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProjectConsoleTEST", "RabotyagiConsoleTEST\RabotyagiProjectConsoleTEST.csproj", "{84BBC334-DF66-4A7F-88B9-DFE30AE4FA9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotyagiProject.Bll", "RabotyagiProject.Bll\RabotyagiProject.Bll.csproj", "{8F65C668-8E94-483B-983D-51B2ADF12CF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProject.Bll", "RabotyagiProject.Bll\RabotyagiProject.Bll.csproj", "{8F65C668-8E94-483B-983D-51B2ADF12CF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotygiProject.Bll.Test", "RabotygiProject.Bll.Test\RabotygiProject.Bll.Test.csproj", "{8B856DEC-8442-40AA-88CA-CC83683BEDF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F65C668-8E94-483B-983D-51B2ADF12CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,4 +8,15 @@ public class ClientDto
     public string Mail { get; set; }
     public List<OrderDto> Orders { get; set; }
     public bool IsDeleted { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is ClientDto dto &&
+               Id == dto.Id &&
+               Name == dto.Name &&
+               Phone == dto.Phone &&
+               Mail == dto.Mail &&
+               EqualityComparer<List<OrderDto>>.Default.Equals(Orders, dto.Orders) &&
+               IsDeleted == dto.IsDeleted;
+    }
 }

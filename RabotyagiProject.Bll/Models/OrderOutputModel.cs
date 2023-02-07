@@ -12,5 +12,18 @@ public class OrderOutputModel
     public Rate Rate { get; set; }
     public string Report { get; set; }
     public List<ServiceWorkerOutputModel> Services { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is OrderOutputModel model &&
+               ClientId == model.ClientId &&
+               IsCompleted == model.IsCompleted &&
+               Adress == model.Adress &&
+               Date == model.Date &&
+               Cost == model.Cost &&
+               Rate == model.Rate &&
+               Report == model.Report &&
+               EqualityComparer<List<ServiceWorkerOutputModel>>.Default.Equals(Services, model.Services);
+    }
 }
 
