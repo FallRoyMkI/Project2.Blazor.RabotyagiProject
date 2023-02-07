@@ -67,6 +67,30 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<ServiceOutputModel>(id);
         }
-    }
 
+        public List<TimetableOutputModel> MapTimetableDtoToListTimetableOutputModel(List<TimetableDto> timetables)
+        {
+            return _configuration.CreateMapper().Map<List<TimetableOutputModel>>(timetables);
+        }
+        
+        public List<TimetableOutputModel> MapTimetableDtoToListTimetableOutputModelById(List<TimetableDto> timetables)
+        {
+            return _configuration.CreateMapper().Map<List<TimetableOutputModel>>(timetables);
+        }
+
+        public List<WorkerOutputModel> MapWorkerDtoToListWorkerOutputModel(List<WorkerDto> workers)
+        {
+            return _configuration.CreateMapper().Map<List<WorkerOutputModel>>(workers);
+        }
+
+        public WorkerOutputModel MapWorkerDtoToWorkerOutputModelById(WorkerDto id) 
+        {
+            return _configuration.CreateMapper().Map<WorkerOutputModel>(id);
+        }
+
+        public List<WorkingDayOutputModel> WorkingDayToListWorkingDayOutputModel(List<WorkingDayDto> workingDays)
+        {
+            return _configuration.CreateMapper().Map<List<WorkingDayOutputModel>>(workingDays);
+        }        
+    }
 }

@@ -95,5 +95,46 @@ namespace RabotyagiProject.Bll
             var result = _mapperX.MapServiceDtoToServiceOutputModelById(serviceById);
             return result;
         }
+
+        public List<TimetableOutputModel> GetAllTimetable()
+        {
+            TimetableRepository tr = new TimetableRepository();
+            var timetable = tr.GetAllTimetable();
+            var result = _mapperX.MapTimetableDtoToListTimetableOutputModel(timetable);
+            return result;
+
+        }
+
+        public List<TimetableOutputModel> GetAllTimetableByWorkerId(int workerId)
+        {
+            TimetableRepository tr = new TimetableRepository();
+            var timetables = tr.GetAllTimetableByWorkerId(workerId);
+            var result = _mapperX.MapTimetableDtoToListTimetableOutputModelById(timetables);
+            return result;
+        }
+
+        public List<WorkerOutputModel> GetAllWorkers()
+        {
+            WorkerRepository wr = new WorkerRepository();
+            var workers = wr.GetAllWorkers();
+            var result = _mapperX.MapWorkerDtoToListWorkerOutputModel(workers);
+            return result;
+        }
+
+        public WorkerOutputModel GetWorkerById(int Id)
+        {
+            WorkerRepository wr = new WorkerRepository();
+            var workers = wr.GetWorkerById(Id);
+            var result = _mapperX.MapWorkerDtoToWorkerOutputModelById(workers);
+            return result;
+        }
+
+        public List<WorkingDayOutputModel> GetAllWorkingDays()
+        {
+            WorkingDayRepository wdr = new WorkingDayRepository();
+            var workingDays = wdr.GetAllWorkingDays();
+            var result = _mapperX.WorkingDayToListWorkingDayOutputModel(workingDays);
+            return result;
+        }
     }
 }
