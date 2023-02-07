@@ -1,12 +1,15 @@
 ﻿using RabotyagiProject.Dal;
+using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal.Options;
 
-//TimeSpan start = TimeSpan.Parse("12:15:00");
-//TimeSpan end = TimeSpan.Parse("13:15:00");
+//BusyTimeDto kek = new BusyTimeDto();
+//kek.StartTime = DateTime.Parse("12:15:00");
+//kek.EndTime = DateTime.Parse("13:15:00");
+//kek.TimetableId = 2;
 //var BTR = new BusyTimeRepository();
 //var BTR1 = BTR.GetAllBusyTime();
 //var BTR2 = BTR.GetAllBusyTimeByTimetableId(1);
-//BTR.AddNewBusyTime(start,end, 3);
+//BTR.AddNewBusyTime(kek);
 //BTR.UpdateBusyTimeById(1, start, end, 1, false);
 
 //var CR = new ClientRepository();
