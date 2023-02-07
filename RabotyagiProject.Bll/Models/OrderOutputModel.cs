@@ -11,6 +11,6 @@ public class OrderOutputModel
     public int? Cost { get; set; }
     public Rate Rate { get; set; }
     public string Report { get; set; }
-    public List<OrderServiceWorkerOutputModel> Services { get; set; }
+    public List<ServiceWorkerOutputModel> Services { get; set; }
 }
 
