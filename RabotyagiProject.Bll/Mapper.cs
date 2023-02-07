@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Bll.Models;
+using RabotyagiProject.Dal.Models;
 
 namespace RabotyagiProject.Bll
 {
@@ -11,13 +11,61 @@ namespace RabotyagiProject.Bll
         public MapperX()
         {
             _configuration = new MapperConfiguration(
-                cfg=> cfg.CreateMap<ClientDto, ClientOutputModel>()
-                );
+                cfg =>
+                {
+                    cfg.CreateMap<ClientDto, ClientOutputModel>();
+                    cfg.CreateMap<BusyTimeDto, BusyTimeOutputModel>();
+                    cfg.CreateMap<OrderDto, OrderOutputModel>();
+                    cfg.CreateMap<ServiceDto, ServiceOutputModel>();
+                    cfg.CreateMap<TimetableDto, TimetableOutputModel>();
+                    cfg.CreateMap<WorkerDto, WorkerOutputModel>();
+                    cfg.CreateMap<WorkingDayDto, WorkingDayOutputModel>();
+                });
         }
 
-        public List<ClientOutputModel> MapClientDtoToClientOutputModel(List<ClientDto> clients)
+        public List<ClientOutputModel> MapClientDtoToListClientOutputModel(List<ClientDto> clients)
         {
             return _configuration.CreateMapper().Map<List<ClientOutputModel>>(clients);
+        }
+
+        public ClientOutputModel MapClientDtoToClientOutputModelById(ClientDto client)
+        {
+            return _configuration.CreateMapper().Map<ClientOutputModel>(client);
+        }
+
+        public BusyTimeOutputModel MapBusyTimeDtoToBusyTimeOutputModel(BusyTimeDto busy)
+        {
+            return _configuration.CreateMapper().Map<BusyTimeOutputModel>(busy);
+        }
+
+        public List<BusyTimeOutputModel> MapBusyTimeDtoToListBusyTimeOutputModel(List<BusyTimeDto> busy)
+        {
+            return _configuration.CreateMapper().Map<List<BusyTimeOutputModel>>(busy);
+        }
+
+        public List<OrderOutputModel> MapOrderDtoToListOrderOutputModel(List<OrderDto> orders)
+        {
+            return _configuration.CreateMapper().Map<List<OrderOutputModel>>(orders);
+        }
+
+        public List<OrderOutputModel> MapOrderDtoToListOrderOutputModelById(List<OrderDto> id)
+        {
+            return _configuration.CreateMapper().Map<List<OrderOutputModel>>(id);
+        }
+
+        public OrderOutputModel MapOrderDtoToOrderOutputModelById(OrderDto orders)
+        {
+            return _configuration.CreateMapper().Map<OrderOutputModel>(orders);
+        }
+
+        public List<ServiceOutputModel> MapServiceDtoToServiceOutputModel(List<ServiceDto> services)
+        {
+            return _configuration.CreateMapper().Map<List<ServiceOutputModel>>(services);
+        }
+
+        public ServiceOutputModel MapServiceDtoToServiceOutputModelById(ServiceDto id)
+        {
+            return _configuration.CreateMapper().Map<ServiceOutputModel>(id);
         }
     }
 
