@@ -6,7 +6,7 @@ using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class ServiceRepository : IServiceAdder, IServiceUpdater, IServiceGetter
+public class ServiceRepository : IServiceRepository
 {
     public List<ServiceDto> GetAllServices()
     {
@@ -23,25 +23,28 @@ public class ServiceRepository : IServiceAdder, IServiceUpdater, IServiceGetter
         {
             sqlConnection.Open();
             return sqlConnection.QueryFirst<ServiceDto>(Options.StoredProceduresNames.GetServiceById,
-                new { id }, commandType: CommandType.StoredProcedure);
+                new { id }, 
+                commandType: CommandType.StoredProcedure);
         }
     }
-    public void AddNewService(string type)
+    public void AddNewService(ServiceDto newDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
             sqlConnection.Execute(Options.StoredProceduresNames.AddNewService,
-                new { type}, commandType: CommandType.StoredProcedure);
+                new { newDto.Type },
+                commandType: CommandType.StoredProcedure);
         }
     }
-    public void UpdateServiceById(int id, string type, bool isDeleted)
+    public void UpdateServiceById(ServiceDto updatedDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
             sqlConnection.Execute(Options.StoredProceduresNames.UpdateServiceById,
-                new { id, type, isDeleted }, commandType: CommandType.StoredProcedure);
+                new { updatedDto.Id, updatedDto.Type, updatedDto.IsDeleted }, 
+                commandType: CommandType.StoredProcedure);
         }
     }
 }

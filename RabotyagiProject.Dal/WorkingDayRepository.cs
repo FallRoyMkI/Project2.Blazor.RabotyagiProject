@@ -6,7 +6,7 @@ using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class WorkingDayRepository : IWorkingDayAdder, IWorkingDayGetter, IWorkingDayUpdater
+public class WorkingDayRepository : IWorkingDayRepository
 {
     public List<WorkingDayDto> GetAllWorkingDays()
     {
@@ -25,12 +25,12 @@ public class WorkingDayRepository : IWorkingDayAdder, IWorkingDayGetter, IWorkin
             sqlConnection.Execute(Options.StoredProceduresNames.AddNewWorkingDay, new { date }, commandType: CommandType.StoredProcedure);
         }
     }
-    public void UpdateWorkingDayById(int id, DateTime date)
+    public void UpdateWorkingDayById(WorkingDayDto updatedDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProceduresNames.UpdateWorkingDayById, new { id, date }, commandType: CommandType.StoredProcedure);
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateWorkingDayById, new { updatedDto.Id, updatedDto.Date }, commandType: CommandType.StoredProcedure);
         }
     }
 }

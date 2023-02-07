@@ -2,8 +2,10 @@
 
 namespace RabotyagiProject.Dal.Interface;
 
-public interface IServiceGetter
+public interface IServiceRepository
 {
     public List<ServiceDto> GetAllServices();
     public ServiceDto GetServiceById(int id);
+    public void AddNewService(ServiceDto newDto);
+    public void UpdateServiceById(ServiceDto updatedDto);
 }

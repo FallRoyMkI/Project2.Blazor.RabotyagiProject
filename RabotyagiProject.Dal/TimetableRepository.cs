@@ -6,7 +6,7 @@ using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class TimetableRepository : ITimetableGetter, ITimetableAdder, ITimetableUpdater
+public class TimetableRepository : ITimetableRepository
 {
     public List<TimetableDto> GetAllTimetable()
     {
@@ -24,27 +24,30 @@ public class TimetableRepository : ITimetableGetter, ITimetableAdder, ITimetable
         {
             sqlConnection.Open();
             return sqlConnection.Query<TimetableDto>(Options.StoredProceduresNames.GetAllTimetableByWorkerId,
-                new{ workerId },commandType: CommandType.StoredProcedure).ToList();
+                new{ workerId },
+                commandType: CommandType.StoredProcedure).ToList();
         }
     }
-
-    public void UpdateTimetableById(int id,int workerId, int workingDayId, bool isDeleted)
-    {
-        using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
-        {
-            sqlConnection.Open();
-            sqlConnection.Execute(Options.StoredProceduresNames.UpdateTimetableById,
-                new { id, workerId, workingDayId,isDeleted }, commandType: CommandType.StoredProcedure);
-        }
-    }
-
-    public void AddNewTimetable(int workerId, int workingDayId)
+    public void AddNewTimetable(TimetableDto newDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
         {
             sqlConnection.Open();
             sqlConnection.Execute(Options.StoredProceduresNames.AddNewTimetable,
-                new { workerId, workingDayId}, commandType: CommandType.StoredProcedure);
+                new { newDto.WorkerId, newDto.WorkingDayId },
+                commandType: CommandType.StoredProcedure);
         }
     }
+    public void UpdateTimetableById(TimetableDto updatedDto)
+    {
+        using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
+        {
+            sqlConnection.Open();
+            sqlConnection.Execute(Options.StoredProceduresNames.UpdateTimetableById,
+                new { updatedDto.Id, updatedDto.WorkerId, updatedDto.WorkingDayId, updatedDto.IsDeleted }, 
+                commandType: CommandType.StoredProcedure);
+        }
+    }
+
+    
 }
