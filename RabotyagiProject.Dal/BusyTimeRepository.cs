@@ -6,7 +6,7 @@ using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Dal;
 
-public class BusyTimeRepository : IBusyTImeRepository
+public class BusyTimeRepository : IBusyTimeRepository
 {
     public List<BusyTimeDto> GetAllBusyTime()
     {
