@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Models;
+using RabotyagiProject.Dal.Options;
 
 namespace RabotyagiProject.Bll
 {
@@ -20,6 +21,7 @@ namespace RabotyagiProject.Bll
                     cfg.CreateMap<TimetableDto, TimetableOutputModel>();
                     cfg.CreateMap<WorkerDto, WorkerOutputModel>();
                     cfg.CreateMap<WorkingDayDto, WorkingDayOutputModel>();
+                    cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
                 });
         }
 
