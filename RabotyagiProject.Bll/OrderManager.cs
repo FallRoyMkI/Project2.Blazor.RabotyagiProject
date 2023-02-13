@@ -12,17 +12,11 @@ public class OrderManager
     {
         OrderRepository= repository;
     }
+
     public List<OrderOutputModel> GetAllOrders()
     {
         var orders = OrderRepository.GetAllOrders();
         var result = _mapperX.MapOrderDtoToListOrderOutputModel(orders);
-        return result;
-    }
-
-    public List<OrderOutputModel> GetAllOrdersByClientId(int id)
-    {
-        var сlientOrders = OrderRepository.GetAllOrdersByClientId(id);
-        var result = _mapperX.MapOrderDtoToListOrderOutputModelById(сlientOrders);
         return result;
     }
 
@@ -37,6 +31,13 @@ public class OrderManager
     {
         var notCompletedOrders = OrderRepository.GetAllNotCompletedOrders();
         var result = _mapperX.MapOrderDtoToListOrderOutputModel(notCompletedOrders);
+        return result;
+    }
+
+    public List<OrderOutputModel> GetAllOrdersByClientId(int id)
+    {
+        var сlientOrders = OrderRepository.GetAllOrdersByClientId(id);
+        var result = _mapperX.MapOrderDtoToListOrderOutputModelById(сlientOrders);
         return result;
     }
 
