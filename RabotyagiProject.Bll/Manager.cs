@@ -88,20 +88,6 @@ namespace RabotyagiProject.Bll
             return result;
         }
 
-        public List<WorkerOutputModel> GetAllWorkers()
-        {
-            var workers = WorkerRepository.GetAllWorkers();
-            var result = _mapperX.MapWorkerDtoToListWorkerOutputModel(workers);
-            return result;
-        }
-
-        public WorkerOutputModel GetWorkerById(int Id)
-        {
-            var workers = WorkerRepository.GetWorkerById(Id);
-            var result = _mapperX.MapWorkerDtoToWorkerOutputModelById(workers);
-            return result;
-        }
-
         public List<WorkingDayOutputModel> GetAllWorkingDays()
         {
             var workingDays = WorkingDayRepository.GetAllWorkingDays();

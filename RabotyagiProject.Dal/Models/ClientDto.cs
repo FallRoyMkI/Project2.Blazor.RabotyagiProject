@@ -6,7 +6,7 @@ public class ClientDto
     public string Name { get; set; }
     public string Phone { get; set; }
     public string Mail { get; set; }
-    public List<OrderDto> Orders { get; set; }
+    public List<OrderDto> Orders { get; set; } = new List<OrderDto>();
     public bool IsDeleted { get; set; }
 
     public override bool Equals(object? obj)
@@ -16,7 +16,7 @@ public class ClientDto
                Name == dto.Name &&
                Phone == dto.Phone &&
                Mail == dto.Mail &&
-               EqualityComparer<List<OrderDto>>.Default.Equals(Orders, dto.Orders) &&
+               Orders.SequenceEqual(dto.Orders)&&
                IsDeleted == dto.IsDeleted;
     }
 }

@@ -26,7 +26,7 @@ public class OrderDto
                Date == dto.Date &&
                Cost == dto.Cost &&
                Rate == dto.Rate &&
-        Report == dto.Report &&
+               Report == dto.Report &&
                Services.SequenceEqual(dto.Services) &&
                IsDeleted == dto.IsDeleted;
     }

@@ -7,11 +7,11 @@ public class OrderManager
 {
     MapperX _mapperX = new MapperX();
     public IOrderRepository OrderRepository { get; set; }
-
     public OrderManager(IOrderRepository repository)
     {
         OrderRepository= repository;
     }
+
 
     public List<OrderOutputModel> GetAllOrders()
     {
