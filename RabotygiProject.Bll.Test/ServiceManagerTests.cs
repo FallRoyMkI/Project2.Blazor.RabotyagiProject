@@ -28,5 +28,15 @@ public class ServiceManagerTests
         _mock.VerifyAll();
         CollectionAssert.AreEqual(expected, actual);
     }
+
+    [TestCaseSource(typeof(GetServiceByIdTestSources))]
+    public void GetServiceByIdTest(int id, ServiceDto receivedService, ServiceOutputModel expectedService)
+    {
+        _mock.Setup(o => o.GetServiceById(id)).Returns(receivedService).Verifiable();
+        ServiceOutputModel actual = _manager.GetServiceById(id);
+        ServiceOutputModel expected = expectedService;
+        _mock.VerifyAll();
+        Assert.AreEqual(expected, actual);
+    }
 }
 
