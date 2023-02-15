@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Models;
-using RabotyagiProject.Dal.Options;
 
 namespace RabotyagiProject.Bll
 {
@@ -14,14 +13,14 @@ namespace RabotyagiProject.Bll
             _configuration = new MapperConfiguration(
                 cfg =>
                 {
-                    cfg.CreateMap<ClientDto, ClientOutputModel>();
                     cfg.CreateMap<BusyTimeDto, BusyTimeOutputModel>();
+                    cfg.CreateMap<ClientDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ServiceDto, ServiceOutputModel>();
+                    cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
                     cfg.CreateMap<TimetableDto, TimetableOutputModel>();
                     cfg.CreateMap<WorkerDto, WorkerOutputModel>();
                     cfg.CreateMap<WorkingDayDto, WorkingDayOutputModel>();
-                    cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
                 });
         }
 

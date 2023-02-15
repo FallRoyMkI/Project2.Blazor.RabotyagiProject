@@ -1,5 +1,4 @@
-﻿
-namespace RabotyagiProject.Dal.Options
+﻿namespace RabotyagiProject.Dal.Options
 {
     public class StoredProceduresNames
     {

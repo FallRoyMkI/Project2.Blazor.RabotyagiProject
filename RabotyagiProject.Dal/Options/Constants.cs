@@ -1,6 +1,4 @@
-﻿using System.Data.Common;
-
-namespace RabotyagiProject.Dal.Options;
+﻿namespace RabotyagiProject.Dal.Options;
 
 public class Constants
 {
