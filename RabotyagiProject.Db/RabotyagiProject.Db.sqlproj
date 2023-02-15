@@ -109,5 +109,6 @@
     <Build Include="dbo\Stored Procedures\WorkingDay_UpdateById.sql" />
     <Build Include="dbo\Stored Procedures\WorkingDay_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\Order_GetAllServiceByOrderId.sql" />
+    <Build Include="dbo\Stored Procedures\Order_Service_Worker_DeleteById.sql" />
   </ItemGroup>
 </Project>

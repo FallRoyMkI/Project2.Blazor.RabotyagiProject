@@ -38,5 +38,6 @@
         public static string AddNewWorkingDay = "WorkingDay_AddNew";
         public static string UpdateWorkingDayById = "WorkingDay_UpdateById";
         public static string GetAllWorkingDays = "WorkingDay_GetAll";
+        public static string DeleteOrderServiceWorkerById = "Order_Service_Worker_DeleteById";
     }
 }

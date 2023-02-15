@@ -1,12 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using RabotyagiProject.Dal.Models;
 
 namespace RabotyagiProject.Dal
 {
-    internal class Class1
+    public class OrderServiceWorkerRepository
     {
+        public bool DeleteOrderServiceWorkerById(int id)
+        {
+            {
+                using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
+                {
+                    sqlConnection.Open();
+                    return sqlConnection.Execute(Options.StoredProceduresNames.DeleteOrderServiceWorkerById,
+                    new { id },
+                    commandType: CommandType.StoredProcedure) >0;
+                }
+            }
+
+        }
     }
 }

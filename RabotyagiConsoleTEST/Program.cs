@@ -2,6 +2,13 @@
 using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal.Options;
 
+//var ddd = new ClientRepository();
+//var d = ddd.AddNewClient ()
+
+//var p = new OrderServiceWorkerRepository();
+//var rrr = p.DeleteOrderServiceWorkerById(1);
+//Console.WriteLine();
+
 //BusyTimeDto kek = new BusyTimeDto();
 //kek.StartTime = DateTime.Parse("12:15:00");
 //kek.EndTime = DateTime.Parse("13:15:00");
