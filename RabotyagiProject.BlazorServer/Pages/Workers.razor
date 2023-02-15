@@ -1,0 +1,21 @@
+﻿@page "/workers"
+<PageTitle>Workers</PageTitle>
+
+<h1>Workers</h1>
+<div>
+    @if (_workers.Count != 0)
+    {
+        <WorkersTable Workers="_workers" />
+    }
+</div>
+
+
+@code {
+    private List<WorkerOutputModel> _workers = new List<WorkerOutputModel>();
+
+    protected override void OnInitialized()
+    {
+        var manager = new WorkerManager();
+        _workers = manager.GetAllWorkers();
+    }
+}

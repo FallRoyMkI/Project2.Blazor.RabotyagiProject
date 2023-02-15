@@ -45,19 +45,6 @@ namespace RabotyagiProject.Bll
             return result;
         }
 
-        public List<ClientOutputModel> GetAllClients()
-        {
-            var clients = ClientRepository.GetAllClients();
-            var result = _mapperX.MapClientDtoToListClientOutputModel(clients);
-            return result;
-        }
-
-        public ClientOutputModel GetClientById(int Id)
-        {
-            var client = ClientRepository.GetClientById(Id);
-            var result = _mapperX.MapClientDtoToClientOutputModelById(client);
-            return result;
-        }
 
         public List<ServiceOutputModel> GetAllServices()
         {

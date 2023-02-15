@@ -1,4 +1,5 @@
 ﻿using RabotyagiProject.Bll.Models;
+using RabotyagiProject.Dal;
 using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Bll;
@@ -7,9 +8,16 @@ public class WorkerManager
 {
     MapperX _mapperX = new MapperX();
     public IWorkerRepository WorkerRepository { get; set; }
-    public WorkerManager(IWorkerRepository repository)
+    public WorkerManager(IWorkerRepository repository = null)
     {
-        WorkerRepository = repository;
+        if (repository != null)
+        {
+            WorkerRepository = repository;
+        }
+        else
+        {
+            WorkerRepository = new WorkerRepository();
+        }
     }
 
 

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProjectConsoleTEST
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProject.Bll", "RabotyagiProject.Bll\RabotyagiProject.Bll.csproj", "{8F65C668-8E94-483B-983D-51B2ADF12CF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotygiProject.Bll.Test", "RabotygiProject.Bll.Test\RabotygiProject.Bll.Test.csproj", "{8B856DEC-8442-40AA-88CA-CC83683BEDF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotygiProject.Bll.Test", "RabotygiProject.Bll.Test\RabotygiProject.Bll.Test.csproj", "{8B856DEC-8442-40AA-88CA-CC83683BEDF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotyagiProject.BlazorServer", "RabotyagiProject.BlazorServer\RabotyagiProject.BlazorServer.csproj", "{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B856DEC-8442-40AA-88CA-CC83683BEDF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
