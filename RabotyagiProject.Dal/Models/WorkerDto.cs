@@ -7,7 +7,7 @@ public class WorkerDto
     public string Phone { get; set; }
     public string Mail { get; set; }
     public List<ServiceDto> Service { get; set; } = new List<ServiceDto>();
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     public override bool Equals(object? obj)
     {

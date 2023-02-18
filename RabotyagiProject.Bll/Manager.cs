@@ -10,26 +10,10 @@ namespace RabotyagiProject.Bll
     {
         MapperX _mapperX = new MapperX();
 
-        public IBusyTimeRepository BusyTimeRepository { get; set; }
-        public IClientRepository ClientRepository { get; set; }
-        public IServiceRepository ServiceRepository { get; set; }
-        public ITimetableRepository TimetableRepository { get; set; }
-        public IWorkerRepository WorkerRepository { get; set; }
-        public IWorkingDayRepository WorkingDayRepository { get; set; }
-
-        //public Manager(IBusyTimeRepository repository = null)
-        //{
-        //    if (repository == null)
-        //    {
-        //        BusyTimeRepository = new BusyTimeRepository();
-        //    }
-        //    else
-        //    {
-        //        BusyTimeRepository = repository;
-        //    }
-
-        //    _mapperX = new MapperX();
-        //}
+        public IBusyTimeRepository BusyTimeRepository { get; set; } = new BusyTimeRepository();
+        public IServiceRepository ServiceRepository { get; set; } = new ServiceRepository();
+        public ITimetableRepository TimetableRepository { get; set; } = new TimetableRepository();
+        public IWorkingDayRepository WorkingDayRepository { get; set; } = new WorkingDayRepository();
 
         public List<BusyTimeOutputModel> GetAllBusyTime()
         {
@@ -44,6 +28,14 @@ namespace RabotyagiProject.Bll
             var result = _mapperX.MapBusyTimeDtoToListBusyTimeOutputModel(allBusy);
             return result;
         }
+
+        public BusyTimeOutputModel GetBusyTimeById(int timetableId)
+        {
+            var busy = BusyTimeRepository.GetBusyTimeById(timetableId);
+            var result = _mapperX.MapBusyTimeDtoToBusyTimeOutputModel(busy);
+            return result;
+        }
+
 
 
         public List<ServiceOutputModel> GetAllServices()
@@ -78,7 +70,14 @@ namespace RabotyagiProject.Bll
         public List<WorkingDayOutputModel> GetAllWorkingDays()
         {
             var workingDays = WorkingDayRepository.GetAllWorkingDays();
-            var result = _mapperX.WorkingDayToListWorkingDayOutputModel(workingDays);
+            var result = _mapperX.MapWorkingDayDtoListToWorkingDayOutputModelList(workingDays);
+            return result;
+        }
+
+        public WorkingDayOutputModel GetWorkingDayById(int id)
+        {
+            var workingDay = WorkingDayRepository.GetWorkingDayById(id);
+            var result = _mapperX.MapWorkingDayDtoToWorkingDayOutputModel(workingDay);
             return result;
         }
     }

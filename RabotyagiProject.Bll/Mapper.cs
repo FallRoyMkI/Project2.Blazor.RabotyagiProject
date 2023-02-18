@@ -43,7 +43,6 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<List<BusyTimeOutputModel>>(busy);
         }
-
         public List<OrderOutputModel> MapOrderDtoToListOrderOutputModel(List<OrderDto> orders)
         {
             return _configuration.CreateMapper().Map<List<OrderOutputModel>>(orders);
@@ -89,9 +88,13 @@ namespace RabotyagiProject.Bll
             return _configuration.CreateMapper().Map<WorkerOutputModel>(id);
         }
 
-        public List<WorkingDayOutputModel> WorkingDayToListWorkingDayOutputModel(List<WorkingDayDto> workingDays)
+        public List<WorkingDayOutputModel> MapWorkingDayDtoListToWorkingDayOutputModelList(List<WorkingDayDto> workingDays)
         {
             return _configuration.CreateMapper().Map<List<WorkingDayOutputModel>>(workingDays);
-        }        
+        }
+        public WorkingDayOutputModel MapWorkingDayDtoToWorkingDayOutputModel(WorkingDayDto workingDay)
+        {
+            return _configuration.CreateMapper().Map<WorkingDayOutputModel>(workingDay);
+        }
     }
 }

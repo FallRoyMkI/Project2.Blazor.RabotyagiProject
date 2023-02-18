@@ -14,7 +14,7 @@ public class OrderDto
     public Rate? Rate { get; set; }
     public string? Report { get; set; }
     public List<ServiceWorkerDto> Services { get; set; } = new List<ServiceWorkerDto>();
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     public override bool Equals(object? obj)
     {

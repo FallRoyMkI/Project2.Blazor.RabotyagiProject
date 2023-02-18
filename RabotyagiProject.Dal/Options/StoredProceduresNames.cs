@@ -4,6 +4,7 @@
     {
         public static string AddNewBusyTime = "BusyTime_AddNew";
         public static string GetAllBusyTime = "BusyTIme_GetAll";
+        public static string GetBusyTimeById = "BusyTIme_GetById";
         public static string GetAllBusyTimeByTimetableId = "BusyTime_GetAllByTimetableId";
         public static string UpdateBusyTimeById = "BusyTime_UpdateById";
         public static string AddNewClient = "Client_AddNew";
@@ -38,5 +39,6 @@
         public static string AddNewWorkingDay = "WorkingDay_AddNew";
         public static string UpdateWorkingDayById = "WorkingDay_UpdateById";
         public static string GetAllWorkingDays = "WorkingDay_GetAll";
+        public static string GetWorkingDayById = "WorkingDay_GetById";
     }
 }

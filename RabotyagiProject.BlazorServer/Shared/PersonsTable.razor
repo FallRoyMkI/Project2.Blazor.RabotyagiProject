@@ -1,0 +1,47 @@
+﻿<table style=" margin: auto">
+    <tr>
+        <td> <div class="Id-Slot"> <h3 style="text-align: center"> Id </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Имя </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Телефон </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Почта </h3> </div> </td>
+    </tr>
+    @if (Workers != null)
+    {
+        @foreach (var person in Workers)
+        {
+            <tr>
+                <td>
+                    <div class="Id-Slot">
+                        <h3 style="text-align: center">
+                            <a href="/worker/@person.Id" style="color: #7922CC"> @person.Id </a> </h3>
+                    </div>
+                </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Name </h3> </div> </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Phone </h3> </div> </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Mail </h3> </div> </td>
+            </tr>
+        }
+    }
+    else
+    {
+        @foreach (var person in Clients)
+        {
+            <tr>
+                <td>
+                    <div class="Id-Slot">
+                        <h3 style="text-align: center">
+                             <a href="/client/@person.Id" style="color: #7922CC"> @person.Id</a> </h3>
+                    </div>
+                </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Name </h3> </div> </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Phone </h3> </div> </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Mail </h3> </div> </td>
+            </tr>
+        }
+    }
+</table>
+
+@code {
+    [Parameter] public List<WorkerOutputModel> Workers { get; set; } = null;
+    [Parameter] public List<ClientOutputModel> Clients { get; set; } = null;
+}

@@ -1,20 +1,22 @@
 ﻿@page "/workers"
+
 <PageTitle>Workers</PageTitle>
 
-<h1>Workers</h1>
-<div>
-    <h3>добавить работягу</h3>
-    <h3>открыть страницу работяги</h3>
-    <h3>сортировать список по id</h3>
-    <h3>сортировать список по по имени работяги</h3>
+<div style=" text-align: center ">
+    <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> Workers</h1>
 </div>
-<div>
+<div >
     @if (_workers.Count != 0)
     {
-        <WorkersTable Workers="_workers"/>
+        <PersonsTable Workers="_workers"/>
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 600px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> Работяг не обнаружено! </h3>
+        </div>
     }
 </div>
-
 
 @code {
     private List<WorkerOutputModel> _workers = new List<WorkerOutputModel>();

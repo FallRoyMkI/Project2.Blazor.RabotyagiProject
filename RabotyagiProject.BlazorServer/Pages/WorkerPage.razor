@@ -1,0 +1,52 @@
+﻿@page "/worker/{Id:int}"
+
+<div style=" text-align: center ">
+    <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> @_worker.Name</h1>
+</div>
+<div style="text-align: center">
+    <h1 style="color: rgb(125,125,255); display: inline-block; font-family: fantasy"> @_worker.Mail </h1>
+    <h1 style="color: rgb(125,125,255); display: inline-block; margin-left: 50px;font-family: fantasy"> @_worker.Phone </h1>
+</div>
+<div style=" text-align: center " >
+    <div style="text-align: center">
+        <h5 style="color: rgb(125,125,255); display: inline-block; margin-right: 30px; font-family: fantasy"> Добавить </h5>
+        <h1 style="color: blueviolet; display: inline-block;">Услуги</h1>
+    </div>
+    @if (_worker.Service.Count > 0)
+    {
+        <WorkerServiceTemplate Services="_worker.Service" Id="_worker.Id" />
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> Этот работяга пока ещё не предоставляет услуг! </h3>
+        </div>
+    }
+</div>
+<div style="text-align: center">
+    <div style="text-align: center">
+        <h5 style="color: rgb(125,125,255); display: inline-block; margin-right: 30px; font-family: fantasy"> Добавить </h5>
+        <h1 style="color: blueviolet; display: inline-block;">Расписание</h1>
+    </div>
+    @if (new Manager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
+    {
+        <WorkerWorkTimeTemplate Timetable="new Manager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> У этого работяги пока ещё нет заказов! </h3>
+        </div>
+    }
+
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private WorkerOutputModel _worker;
+
+    protected override void OnInitialized()
+    {
+        _worker = new WorkerManager().GetWorkerById(Id);
+    }
+}

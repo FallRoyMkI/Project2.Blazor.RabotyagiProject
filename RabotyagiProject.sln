@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProject.Bll", "Rab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotygiProject.Bll.Test", "RabotygiProject.Bll.Test\RabotygiProject.Bll.Test.csproj", "{8B856DEC-8442-40AA-88CA-CC83683BEDF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabotyagiProject.BlazorServer", "RabotyagiProject.BlazorServer\RabotyagiProject.BlazorServer.csproj", "{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabotyagiProject.BlazorServer", "RabotyagiProject.BlazorServer\RabotyagiProject.BlazorServer.csproj", "{11CE5F99-947E-45D8-8842-0CDE2EA0BA68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

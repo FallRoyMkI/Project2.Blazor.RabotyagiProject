@@ -63,15 +63,43 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.Id-Slot {
+    width: 80px;
+    height: 40px;
+    background-color: rgba(238,221,255,0.8);
+    border: 3px solid rgba(121,34,204,0.8);
+    border-radius: 25px;
+    color: #7922CC;
+    font-family: fantasy;
+}
+
 .Table-Slot {
     width: 400px;
     height: 40px;
-    background: aqua;
-    border: solid #26b050;
+    background-color: rgba(100,149,237,0.5);
+    border: 3px solid #6a5acd;
+    border-radius: 15px;
+    color:aqua;
 }
-.Id-Slot {
-    width: 100px;
+.Accept-Button {
     height: 40px;
-    background: aquamarine;
-    border: solid #26b050;
+    display: inline-block;
+    background: rgba(115, 255, 255, 0.6);
+    border: 3px solid indigo;
+    border-radius: 5px;
+    color: indigo;
+    font-family: fantasy;
+    font-size: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+.Update-Button {
+    background-color: rgba(100,149,237,0.5);
+    border: 3px solid #6a5acd;
+    color: aqua;
+    font-family: fantasy;
+    font-size: 35px;
+    text-align: center;
+    align-content: center;
 }
