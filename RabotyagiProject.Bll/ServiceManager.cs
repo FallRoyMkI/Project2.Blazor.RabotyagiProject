@@ -1,5 +1,6 @@
 ﻿using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Interface;
+using RabotyagiProject.Dal;
 
 namespace RabotyagiProject.Bll
 {
@@ -9,9 +10,16 @@ namespace RabotyagiProject.Bll
 
         public IServiceRepository ServiceRepository { get; set; }
 
-        public ServiceManager(IServiceRepository repository)
+        public ServiceManager(IServiceRepository repository = null)
         {
-            ServiceRepository=repository;
+            if(repository != null)
+            {
+            ServiceRepository = repository;
+            }
+            else
+            {
+                ServiceRepository = new ServiceRepository();
+            }
         }
 
         public List<ServiceOutputModel> GetAllServices()

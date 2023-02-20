@@ -1,0 +1,29 @@
+﻿@page "/services"
+
+<PageTitle>Services</PageTitle>
+
+<div style=" text-align: center ">
+    <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> Services</h1>
+</div>
+<div >
+    @if (_services.Count != 0)
+    {
+        <ListOfServices Services="_services"/>
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 600px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> Нет доступных услуг! </h3>
+        </div>
+    }
+</div>
+
+@code {
+    private List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+
+    protected override void OnInitialized()
+    {
+        var manager = new ServiceManager();
+        _services = manager.GetAllServices();
+    }
+}

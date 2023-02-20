@@ -1,0 +1,23 @@
+﻿@page "/services/{Id:int}
+
+<h3>EditService</h3>
+
+@code {
+	[Parameter] public int Id { get; set; }
+
+	private ServiceOutputModel _service;
+
+	protected override void OnInitialized()
+	{
+		_service = new ServiceManager().GetServiceById(Id)
+	}
+
+	private void SaveChanges()
+	{
+		var s = new ServiceInputModel()
+			{
+				Id = _service.Id,
+				Type = _service.Type
+			};
+	}
+}
