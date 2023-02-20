@@ -5,8 +5,8 @@
 <div>
     <span>Наименование:</span><input type="text" @bind="_service.Type"/> <br /><br />
     <span>Цена:</span><input type="number" @bind="_service.Cost"/> <br /><br />
-    <span>Удалить:</span><label><input type="radio" name="_service.IsDeleted"  @bind="_service.IsDeleted"/>Да</label>
-						<label><input type="radio" name="_service.IsDeleted"  @bind="_service.IsDeleted"/>Нет</label> <br /><br />
+    <span>Удалить:</span><label><input type="radio" name="_service.IsDeleted"  @bind="_service.IsDeleted = true"/>Да</label>
+						<label><input type="radio" name="_service.IsDeleted"  @bind="_service.IsDeleted = false"/>Нет</label> <br /><br />
     <button @onclick="SaveChanges">Сохранить измененеия</button><br /><br />
 </div>
 
