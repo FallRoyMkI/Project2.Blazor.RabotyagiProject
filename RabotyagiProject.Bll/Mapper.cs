@@ -17,6 +17,7 @@ namespace RabotyagiProject.Bll
                     cfg.CreateMap<ClientDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ServiceDto, ServiceOutputModel>();
+                    cfg.CreateMap<ServiceInputModel, ServiceDto>();
                     cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
                     cfg.CreateMap<TimetableDto, TimetableOutputModel>();
                     cfg.CreateMap<WorkerDto, WorkerOutputModel>();
@@ -66,6 +67,11 @@ namespace RabotyagiProject.Bll
         public ServiceOutputModel MapServiceDtoToServiceOutputModelById(ServiceDto id)
         {
             return _configuration.CreateMapper().Map<ServiceOutputModel>(id);
+        }
+        
+        public ServiceDto MapServiceInputModelToServiceDto(ServiceInputModel model)
+        {
+            return _configuration.CreateMapper().Map<ServiceDto>(model);
         }
 
         public List<TimetableOutputModel> MapTimetableDtoToListTimetableOutputModel(List<TimetableDto> timetables)

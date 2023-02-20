@@ -35,5 +35,11 @@ namespace RabotyagiProject.Bll
             var result = _mapperX.MapServiceDtoToServiceOutputModelById(serviceById);
             return result;
         }
+
+        public void UpdateServiceById(ServiceInputModel model)
+        {
+            var upModel = _mapperX.MapServiceInputModelToServiceDto(model);
+            ServiceRepository.UpdateServiceById(upModel);            
+        }
     }
 }
