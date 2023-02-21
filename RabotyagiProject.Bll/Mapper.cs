@@ -25,6 +25,7 @@ namespace RabotyagiProject.Bll
                 });
         }
 
+        #region Client
         public List<ClientOutputModel> MapClientDtoToListClientOutputModel(List<ClientDto> clients)
         {
             return _configuration.CreateMapper().Map<List<ClientOutputModel>>(clients);
@@ -34,7 +35,8 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<ClientOutputModel>(client);
         }
-
+        #endregion
+        #region BusyTime
         public BusyTimeOutputModel MapBusyTimeDtoToBusyTimeOutputModel(BusyTimeDto busy)
         {
             return _configuration.CreateMapper().Map<BusyTimeOutputModel>(busy);
@@ -44,6 +46,8 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<List<BusyTimeOutputModel>>(busy);
         }
+        #endregion
+        #region Order
         public List<OrderOutputModel> MapOrderDtoToListOrderOutputModel(List<OrderDto> orders)
         {
             return _configuration.CreateMapper().Map<List<OrderOutputModel>>(orders);
@@ -58,6 +62,8 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<OrderOutputModel>(orders);
         }
+        #endregion
+        #region Service
 
         public List<ServiceOutputModel> MapServiceDtoToServiceOutputModel(List<ServiceDto> services)
         {
@@ -73,7 +79,8 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<ServiceDto>(model);
         }
-
+        #endregion
+        #region Timetable
         public List<TimetableOutputModel> MapTimetableDtoToListTimetableOutputModel(List<TimetableDto> timetables)
         {
             return _configuration.CreateMapper().Map<List<TimetableOutputModel>>(timetables);
@@ -83,7 +90,8 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<List<TimetableOutputModel>>(timetables);
         }
-
+        #endregion
+        #region Worker
         public List<WorkerOutputModel> MapWorkerDtoToListWorkerOutputModel(List<WorkerDto> workers)
         {
             return _configuration.CreateMapper().Map<List<WorkerOutputModel>>(workers);
@@ -93,7 +101,8 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<WorkerOutputModel>(id);
         }
-
+        #endregion
+        #region WorkingDay
         public List<WorkingDayOutputModel> MapWorkingDayDtoListToWorkingDayOutputModelList(List<WorkingDayDto> workingDays)
         {
             return _configuration.CreateMapper().Map<List<WorkingDayOutputModel>>(workingDays);
@@ -102,5 +111,6 @@ namespace RabotyagiProject.Bll
         {
             return _configuration.CreateMapper().Map<WorkingDayOutputModel>(workingDay);
         }
+        #endregion
     }
 }
