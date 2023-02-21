@@ -1,33 +1,77 @@
 ﻿@page "/worker/{Id:int}"
 
-<div style=" text-align: center ">
-    <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> @_worker.Name</h1>
-</div>
-<div style="text-align: center">
-    <h1 style="color: rgb(125,125,255); display: inline-block; font-family: fantasy"> @_worker.Mail </h1>
-    <h1 style="color: rgb(125,125,255); display: inline-block; margin-left: 50px;font-family: fantasy"> @_worker.Phone </h1>
-</div>
-<div style=" text-align: center " >
-    <div style="text-align: center">
-        <h5 style="color: rgb(125,125,255); display: inline-block; margin-right: 30px; font-family: fantasy"> Добавить </h5>
-        <h1 style="color: blueviolet; display: inline-block;">Услуги</h1>
-    </div>
-    @if (_worker.Service.Count > 0)
-    {
-        <WorkerServiceTemplate Services="_worker.Service" Id="_worker.Id" />
-    }
-    else
-    {
-        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
-            <h3 style="text-align: center; color:rgb(121,34,204)"> Этот работяга пока ещё не предоставляет услуг! </h3>
+<div>
+    <div class="@_workerClass">
+        <div style="text-align: center">
+            <h1 @onclick="StartWorkerEdit" style="color: rgb(125, 125, 255); font-family: fantasy;
+                                            display: inline-block; text-decoration: underline">@_worker.Name</h1>
         </div>
-    }
+        <div style="text-align: center">
+            <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">@_worker.Mail</h1>
+            <h1 style="color: rgb(125, 125, 255); display: inline-block; margin-left: 50px; font-family: fantasy">@_worker.Phone</h1>
+        </div>
+    </div>
+    <div class="@_workerClassTwo">
+        <EditForm Model="@_editedWorker" OnSubmit="@EndWorkerEdit">
+            <div style="text-align: center; height: 40px">
+                <input class="Id-Slot" @onchange="ChangingName" placeholder="@_editedWorker.Name"
+                       style="width: 300px; font-size: 36px; color: rgb(125, 125, 255)">
+                <button class="Accept-Button" type="submit" style="vertical-align: super">Done</button>
+            </div>
+            <div style="height:10px"></div>
+            <div style="text-align: center;">
+                <div style="display: inline-block">
+                    <input class="Id-Slot" @onchange="ChangingMail" placeholder="@_editedWorker.Mail"
+                           style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto">
+                </div>
+                <div style="display: inline-block">
+                <input class="Id-Slot" @onchange="ChangingPhone" placeholder="@_editedWorker.Phone"
+                           style="width: 300px; font-size: 36px;  margin-left: 50px; color: rgb(125, 125, 255)">
+                </div>
+            </div>
+        </EditForm>
+    </div>
 </div>
+<div style=" text-align: center">
+    <div class="@_serviceClass" style="text-align: center">
+        <h1 @onclick="StartWorkerServiceAdding" 
+            style="color: blueviolet; display: inline-block; font-family: fantasy; text-decoration: underline">Услуги</h1>
+    </div>
+
+    <div class="@_serviceClassTwo" style="text-align: center">
+        <EditForm Model="@_newService" OnSubmit="@EndWorkerServiceAdding">
+            <button class="Accept-Button" type="submit" style="vertical-align: super">Done</button>
+            <button class="Accept-Button" @onclick="BackFromWorkerServiceAdding" style="vertical-align: super">Back</button> <br/>
+            <div class="Id-Slot" style="display: inline-block; font-size: 24px; vertical-align: super">😳</div>
+            <InputSelect class="Table-Slot" @bind-Value="_newService.Type" 
+                         style="width: 400px; display: inline-block; vertical-align: super;font-size: 28px">
+                <option value="">Произведите выбор...</option>
+                @foreach (var service in _services)
+                {
+                    <option value="@service.Type">@service.Type</option>
+                }
+            </InputSelect>
+            <input class="Table-Slot" @bind="_newService.Cost"
+                   style="width: 200px; font-size: 28px; text-align: center;
+                          display: inline-block; vertical-align: top; padding-bottom: 0;padding-top: 0">
+        </EditForm>
+    </div>
+        @if (_worker.Service.Count > 0)
+        {
+            <WorkerServiceTemplate Services="_worker.Service" Id="_worker.Id" />
+        }
+        else
+        {
+            <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
+                <h3 style="text-align: center; color:rgb(121,34,204)"> Этот работяга пока ещё не предоставляет услуг! </h3>
+            </div>
+        }
+    </div>
 <div style="text-align: center">
     <div style="text-align: center">
         <h5 style="color: rgb(125,125,255); display: inline-block; margin-right: 30px; font-family: fantasy"> Добавить </h5>
-        <h1 style="color: blueviolet; display: inline-block;">Расписание</h1>
-    </div>
+        <h1 style="color: blueviolet; display: inline-block ;font-family: fantasy">Расписание</h1>
+        </div>
     @if (new Manager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
     {
         <WorkerWorkTimeTemplate Timetable="new Manager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
@@ -35,18 +79,83 @@
     else
     {
         <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
-            <h3 style="text-align: center; color:rgb(121,34,204)"> У этого работяги пока ещё нет заказов! </h3>
+            <h3 style="text-align: center; color: rgb(121, 34, 204)"> У этого работяги пока ещё нет заказов! </h3>
         </div>
     }
-
 </div>
 
 @code {
     [Parameter] public int Id { get; set; }
     private WorkerOutputModel _worker;
+    private readonly WorkerOutputModel _editedWorker = new WorkerOutputModel();
+    private ServiceOutputModel _newService = new ServiceOutputModel();
+    private List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+    private string _workerClass = "Visible-Content";
+    private string _workerClassTwo = "Hidden-Content";
+    private string _serviceClass = "Visible-Content";
+    private string _serviceClassTwo = "Hidden-Content";
 
     protected override void OnInitialized()
     {
         _worker = new WorkerManager().GetWorkerById(Id);
+        _editedWorker.Name = _worker.Name;
+        _editedWorker.Mail = _worker.Mail;
+        _editedWorker.Phone = _worker.Phone;
+        foreach (var service in new ServiceManager().GetAllServices())
+        {
+            if (!_worker.Service.Contains(_worker.Service.Find(x => x.Id == service.Id)))
+            {
+                _services.Add(service);
+            }
+        }
+    }
+
+    private void StartWorkerEdit()
+    {
+        _workerClass = "Hidden-Content";
+        _workerClassTwo = "Visible-Content";
+    }
+    private void EndWorkerEdit()
+    {
+        _workerClass = "Visible-Content";
+        _workerClassTwo = "Hidden-Content";
+        _worker.Name = _editedWorker.Name;
+        _worker.Mail = _editedWorker.Mail;
+        _worker.Phone = _editedWorker.Phone;
+    //new WorkerManager().UpdateWorkerById(bebebe);
+    }
+
+    private void ChangingName(ChangeEventArgs e)
+    {
+        _editedWorker.Name = e.Value == String.Empty ? _worker.Name : e.Value.ToString();
+    }
+    private void ChangingMail(ChangeEventArgs e)
+    {
+        _editedWorker.Mail = e.Value == String.Empty ? _worker.Mail : e.Value.ToString();
+    }
+    private void ChangingPhone(ChangeEventArgs e)
+    {
+        _editedWorker.Phone = e.Value == String.Empty ? _worker.Phone : e.Value.ToString();
+    }
+
+    private void StartWorkerServiceAdding()
+    {
+        _serviceClass = "Hidden-Content";
+        _serviceClassTwo = "Visible-Content";
+    }
+    private void EndWorkerServiceAdding()
+    {
+        BackFromWorkerServiceAdding();
+        if (_newService.Type != String.Empty)
+        {
+            //new ServiceManager().AddWorkerService(бебебе);
+        }
+    }
+    private void BackFromWorkerServiceAdding()
+    {
+        _serviceClassTwo = "Hidden-Content";
+        _serviceClass = "Visible-Content";
+        _newService.Type = string.Empty;
+        _newService.Cost = null;
     }
 }
