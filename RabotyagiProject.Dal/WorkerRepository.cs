@@ -81,7 +81,6 @@ public class WorkerRepository : IWorkerRepository
             return sqlConnection.Query<ServiceDto>(Options.StoredProceduresNames.GetAllWorkerServicesByWorkerId, 
                 new{ id }, 
                 commandType: CommandType.StoredProcedure).ToList();
-            
         }
     }
 }

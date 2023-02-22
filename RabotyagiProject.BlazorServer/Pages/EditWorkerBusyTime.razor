@@ -1,0 +1,46 @@
+﻿@page "/EWBT/{WorkerId:int}/{Id:int}"
+
+<div class="Update-Button">
+    <EditForm Model="@_updatedBusyTime" OnSubmit="@Confirm">
+        <h3> Рабочий день: @DateOnly.FromDateTime(_workingDay.Date) </h3>
+        Заказ запланирован на: <input @bind="_updatedBusyTime.StartTime" placeholder="@_updatedBusyTime.StartTime"
+                              style="background-color: rgba(238,221,255,0.8); border: 3px solid rgba(121,34,204,0.8);
+                                     border-radius: 15px; text-align: center; color: indigo"><br />
+        Заказ будет выполнен к: <input @bind="_updatedBusyTime.EndTime" placeholder="@_updatedBusyTime.EndTime"
+                              style="background-color: rgba(238,221,255,0.8); border: 3px solid rgba(121,34,204,0.8);
+                                     border-radius: 15px; text-align: center; color: indigo"><br />
+        <InputRadioGroup @bind-Value="_updatedBusyTime.IsDeleted">
+            <InputRadio Value="true" style="vertical-align:middle; margin:0; outline: 0px" /> БОЛЬШЕ НЕ АКТУАЛЬНО
+            <InputRadio Value="false" style="vertical-align:middle; margin:0; outline: 0px" checked /> ВСЁ В СИЛЕ...
+        </InputRadioGroup> <br/>
+        <button class="Accept-Button" type="submit">Принять изменения</button>
+        <button class="Accept-Button"><a href="/worker/@WorkerId" style="color:indigo;"> ГАЛЯ, ОТМЕНА! </a></button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public int WorkerId { get; set; }
+    [Parameter] public int Id { get; set; }
+    private BusyTimeInputModel _updatedBusyTime = new BusyTimeInputModel();
+    private BusyTimeOutputModel _busyTime;
+    private DateTime _workingDay;
+
+    protected override void OnInitialized()
+    {
+        _busyTime = new Manager().GetBusyTimeById(Id);
+        _updatedBusyTime.Id = _busyTime.Id;
+        _updatedBusyTime.TimetableId = _busyTime.TimetableId;
+        _updatedBusyTime.StartTime = _busyTime.StartTime;
+        _updatedBusyTime.EndTime = _busyTime.EndTime;
+        _updatedBusyTime.IsDeleted = _busyTime.IsDeleted;
+        TimetableOutputModel kek = new Manager().GetAllTimetableByWorkerId(WorkerId).Find(x => x.Id == _busyTime.TimetableId);
+        _workingDay = new Manager().GetWorkingDayById(kek.WorkingDayId).Date;
+    }
+
+    private void Confirm()
+    {
+    //new Manager().UpdateBusyTime();
+
+    }
+    
+}

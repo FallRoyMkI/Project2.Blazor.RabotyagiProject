@@ -1,0 +1,39 @@
+﻿@page "/EWS/{WorkerId:int}/{Id:int}"
+
+<div class="Update-Button">
+    <EditForm Model="@_updatedService" OnSubmit="@Confirm">
+        <h3> Предоставляет услугу: @_updatedService.Type </h3>
+        Цена услуги: <input type="text" @bind="_updatedService.Cost" name="Cost" placeholder="@_updatedService.Cost" 
+                            style="background-color: rgba(238,221,255,0.8); border: 3px solid rgba(121,34,204,0.8);
+                                   border-radius: 15px; text-align: center; color: indigo"><br />
+        <InputRadioGroup @bind-Value="_updatedService.IsDeleted">
+            <InputRadio Value="true" style="vertical-align:middle; margin:0; outline: 0px" /> БОЛЬШЕ НЕ ПРЕДОСТАВЛЯЕТ
+            <InputRadio Value="false" style="vertical-align:middle; margin:0; outline: 0px" checked /> ВСЁ В СИЛЕ...
+        </InputRadioGroup> <br/>
+        <button class="Accept-Button" type="submit">Принять изменения</button>
+        <button class="Accept-Button"><a href="/worker/@WorkerId" style="color:indigo;"> ГАЛЯ, ОТМЕНА! </a></button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public int WorkerId { get; set; }
+    [Parameter] public int Id { get; set; }
+    private WorkerOutputModel _worker;
+    private ServiceInputModel _updatedService =new ServiceInputModel();
+
+    protected override void OnInitialized()
+    {
+        _worker = new WorkerManager().GetWorkerById(WorkerId);
+        ServiceOutputModel _service = _worker.Service.Find(service => service.Id == Id);
+        _updatedService.Id = _service.Id;
+        _updatedService.Type = _service.Type;
+        _updatedService.Cost = _service.Cost;
+        _updatedService.IsDeleted = _service.IsDeleted;
+    }
+
+    private void Confirm()
+    {
+    //new Manager().UpdateWorkerService(WorkerId,_service.Id,_service.Cost, _service.IsDeleted);
+
+    }
+}

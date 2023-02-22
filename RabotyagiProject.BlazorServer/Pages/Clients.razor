@@ -1,0 +1,21 @@
+﻿@page "/clients"
+<PageTitle>Clients</PageTitle>
+
+<h1>Clients</h1>
+<div>
+    @if (_clients.Count != 0)
+    {
+        <PersonsTable Clients="_clients" />
+    }
+</div>
+
+
+@code {
+    private List<ClientOutputModel> _clients = new List<ClientOutputModel>();
+
+    protected override void OnInitialized()
+    {
+        var manager = new ClientManager();
+        _clients = manager.GetAllClients();
+    }
+}

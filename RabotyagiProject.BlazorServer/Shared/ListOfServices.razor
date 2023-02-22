@@ -1,0 +1,34 @@
+﻿<table style=" margin: auto">
+    <tr>
+        <td> <div class="Id-Slot"> <h3 style="text-align: center"> Id </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Наименование </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Доступные действия </h3> </div> </td>
+    </tr>
+    @if (Services != null)
+    {
+        @foreach (var service in Services)
+        {
+            <tr>
+                <td>
+                    <div class="Id-Slot">
+                        <h3 style="text-align: center">
+                            <a href="/worker/@service.Id" style="color: #7922CC"> @service.Id </a> </h3>
+                    </div>
+                </td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @service.Type </h3> </div> </td>
+                <td> <div> <h3 style="text-align: center"><a href="/services/@service.Id">Изменить</a></h3> </div> </td>
+            </tr>
+        }
+    }
+    else
+    {        
+                        <h3>Нет доступных услуг</h3>                   
+    }
+</table>
+
+@code {
+    [Parameter] public List<ServiceOutputModel> Services { get; set; } = null; 
+    [Parameter] public int Id { get; set; }
+}
+
+                    

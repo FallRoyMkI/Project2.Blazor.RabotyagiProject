@@ -27,6 +27,16 @@ public class BusyTimeRepository : IBusyTimeRepository
                 commandType: CommandType.StoredProcedure).ToList();
         }
     }
+    public BusyTimeDto GetBusyTimeById(int id)
+    {
+        using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))
+        {
+            sqlConnection.Open();
+            return sqlConnection.QueryFirst<BusyTimeDto>(Options.StoredProceduresNames.GetBusyTimeById,
+                new { id },
+                commandType: CommandType.StoredProcedure);
+        }
+    }
     public void AddNewBusyTime(BusyTimeDto newDto)
     {
         using (var sqlConnection = new SqlConnection(Options.Constants.ConnectionString))

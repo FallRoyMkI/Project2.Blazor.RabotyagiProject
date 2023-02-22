@@ -1,0 +1,29 @@
+﻿@page "/workers"
+
+<PageTitle>Workers</PageTitle>
+
+<div style=" text-align: center ">
+    <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> Workers</h1>
+</div>
+<div >
+    @if (_workers.Count != 0)
+    {
+        <PersonsTable Workers="_workers"/>
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 600px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> Работяг не обнаружено! </h3>
+        </div>
+    }
+</div>
+
+@code {
+    private List<WorkerOutputModel> _workers = new List<WorkerOutputModel>();
+
+    protected override void OnInitialized()
+    {
+        var manager = new WorkerManager();
+        _workers = manager.GetAllWorkers();
+    }
+}

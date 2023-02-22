@@ -1,0 +1,25 @@
+﻿<table style="margin: auto">
+    <tr>
+        <td> <div class="Id-Slot"> <h3 style="text-align: center"> Id </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Вид услуги </h3> </div> </td>
+        <td> <div class="Id-Slot" style="width: 200px"> <h3 style="text-align: center"> Цена </h3> </div> </td>
+    </tr>
+    @foreach (var service in Services)
+    {
+        <tr>
+            <td>
+                <div class="Id-Slot">
+                    <h3 style="text-align: center">
+                        <a href="/EWS/@Id/@service.Id" style="color: #7922CC"> @service.Id </a> </h3>
+                </div>
+            </td>
+            <td> <div class="Table-Slot"> <h3 style="text-align: center"> @service.Type </h3> </div> </td>
+            <td> <div class="Table-Slot" style="width: 200px"> <h3 style="text-align: center"> @service.Cost </h3> </div> </td>
+        </tr>
+    }
+</table>
+
+@code {
+    [Parameter] public List<ServiceOutputModel> Services { get; set; }
+    [Parameter] public int Id { get; set; }
+}

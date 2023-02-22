@@ -1,4 +1,4 @@
-﻿using RabotyagiProject.Bll.Models;
+using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Options;
 using RabotyagiProject.Dal.Interface;
 using RabotyagiProject.Dal.Models;
@@ -37,6 +37,12 @@ namespace RabotyagiProject.Bll
             var serviceById = ServiceRepository.GetServiceById(id);
             var result = _mapperX.MapServiceDtoToServiceOutputModelById(serviceById);
             return result;
+        }
+
+        public void UpdateServiceById(ServiceInputModel model)
+        {
+            var upModel = _mapperX.MapServiceInputModelToServiceDto(model);
+            ServiceRepository.UpdateServiceById(upModel);            
         }
     }
 }

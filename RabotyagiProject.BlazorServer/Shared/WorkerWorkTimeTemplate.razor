@@ -1,0 +1,53 @@
+﻿<div>
+    <table style="margin: auto">
+        <tr>
+            <td> <div class="Id-Slot" style="width: 200px"> <h3 style="text-align: center"> Рабочий день </h3> </div> </td>
+            <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Занятое время </h3> </div> </td>
+        </tr>
+        @foreach (var slot in Timetable)
+        {
+            <tr>
+                <td>
+                    <div class="Table-Slot" style="width: 200px">
+                        <h3 style="text-align: center">
+                            @DateOnly.FromDateTime(new Manager().GetWorkingDayById(slot.WorkingDayId).Date) </h3>
+                    </div >
+                </td>
+                <td>
+                    @if (ReturnNumberOfElements(slot.Id) != 0)
+                    {
+                        <div class="Table-Slot" style="width: 400px; height: @(ReturnNumberOfElements(slot.Id)*40)px; align-content: center">
+                            
+                            @foreach (var time in new Manager().GetAllBusyTimeByTimetableId(slot.Id))
+                            {
+                                <div style="text-align: right">
+                                    <h3 style="display: inline-block; float: left">
+                                        <a href="/EWBT/@Id/@time.Id" style="color: aqua"> Id=@time.Id </a>
+                                    </h3>
+                                    <h3 style="display: inline-block; margin-right:50px"> @time.StartTime - @time.EndTime </h3>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 400px">
+                            <h3 style="text-align: center; color:rgb(121,34,204)"> Заказов не назначено </h3>
+                        </div>
+                    }
+                    
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+    [Parameter] public List<TimetableOutputModel> Timetable { get; set; }
+    [Parameter] public int Id { get; set; }
+
+    private int ReturnNumberOfElements(int id)
+    {
+        return new Manager().GetAllBusyTimeByTimetableId(id).Count;
+    }
+}
