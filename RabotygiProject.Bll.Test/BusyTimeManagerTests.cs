@@ -25,7 +25,7 @@ namespace RabotygiProject.Bll.Test
         {
             _mock.Setup(o => o.GetAllBusyTime()).Returns(busyTime).Verifiable();
             List<BusyTimeDto> expected = new List<BusyTimeDto>();
-            List<BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
+            IEnumerable<BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
 
             _mock.VerifyAll();
             CollectionAssert.AreEqual(expected, actual);

@@ -1,39 +1,47 @@
 using RabotyagiProject.Bll.Models;
-using RabotyagiProject.Dal.Options;
 using RabotyagiProject.Dal.Interface;
-using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal;
-using AutoMapper;
 
 namespace RabotyagiProject.Bll;
 
 public class WorkerManager
 {
-    MapperX _mapperX = new MapperX();
-    public IWorkerRepository WorkerRepository { get; set; }
-    public WorkerManager(IWorkerRepository repository = null)
+    private readonly MapperX _mapperX = new();
+    private readonly IWorkerRepository _repository;
+
+    public WorkerManager(IWorkerRepository? repository = null)
     {
-        if (repository != null)
-        {
-            WorkerRepository = repository;
-        }
-        else
-        {
-            WorkerRepository = new WorkerRepository();
-        }
+        _repository = repository ?? new WorkerRepository();
     }
+
 
     public List<WorkerOutputModel> GetAllWorkers()
     {
-        var workers = WorkerRepository.GetAllWorkers();
-        var result = _mapperX.MapWorkerDtoToListWorkerOutputModel(workers);
-        return result;
+        return _mapperX.MapWorkerDtoListToWorkerOutputModelList(_repository.GetAllWorkers());
     }
 
     public WorkerOutputModel GetWorkerById(int Id)
     {
-        var workers = WorkerRepository.GetWorkerById(Id);
-        var result = _mapperX.MapWorkerDtoToWorkerOutputModelById(workers);
-        return result;
+        return _mapperX.MapWorkerDtoToWorkerOutputModel(_repository.GetWorkerById(Id));
+    }
+
+    public void AddNewWorker(WorkerInputModel model)
+    {
+        _repository.AddNewWorker(_mapperX.MapWorkerInputModelToWorkerDto(model));
+    }
+
+    public void AddNewServiceToWorker(int workerId, ServiceInputModel model)
+    {
+        _repository.AddNewServiceToWorker(workerId,_mapperX.MapServiceInputModelToServiceDto(model));
+    }
+
+    public void UpdateWorkerById(WorkerInputModel model)
+    {
+        _repository.UpdateWorkerById(_mapperX.MapWorkerInputModelToWorkerDto(model));
+    }
+
+    public void UpdateWorkerService(int workerId, ServiceInputModel model)
+    {
+        _repository.UpdateWorkerService(workerId, _mapperX.MapServiceInputModelToServiceDto(model));
     }
 }

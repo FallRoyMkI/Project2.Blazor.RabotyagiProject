@@ -1,7 +1,6 @@
 ﻿using RabotyagiProject.Dal.Options;
 namespace RabotyagiProject.Bll.Models;
 
-
 public class OrderInputModel
 {
     public int Id { get; set; }
@@ -12,7 +11,7 @@ public class OrderInputModel
     public int? Cost { get; set; }
     public Rate? Rate { get; set; }
     public string Report { get; set; }
-    public List<ServiceWorkerInputModel> Services { get; set; }
+    public List<ServiceWorkerInputModel> Services { get; set; } = new();
 
     public override bool Equals(object? obj)
     {
@@ -28,4 +27,3 @@ public class OrderInputModel
                EqualityComparer<List<ServiceWorkerInputModel>>.Default.Equals(Services, model.Services);
     }
 }
-

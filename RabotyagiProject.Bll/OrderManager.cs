@@ -1,61 +1,62 @@
 ﻿using RabotyagiProject.Bll.Models;
-using RabotyagiProject.Dal.Options;
-using RabotyagiProject.Dal.Interface;
-using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal;
-using AutoMapper;
+using RabotyagiProject.Dal.Interface;
 
 namespace RabotyagiProject.Bll;
 
 public class OrderManager
 {
-    MapperX _mapperX = new MapperX();
-    public IOrderRepository OrderRepository { get; set; }
+    private readonly MapperX _mapperX = new();
+    private readonly IOrderRepository _repository;
 
-    public OrderManager(IOrderRepository repository = null)
+    public OrderManager(IOrderRepository? repository = null)
     {
-        if (repository != null)
-        {
-            OrderRepository = repository;
-        }
-        else
-        {
-            OrderRepository = new OrderRepository();
-        }
+        _repository = repository ?? new OrderRepository();
     }
+
 
     public List<OrderOutputModel> GetAllOrders()
     {
-        var orders = OrderRepository.GetAllOrders();
-        var result = _mapperX.MapOrderDtoToListOrderOutputModel(orders);
-        return result;
+        return _mapperX.MapOrderDtoListToOrderOutputModelList(_repository.GetAllOrders());
     }
 
     public List<OrderOutputModel> GetAllCompletedOrders()
     {
-        var completedOrders = OrderRepository.GetAllCompletedOrders();
-        var result = _mapperX.MapOrderDtoToListOrderOutputModel(completedOrders);
-        return result;
+        return _mapperX.MapOrderDtoListToOrderOutputModelList(_repository.GetAllCompletedOrders());
     }
 
     public List<OrderOutputModel> GetAllNotCompletedOrders()
     {
-        var notCompletedOrders = OrderRepository.GetAllNotCompletedOrders();
-        var result = _mapperX.MapOrderDtoToListOrderOutputModel(notCompletedOrders);
-        return result;
+        return _mapperX.MapOrderDtoListToOrderOutputModelList(_repository.GetAllNotCompletedOrders());
     }
 
     public List<OrderOutputModel> GetAllOrdersByClientId(int id)
     {
-        var сlientOrders = OrderRepository.GetAllOrdersByClientId(id);
-        var result = _mapperX.MapOrderDtoToListOrderOutputModelById(сlientOrders);
-        return result;
+        return _mapperX.MapOrderDtoListToOrderOutputModelList(_repository.GetAllOrdersByClientId(id));
     }
 
     public OrderOutputModel GetOrderById(int id)
     {
-        var orders = OrderRepository.GetOrderById(id);
-        var result = _mapperX.MapOrderDtoToOrderOutputModelById(orders);
-        return result;
+        return _mapperX.MapOrderDtoToOrderOutputModel(_repository.GetOrderById(id));
+    }
+
+    public void AddNewOrder(OrderInputModel model)
+    {
+        _repository.AddNewOrder(_mapperX.MapOrderInputModelToOrderDto(model));
+    }
+
+    public void AddNewServiceToOrder(int orderId, int serviceId, int workload)
+    {
+        _repository.AddNewServiceToOrder(orderId,  serviceId, workload);
+    }
+
+    public void UpdateOrderById(OrderInputModel model)
+    {
+        _repository.UpdateOrderById(_mapperX.MapOrderInputModelToOrderDto(model));
+    }
+
+    public void UpdateOrderServiceById(int id, int orderId, ServiceWorkerInputModel model)
+    {
+        _repository.UpdateOrderServiceById(id,orderId, _mapperX.MapServiceWorkerInputModelToServiceWorkerDto(model));
     }
 }

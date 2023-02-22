@@ -1,7 +1,6 @@
 ﻿using RabotyagiProject.Dal.Options;
 namespace RabotyagiProject.Bll.Models;
 
-
 public class OrderOutputModel
 {
     public int Id { get; set; }
@@ -12,7 +11,7 @@ public class OrderOutputModel
     public int? Cost { get; set; }
     public Rate? Rate { get; set; }
     public string? Report { get; set; }
-    public List<ServiceWorkerOutputModel> Services { get; set; } = new List<ServiceWorkerOutputModel>();
+    public List<ServiceWorkerOutputModel> Services { get; set; } = new();
 
     public override bool Equals(object? obj)
     {
@@ -25,7 +24,6 @@ public class OrderOutputModel
                Cost == model.Cost &&
                Rate == model.Rate &&
                Report == model.Report &&
-               Services.SequenceEqual(model.Services);
+               EqualityComparer<List<ServiceWorkerOutputModel>>.Default.Equals(Services, model.Services);
     }
 }
-

@@ -6,8 +6,8 @@ public class WorkerDto
     public string Name { get; set; }
     public string Phone { get; set; }
     public string Mail { get; set; }
-    public List<ServiceDto> Service { get; set; } = new List<ServiceDto>();
-    public bool IsDeleted { get; set; } = false;
+    public List<ServiceDto> Service { get; set; } = new();
+    public bool? IsDeleted { get; set; } = false;
 
     public override bool Equals(object? obj)
     {
@@ -16,7 +16,7 @@ public class WorkerDto
                Name == dto.Name &&
                Phone == dto.Phone &&
                Mail == dto.Mail &&
-               Service.SequenceEqual(dto.Service) &&
+               EqualityComparer<List<ServiceDto>>.Default.Equals(Service, dto.Service) &&
                IsDeleted == dto.IsDeleted;
     }
 }

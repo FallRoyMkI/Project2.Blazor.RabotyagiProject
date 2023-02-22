@@ -1,41 +1,37 @@
 ﻿using RabotyagiProject.Bll.Models;
-using RabotyagiProject.Dal.Options;
-using RabotyagiProject.Dal.Interface;
-using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal;
-using AutoMapper;
+using RabotyagiProject.Dal.Interface;
 
-namespace RabotyagiProject.Bll
+namespace RabotyagiProject.Bll;
+
+public class TimetableManager
 {
-    public class TimetableManager
+    private readonly MapperX _mapperX = new();
+    private readonly ITimetableRepository _repository;
+
+    public TimetableManager(ITimetableRepository? repository = null)
     {
-        MapperX _mapperX = new MapperX();
-        public ITimetableRepository TimetableRepository { get; set; }
-        public TimetableManager(ITimetableRepository repository = null)
-        {
-            if (repository != null)
-            {
-                TimetableRepository = repository;
-            }
-            else
-            {
-                TimetableRepository = new TimetableRepository();
-            }
-        }
+        _repository = repository ?? new TimetableRepository();
+    }
 
-        public List<TimetableOutputModel> GetAllTimetable()
-        {
-            var timetable = TimetableRepository.GetAllTimetable();
-            var result = _mapperX.MapTimetableDtoToListTimetableOutputModel(timetable);
-            return result;
 
-        }
+    public List<TimetableOutputModel> GetAllTimetable()
+    {
+        return _mapperX.MapTimetableDtoListToTimetableOutputModelList(_repository.GetAllTimetable());
+    }
 
-        public List<TimetableOutputModel> GetAllTimetableByWorkerId(int workerId)
-        {
-            var timetables = TimetableRepository.GetAllTimetableByWorkerId(workerId);
-            var result = _mapperX.MapTimetableDtoToListTimetableOutputModelById(timetables);
-            return result;
-        }
+    public List<TimetableOutputModel> GetAllTimetableByWorkerId(int workerId)
+    {
+        return _mapperX.MapTimetableDtoListToTimetableOutputModelList(_repository.GetAllTimetableByWorkerId(workerId));
+    }
+
+    public void AddNewTimetable(TimetableInputModel model)
+    {
+        _repository.AddNewTimetable(_mapperX.MapTimetableInputModelToTimetableDto(model));
+    }
+
+    public void UpdateTimetableById(TimetableInputModel model)
+    {
+        _repository.UpdateTimetableById(_mapperX.MapTimetableInputModelToTimetableDto(model));
     }
 }

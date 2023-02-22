@@ -8,5 +8,4 @@ public interface IClientRepository
     public ClientDto GetClientById(int Id);
     public void AddNewClient(ClientDto newDto);
     public void UpdateClientById(ClientDto updatedDto);
-
 }

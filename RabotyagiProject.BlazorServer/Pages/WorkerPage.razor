@@ -94,9 +94,9 @@
             </div>
         </EditForm>
     </div>
-    @if (new Manager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
+    @if (new TimetableManager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
     {
-        <WorkerWorkTimeTemplate Timetable="new Manager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
+        <WorkerWorkTimeTemplate Timetable="new TimetableManager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
     }
     else
     {
@@ -158,6 +158,15 @@
     private void ChangingName(ChangeEventArgs e)
     {
         _editedWorker.Name = e.Value == String.Empty ? _worker.Name : e.Value.ToString();
+
+        if (e.Value == string.Empty)
+        {
+            _editedWorker.Name = _worker.Name;
+        }
+        else
+        {
+            _editedWorker.Name = e.Value.ToString();
+        }
     }
     private void ChangingMail(ChangeEventArgs e)
     {

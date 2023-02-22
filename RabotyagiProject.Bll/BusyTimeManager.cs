@@ -1,41 +1,43 @@
 ﻿using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal;
-using RabotyagiProject.Dal.Options;
 using RabotyagiProject.Dal.Interface;
-using RabotyagiProject.Dal.Models;
-using AutoMapper;
 
-namespace RabotyagiProject.Bll
+namespace RabotyagiProject.Bll;
+
+public class BusyTimeManager
 {
-    public class BusyTimeManager
+    private readonly MapperX _mapperX = new();
+    private readonly IBusyTimeRepository _repository;
+
+    public BusyTimeManager(IBusyTimeRepository? repository = null)
     {
-        MapperX _mapperX = new MapperX();
-        public IBusyTimeRepository BusyTimeRepository { get; set; }
+        _repository = repository ?? new BusyTimeRepository();
+    }
 
-        public BusyTimeManager(IBusyTimeRepository repository = null)
-        {
-            if (repository != null)
-            {
-                BusyTimeRepository = repository;
-            }
-            else
-            {
-                BusyTimeRepository = new BusyTimeRepository();
-            }
-        }
 
-        public List<BusyTimeOutputModel> GetAllBusyTime()
-        {
-            var allBusy = BusyTimeRepository.GetAllBusyTime();
-            var result = _mapperX.MapBusyTimeDtoToListBusyTimeOutputModel(allBusy);
-            return result;
-        }
+    public List<BusyTimeOutputModel> GetAllBusyTime()
+    {
+        return _mapperX.MapBusyTimeDtoListToBusyTimeOutputModelList(_repository.GetAllBusyTime());
+    }
 
-        public List<BusyTimeOutputModel> GetAllBusyTimeByTimetableId(int timetableId)
-        {
-            var allBusy = BusyTimeRepository.GetAllBusyTimeByTimetableId(timetableId);
-            var result = _mapperX.MapBusyTimeDtoToListBusyTimeOutputModel(allBusy);
-            return result;
-        }
+    public List<BusyTimeOutputModel> GetAllBusyTimeByTimetableId(int timetableId)
+    {
+        return _mapperX.MapBusyTimeDtoListToBusyTimeOutputModelList(
+            _repository.GetAllBusyTimeByTimetableId(timetableId));
+    }
+
+    public BusyTimeOutputModel GetBusyTimeById(int id)
+    {
+        return _mapperX.MapBusyTimeDtoToBusyTimeOutputModel(_repository.GetBusyTimeById(id));
+    }
+
+    public void AddNewBusyTime(BusyTimeInputModel model)
+    {
+        _repository.AddNewBusyTime(_mapperX.MapBusyTimeInputModelToBusyTimeDto(model));
+    }
+
+    public void UpdateBusyTimeById(BusyTimeInputModel model)
+    {
+        _repository.UpdateBusyTimeById(_mapperX.MapBusyTimeInputModelToBusyTimeDto(model));
     }
 }

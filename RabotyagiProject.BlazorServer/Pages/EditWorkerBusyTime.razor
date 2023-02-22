@@ -28,14 +28,14 @@
 
     protected override void OnInitialized()
     {
-        _busyTime = new Manager().GetBusyTimeById(Id);
+        _busyTime = new BusyTimeManager().GetBusyTimeById(Id);
         _updatedBusyTime.Id = _busyTime.Id;
         _updatedBusyTime.TimetableId = _busyTime.TimetableId;
         _updatedBusyTime.StartTime = _busyTime.StartTime;
         _updatedBusyTime.EndTime = _busyTime.EndTime;
         _updatedBusyTime.IsDeleted = _busyTime.IsDeleted;
-        TimetableOutputModel kek = new Manager().GetAllTimetableByWorkerId(WorkerId).Find(x => x.Id == _busyTime.TimetableId);
-        _workingDay = new Manager().GetWorkingDayById(kek.WorkingDayId).Date;
+        TimetableOutputModel kek = new TimetableManager().GetAllTimetableByWorkerId(WorkerId).Find(x => x.Id == _busyTime.TimetableId);
+        _workingDay = new WorkingDayManager().GetWorkingDayById(kek.WorkingDayId).Date;
     }
 
     private void Confirm()

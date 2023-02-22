@@ -12,5 +12,5 @@ public interface IOrderRepository
     public void AddNewOrder(OrderDto newDto);
     public void AddNewServiceToOrder(int orderId, int serviceId, int workload);
     public void UpdateOrderById(OrderDto updatedDto);
-    public void UpdateOrderServiceById(int id, int orderId, int serviceId, int workerId, int workload);
+    public void UpdateOrderServiceById(int id, int orderId, ServiceWorkerDto updatedDto);
 }

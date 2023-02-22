@@ -1,33 +1,37 @@
 ﻿using RabotyagiProject.Bll.Models;
-using RabotyagiProject.Dal.Options;
-using RabotyagiProject.Dal.Interface;
-using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal;
-using AutoMapper;
+using RabotyagiProject.Dal.Interface;
 
-namespace RabotyagiProject.Bll
+namespace RabotyagiProject.Bll;
+
+public class WorkingDayManager
 {
-    public class WorkingDayManager
-    {
-        MapperX _mapperX = new MapperX();
-        public IWorkingDayRepository WorkingDayRepository { get; set; }
-        public WorkingDayManager(IWorkingDayRepository repository = null)
-        {
-            if (repository != null)
-            {
-                WorkingDayRepository = repository;
-            }
-            else
-            {
-                WorkingDayRepository = new WorkingDayRepository();
-            }
-        }
+    private readonly MapperX _mapperX = new();
+    private readonly IWorkingDayRepository _repository;
 
-        public List<WorkingDayOutputModel> GetAllWorkingDays()
-        {
-            var workingDays = WorkingDayRepository.GetAllWorkingDays();
-            var result = _mapperX.WorkingDayToListWorkingDayOutputModel(workingDays);
-            return result;
-        }
+    public WorkingDayManager(IWorkingDayRepository? repository = null)
+    {
+        _repository = repository ?? new WorkingDayRepository();
+    }
+
+
+    public List<WorkingDayOutputModel> GetAllWorkingDays()
+    {
+        return _mapperX.MapWorkingDayDtoListToWorkingDayOutputModelList(_repository.GetAllWorkingDays());
+    }
+
+    public WorkingDayOutputModel GetWorkingDayById(int id)
+    {
+        return _mapperX.MapWorkingDayDtoToWorkingDayOutputModel(_repository.GetWorkingDayById(id));
+    }
+
+    public void AddNewWorkingDay(DateTime date)
+    {
+        _repository.AddNewWorkingDay(date);
+    }
+
+    public void UpdateWorkingDayById(WorkingDayInputModel model)
+    {
+        _repository.UpdateWorkingDayById(_mapperX.MapWorkingDayInputModelToWorkingDayDto(model));
     }
 }
