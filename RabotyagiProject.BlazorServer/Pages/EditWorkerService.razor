@@ -1,4 +1,5 @@
 ﻿@page "/EWS/{WorkerId:int}/{Id:int}"
+@inject NavigationManager Navigator
 
 <div class="Update-Button">
     <EditForm Model="@_updatedService" OnSubmit="@Confirm">
@@ -19,7 +20,7 @@
     [Parameter] public int WorkerId { get; set; }
     [Parameter] public int Id { get; set; }
     private WorkerOutputModel _worker;
-    private ServiceInputModel _updatedService =new ServiceInputModel();
+    private readonly ServiceInputModel _updatedService =new ServiceInputModel();
 
     protected override void OnInitialized()
     {
@@ -34,6 +35,6 @@
     private void Confirm()
     {
     //new Manager().UpdateWorkerService(WorkerId,_service.Id,_service.Cost, _service.IsDeleted);
-
+    Navigator.NavigateTo($"/worker/{WorkerId}",true);
     }
 }
