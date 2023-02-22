@@ -12,6 +12,18 @@ namespace RabotyagiProject.Bll
         MapperX _mapperX = new MapperX();
         public IClientRepository ClientRepository { get; set; }
 
+        public ClientManager(IClientRepository repository = null)
+        {
+            if (repository != null)
+            {
+                ClientRepository = repository;
+            }
+            else
+            {
+                ClientRepository = new ClientRepository();
+            }
+        }
+
         public List<ClientOutputModel> GetAllClients()
         {
             var clients = ClientRepository.GetAllClients();

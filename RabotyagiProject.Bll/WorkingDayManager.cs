@@ -11,6 +11,17 @@ namespace RabotyagiProject.Bll
     {
         MapperX _mapperX = new MapperX();
         public IWorkingDayRepository WorkingDayRepository { get; set; }
+        public WorkingDayManager(IWorkingDayRepository repository = null)
+        {
+            if (repository != null)
+            {
+                WorkingDayRepository = repository;
+            }
+            else
+            {
+                WorkingDayRepository = new WorkingDayRepository();
+            }
+        }
 
         public List<WorkingDayOutputModel> GetAllWorkingDays()
         {

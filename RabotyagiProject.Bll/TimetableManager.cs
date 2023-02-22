@@ -11,6 +11,17 @@ namespace RabotyagiProject.Bll
     {
         MapperX _mapperX = new MapperX();
         public ITimetableRepository TimetableRepository { get; set; }
+        public TimetableManager(ITimetableRepository repository = null)
+        {
+            if (repository != null)
+            {
+                TimetableRepository = repository;
+            }
+            else
+            {
+                TimetableRepository = new TimetableRepository();
+            }
+        }
 
         public List<TimetableOutputModel> GetAllTimetable()
         {

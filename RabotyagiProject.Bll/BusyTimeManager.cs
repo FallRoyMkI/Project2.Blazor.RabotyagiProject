@@ -1,8 +1,8 @@
 ﻿using RabotyagiProject.Bll.Models;
+using RabotyagiProject.Dal;
 using RabotyagiProject.Dal.Options;
 using RabotyagiProject.Dal.Interface;
 using RabotyagiProject.Dal.Models;
-using RabotyagiProject.Dal;
 using AutoMapper;
 
 namespace RabotyagiProject.Bll
@@ -11,6 +11,18 @@ namespace RabotyagiProject.Bll
     {
         MapperX _mapperX = new MapperX();
         public IBusyTimeRepository BusyTimeRepository { get; set; }
+
+        public BusyTimeManager(IBusyTimeRepository repository = null)
+        {
+            if (repository != null)
+            {
+                BusyTimeRepository = repository;
+            }
+            else
+            {
+                BusyTimeRepository = new BusyTimeRepository();
+            }
+        }
 
         public List<BusyTimeOutputModel> GetAllBusyTime()
         {
