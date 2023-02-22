@@ -68,10 +68,32 @@
         }
     </div>
 <div style="text-align: center">
-    <div style="text-align: center">
-        <h5 style="color: rgb(125,125,255); display: inline-block; margin-right: 30px; font-family: fantasy"> Добавить </h5>
-        <h1 style="color: blueviolet; display: inline-block ;font-family: fantasy">Расписание</h1>
-        </div>
+    <div class="@_timetableClass" style="text-align: center">
+        <h1 @onclick="StartTimetableAdding" style="color: blueviolet; display: inline-block; 
+                   font-family: fantasy; text-decoration: underline">Расписание</h1>
+    </div>
+    <div class="@_timetableClassTwo" style="text-align: center">
+        <EditForm Model="@_newBusyTime" OnSubmit="@EndTimetableAdding">
+            <button class="Accept-Button" type="submit" style="vertical-align: super">Done</button>
+            <button class="Accept-Button" @onclick="BackFromTimetableAdding" style="vertical-align: super">Back</button> <br />
+            <div>
+                <InputSelect class="Table-Slot" @bind-Value="_workingDayId"
+                             style="width: 400px; display: inline-block; vertical-align: super; font-size: 28px">
+                    <option value="">Выберите день...</option>
+                    @foreach (var day in _days)
+                    {
+                        <option value="@day.Id">@DateOnly.FromDateTime(day.Date)</option>
+                    }
+                </InputSelect>
+                <input class="Table-Slot" @bind="_newBusyTime.StartTime"
+                       style="width: 200px; font-size: 28px; text-align: center;
+                              display: inline-block; vertical-align: top; padding-bottom: 0;padding-top: 0">
+                <input class="Table-Slot" @bind="_newBusyTime.EndTime"
+                       style="width: 200px; font-size: 28px; text-align: center;
+                              display: inline-block; vertical-align: top; padding-bottom: 0;padding-top: 0">
+            </div>
+        </EditForm>
+    </div>
     @if (new Manager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
     {
         <WorkerWorkTimeTemplate Timetable="new Manager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
@@ -88,12 +110,17 @@
     [Parameter] public int Id { get; set; }
     private WorkerOutputModel _worker;
     private readonly WorkerOutputModel _editedWorker = new WorkerOutputModel();
-    private ServiceOutputModel _newService = new ServiceOutputModel();
-    private List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+    private readonly ServiceOutputModel _newService = new ServiceOutputModel();
+    private readonly List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+    private readonly List<WorkingDayOutputModel> _days = new List<WorkingDayOutputModel>();
+    private readonly BusyTimeOutputModel _newBusyTime = new BusyTimeOutputModel();
     private string _workerClass = "Visible-Content";
     private string _workerClassTwo = "Hidden-Content";
     private string _serviceClass = "Visible-Content";
     private string _serviceClassTwo = "Hidden-Content";
+    private string _timetableClass = "Visible-Content";
+    private string _timetableClassTwo = "Hidden-Content";
+    private int _workingDayId;
 
     protected override void OnInitialized()
     {
@@ -101,13 +128,16 @@
         _editedWorker.Name = _worker.Name;
         _editedWorker.Mail = _worker.Mail;
         _editedWorker.Phone = _worker.Phone;
-        foreach (var service in new ServiceManager().GetAllServices())
+        foreach (var service in new ServiceManager().GetAllServices().
+            Where(service => !_worker.Service.Contains(_worker.Service.Find(x => x.Id == service.Id))))
         {
-            if (!_worker.Service.Contains(_worker.Service.Find(x => x.Id == service.Id)))
-            {
-                _services.Add(service);
-            }
+            _services.Add(service);
         }
+        //foreach (var day in WorkingDayManager().GetAll().
+        //    Where(day => (day.Date>DateTime.Today && day.Date < DateTime.Today.AddDays(14))))
+        //{
+        //    _days.Add(day);
+        //}
     }
 
     private void StartWorkerEdit()
@@ -143,19 +173,48 @@
         _serviceClass = "Hidden-Content";
         _serviceClassTwo = "Visible-Content";
     }
+    private void BackFromWorkerServiceAdding()
+    {
+        _serviceClass = "Visible-Content";
+        _serviceClassTwo = "Hidden-Content";
+        _newService.Type = string.Empty;
+        _newService.Cost = null;
+    }
     private void EndWorkerServiceAdding()
     {
         BackFromWorkerServiceAdding();
-        if (_newService.Type != String.Empty)
+        if (_newService.Type != string.Empty)
         {
             //new ServiceManager().AddWorkerService(бебебе);
         }
     }
-    private void BackFromWorkerServiceAdding()
+
+    private void StartTimetableAdding()
     {
-        _serviceClassTwo = "Hidden-Content";
-        _serviceClass = "Visible-Content";
-        _newService.Type = string.Empty;
-        _newService.Cost = null;
+        _timetableClass = "Hidden-Content";
+        _timetableClassTwo = "Visible-Content";
+    }
+    private void BackFromTimetableAdding()
+    {
+        _timetableClass = "Visible-Content";
+        _timetableClassTwo = "Hidden-Content";
+    }
+    private void EndTimetableAdding()
+    {
+        BackFromTimetableAdding();
+        
+        //TimetableOutputModel tmp = new TimetableManager().GetAllTimetable().Find(x => x.WorkingDayId == _workingDayId);
+        //if (new TimetableManager().GetAllTimetable().Contains(tmp)
+        //{
+        //    _newBusyTime.TimetableId = tmp.Id;
+        //}
+        //else
+        //{
+            //new TimetableManager().AddNewTimetable()
+            //_newBusyTime.TimetableId = new TimetableManager().GetAllTimetableByWorkerId().Find(x => x.WorkingDayId = _workingDayId).Id;
+        //}
+        //new ServiceManager().AddWorkerService(бебебе);
+
+        InvokeAsync(StateHasChanged);
     }
 }

@@ -20,11 +20,8 @@
                             
                             @foreach (var time in new Manager().GetAllBusyTimeByTimetableId(slot.Id))
                             {
-                                <div style="text-align: right">
-                                    <h3 style="display: inline-block; float: left">
-                                        <a href="/EWBT/@Id/@time.Id" style="color: aqua"> Id=@time.Id </a>
-                                    </h3>
-                                    <h3 style="display: inline-block; margin-right:50px"> @time.StartTime - @time.EndTime </h3>
+                                <div style="text-align: center">
+                                    <a href="/EWBT/@Id/@time.Id" style="display: inline-block; color: aqua"><h3> @time.StartTime - @time.EndTime </h3></a>
                                 </div>
                             }
                         </div>
