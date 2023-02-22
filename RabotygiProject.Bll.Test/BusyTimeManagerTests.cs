@@ -11,23 +11,23 @@ namespace RabotygiProject.Bll.Test
     public class BusyTimeManagerTests
     {
         private BusyTimeManager _manager;
-        private Mock<IBusyTimeRepository> _mockBusy;
+        private Mock<IBusyTimeRepository> _mock;
 
         [SetUp]
             public void SetUp()
         {
-            _mockBusy = new Mock<IBusyTimeRepository>();
+            _mock = new Mock<IBusyTimeRepository>();
             _manager = new BusyTimeManager(_mock.Object);
         }
 
         [TestCaseSource(typeof(GetAllBusyTimeTimeTestCaseSourse))]
         public void GetAllBusyTimeTest(List<BusyTimeDto> busyTime)
         {
-            _mockBusy.Setup(o => o.GetAllBusyTime()).Returns(busyTime).Verifiable();
+            _mock.Setup(o => o.GetAllBusyTime()).Returns(busyTime).Verifiable();
             List<BusyTimeDto> expected = new List<BusyTimeDto>();
             List<BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
 
-            _mockBusy.VerifyAll();
+            _mock.VerifyAll();
             CollectionAssert.AreEqual(expected, actual);
         }
     }

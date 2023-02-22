@@ -11,13 +11,12 @@ namespace RabotygiProject.Bll.Test
     public class ClientManagerTests
     {
         private ClientManager _manager;
-        private Mock<IClientRepository> _mockClient;
+        private Mock<IClientRepository> _mock;
         [SetUp]
             public void SetUp()
         {
-            _mockClient = new Mock<IClientRepository>();
-            _manager = new ServiceManager(_mock.Object);
-
+            _mock = new Mock<IClientRepository>();
+            _manager = new ClientManager(_mock.Object);
         }
     }
 }

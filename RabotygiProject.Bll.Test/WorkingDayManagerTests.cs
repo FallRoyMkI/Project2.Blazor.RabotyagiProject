@@ -11,13 +11,12 @@ namespace RabotygiProject.Bll.Test
     public class WorkingDayManagerTests
     {
         private WorkingDayManager _manager;
-        private Mock<IWorkingDayRepository> _mockWorkingDay;
+        private Mock<IWorkingDayRepository> _mock;
         [SetUp]
         public void SetUp()
         {
             _manager = new WorkingDayManager(_mock.Object);
-            _mockWorkingDay = new Mock<IWorkingDayRepository>();
-
+            _mock = new Mock<IWorkingDayRepository>();
         }
     }
 }
