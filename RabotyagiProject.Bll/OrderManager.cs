@@ -1,5 +1,9 @@
 ﻿using RabotyagiProject.Bll.Models;
+using RabotyagiProject.Dal.Options;
 using RabotyagiProject.Dal.Interface;
+using RabotyagiProject.Dal.Models;
+using RabotyagiProject.Dal;
+using AutoMapper;
 
 namespace RabotyagiProject.Bll;
 
@@ -7,11 +11,18 @@ public class OrderManager
 {
     MapperX _mapperX = new MapperX();
     public IOrderRepository OrderRepository { get; set; }
-    public OrderManager(IOrderRepository repository)
-    {
-        OrderRepository= repository;
-    }
 
+    public OrderManager(IOrderRepository repository = null)
+    {
+        if (repository != null)
+        {
+            OrderRepository = repository;
+        }
+        else
+        {
+            OrderRepository = new OrderRepository();
+        }
+    }
 
     public List<OrderOutputModel> GetAllOrders()
     {
