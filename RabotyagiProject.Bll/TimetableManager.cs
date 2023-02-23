@@ -25,9 +25,9 @@ public class TimetableManager
         return _mapperX.MapTimetableDtoListToTimetableOutputModelList(_repository.GetAllTimetableByWorkerId(workerId));
     }
 
-    public void AddNewTimetable(TimetableInputModel model)
+    public void AddNewTimetable(int workerId, int workingDayId)
     {
-        _repository.AddNewTimetable(_mapperX.MapTimetableInputModelToTimetableDto(model));
+        _repository.AddNewTimetable( workerId, workingDayId);
     }
 
     public void UpdateTimetableById(TimetableInputModel model)

@@ -54,8 +54,9 @@ public class WorkerRepository : IWorkerRepository
     {
         using var sqlConnection = new SqlConnection(Constants.ConnectionString);
         sqlConnection.Open();
+        var serviceId = newDto.Id;
         sqlConnection.Execute(StoredProceduresNames.AddNewServiceToWorker, 
-            new { workerId, newDto.Id, newDto.Cost }, 
+            new { workerId, serviceId, newDto.Cost }, 
             commandType: CommandType.StoredProcedure);
     }
 
@@ -63,8 +64,9 @@ public class WorkerRepository : IWorkerRepository
     {
         using var sqlConnection = new SqlConnection(Constants.ConnectionString);
         sqlConnection.Open();
+        var serviceId = updatedDto.Id;
         sqlConnection.Execute(StoredProceduresNames.UpdateWorkerService, 
-            new { workerId, updatedDto.Id, updatedDto.Cost, updatedDto.IsDeleted }, 
+            new { workerId, serviceId, updatedDto.Cost, updatedDto.IsDeleted }, 
             commandType: CommandType.StoredProcedure);
     }
 

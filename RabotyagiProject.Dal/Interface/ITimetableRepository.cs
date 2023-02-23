@@ -6,6 +6,6 @@ public interface ITimetableRepository
 {
     public List<TimetableDto> GetAllTimetable();
     public List<TimetableDto> GetAllTimetableByWorkerId(int workerId);
-    public void AddNewTimetable(TimetableDto newDto);
+    public void AddNewTimetable(int workerId, int workingDayId);
     public void UpdateTimetableById(TimetableDto updatedDto);
 }

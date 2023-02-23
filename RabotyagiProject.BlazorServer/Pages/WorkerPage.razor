@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="@_workerClassTwo">
-        <EditForm Model="@_editedWorker" OnSubmit="@EndWorkerEdit">
+        <EditForm Model="@_editedWorker" OnSubmit="@CompleteWorkerEdit">
             <div style="text-align: center; height: 40px">
                 <input class="Id-Slot" @onchange="ChangingName" placeholder="@_editedWorker.Name"
                        style="width: 300px; font-size: 36px; color: rgb(125, 125, 255)">
@@ -39,14 +39,14 @@
     </div>
 
     <div class="@_serviceClassTwo" style="text-align: center">
-        <EditForm Model="@_newService" OnSubmit="@EndWorkerServiceAdding">
-            <button class="Accept-Button" type="submit" style="vertical-align: super">Done</button>
-            <button class="Accept-Button" @onclick="BackFromWorkerServiceAdding" style="vertical-align: super">Back</button> <br/>
+        <EditForm Model="@_newService" OnSubmit="@BackFromWorkerServiceAdding">
+            <button class="Accept-Button" @onclick="CompleteWorkerServiceAdding" style="vertical-align: super">Done</button>
+            <button class="Accept-Button" type="submit" style="vertical-align: super">Back</button> <br />
             <div class="Id-Slot" style="display: inline-block; font-size: 24px; vertical-align: super">😳</div>
             <InputSelect class="Table-Slot" @bind-Value="_newService.Type" 
                          style="width: 400px; display: inline-block; vertical-align: super;font-size: 28px">
                 <option value="">Произведите выбор...</option>
-                @foreach (var service in _services)
+                @foreach (var service in _newServicesForWorker)
                 {
                     <option value="@service.Type">@service.Type</option>
                 }
@@ -73,14 +73,14 @@
                    font-family: fantasy; text-decoration: underline">Расписание</h1>
     </div>
     <div class="@_timetableClassTwo" style="text-align: center">
-        <EditForm Model="@_newBusyTime" OnSubmit="@EndTimetableAdding">
-            <button class="Accept-Button" type="submit" style="vertical-align: super">Done</button>
-            <button class="Accept-Button" @onclick="BackFromTimetableAdding" style="vertical-align: super">Back</button> <br />
+        <EditForm Model="@_newBusyTime" OnSubmit="@BackFromTimetableAdding">
+            <button class="Accept-Button" @onclick="CompleteTimetableAdding"  style="vertical-align: super">Done</button>
+            <button class="Accept-Button" type="submit" style="vertical-align: super">Back</button> <br />
             <div>
                 <InputSelect class="Table-Slot" @bind-Value="_workingDayId"
                              style="width: 400px; display: inline-block; vertical-align: super; font-size: 28px">
-                    <option value="">Выберите день...</option>
-                    @foreach (var day in _days)
+                    <option value="0">Выберите день...</option>
+                    @foreach (var day in _daysForNewBusyTime)
                     {
                         <option value="@day.Id">@DateOnly.FromDateTime(day.Date)</option>
                     }
@@ -93,7 +93,7 @@
                               display: inline-block; vertical-align: top; padding-bottom: 0;padding-top: 0">
             </div>
         </EditForm>
-    </div>
+        </div>
     @if (new TimetableManager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
     {
         <WorkerWorkTimeTemplate Timetable="new TimetableManager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
@@ -109,11 +109,11 @@
 @code {
     [Parameter] public int Id { get; set; }
     private WorkerOutputModel _worker;
-    private readonly WorkerOutputModel _editedWorker = new WorkerOutputModel();
-    private readonly ServiceOutputModel _newService = new ServiceOutputModel();
-    private readonly List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
-    private readonly List<WorkingDayOutputModel> _days = new List<WorkingDayOutputModel>();
-    private readonly BusyTimeOutputModel _newBusyTime = new BusyTimeOutputModel();
+    private readonly WorkerInputModel _editedWorker = new();
+    private readonly List<ServiceOutputModel> _newServicesForWorker = new();
+    private readonly List<WorkingDayOutputModel> _daysForNewBusyTime = new();
+    private ServiceInputModel _newService = new();
+    private BusyTimeInputModel _newBusyTime = new();
     private string _workerClass = "Visible-Content";
     private string _workerClassTwo = "Hidden-Content";
     private string _serviceClass = "Visible-Content";
@@ -125,19 +125,33 @@
     protected override void OnInitialized()
     {
         _worker = new WorkerManager().GetWorkerById(Id);
+
+        _editedWorker.Id = _worker.Id;
         _editedWorker.Name = _worker.Name;
         _editedWorker.Mail = _worker.Mail;
         _editedWorker.Phone = _worker.Phone;
+        foreach (var service in _worker.Service)
+        {
+            _newService.Id = service.Id;
+            _newService.Type = service.Type;
+            _newService.Cost = service.Cost;
+            _newService.IsDeleted = service.IsDeleted;
+            _editedWorker.Service.Add(_newService);
+        }
+        _newService = new();
+
         foreach (var service in new ServiceManager().GetAllServices().
             Where(service => !_worker.Service.Contains(_worker.Service.Find(x => x.Id == service.Id))))
         {
-            _services.Add(service);
+            _newServicesForWorker.Add(service);
         }
-        //foreach (var day in WorkingDayManager().GetAll().
-        //    Where(day => (day.Date>DateTime.Today && day.Date < DateTime.Today.AddDays(14))))
-        //{
-        //    _days.Add(day);
-        //}
+
+        var today = DateTime.Today;
+        foreach (var day in new WorkingDayManager().GetAllWorkingDays().
+            Where(day => (day.Date > today && day.Date < today.AddDays(500))))
+        {
+            _daysForNewBusyTime.Add(day);
+        }
     }
 
     private void StartWorkerEdit()
@@ -145,36 +159,33 @@
         _workerClass = "Hidden-Content";
         _workerClassTwo = "Visible-Content";
     }
-    private void EndWorkerEdit()
+    private void CompleteWorkerEdit()
     {
         _workerClass = "Visible-Content";
         _workerClassTwo = "Hidden-Content";
-        _worker.Name = _editedWorker.Name;
-        _worker.Mail = _editedWorker.Mail;
-        _worker.Phone = _editedWorker.Phone;
-    //new WorkerManager().UpdateWorkerById(bebebe);
+        new WorkerManager().UpdateWorkerById(_editedWorker);
+        _worker = new WorkerManager().GetWorkerById(Id);
     }
 
     private void ChangingName(ChangeEventArgs e)
     {
-        _editedWorker.Name = e.Value == String.Empty ? _worker.Name : e.Value.ToString();
-
-        if (e.Value == string.Empty)
-        {
-            _editedWorker.Name = _worker.Name;
-        }
-        else
-        {
-            _editedWorker.Name = e.Value.ToString();
-        }
+        _editedWorker.Name = e.Value == string.Empty ? _worker.Name : e.Value.ToString();
     }
     private void ChangingMail(ChangeEventArgs e)
     {
-        _editedWorker.Mail = e.Value == String.Empty ? _worker.Mail : e.Value.ToString();
+        _editedWorker.Mail = e.Value == string.Empty ? _worker.Mail : e.Value.ToString();
     }
     private void ChangingPhone(ChangeEventArgs e)
     {
-        _editedWorker.Phone = e.Value == String.Empty ? _worker.Phone : e.Value.ToString();
+        try
+        {
+            Convert.ToInt64(e.Value.ToString());
+            _editedWorker.Phone = e.Value == string.Empty ? _worker.Phone : e.Value.ToString();
+        }
+        catch
+        {
+            _editedWorker.Phone = _worker.Phone;
+        }
     }
 
     private void StartWorkerServiceAdding()
@@ -186,16 +197,18 @@
     {
         _serviceClass = "Visible-Content";
         _serviceClassTwo = "Hidden-Content";
-        _newService.Type = string.Empty;
-        _newService.Cost = null;
+        _newService = new();
     }
-    private void EndWorkerServiceAdding()
+    private void CompleteWorkerServiceAdding()
     {
-        BackFromWorkerServiceAdding();
-        if (_newService.Type != string.Empty)
+        if (_newService.Type is not null && _newService.Cost is not null)
         {
-            //new ServiceManager().AddWorkerService(бебебе);
+            _newService.Id = new ServiceManager().GetAllServices().Find(x => x.Type == _newService.Type).Id;
+            new WorkerManager().AddNewServiceToWorker(Id, _newService);
+            _newServicesForWorker.Remove(_newServicesForWorker.Find(x => x.Id == _newService.Id));
+            _worker = new WorkerManager().GetWorkerById(Id);
         }
+        BackFromWorkerServiceAdding();
     }
 
     private void StartTimetableAdding()
@@ -207,23 +220,30 @@
     {
         _timetableClass = "Visible-Content";
         _timetableClassTwo = "Hidden-Content";
+        _newBusyTime = new();
+        _workingDayId = 0;
     }
-    private void EndTimetableAdding()
+    private void CompleteTimetableAdding()
     {
+        if (_workingDayId != 0 && 
+            _newBusyTime.StartTime >= TimeSpan.Parse("00:00:00.0000000") && _newBusyTime.StartTime <= TimeSpan.Parse("23:59:59.9999999") 
+            && _newBusyTime.EndTime >= TimeSpan.Parse("00:00:00.0000000") && _newBusyTime.EndTime <= TimeSpan.Parse("23:59:59.9999999"))
+        {
+            var tmp = new TimetableManager().GetAllTimetableByWorkerId(Id).
+                Find(x => x.WorkingDayId == _workingDayId);
+            if (tmp is null)
+            {
+                new TimetableManager().AddNewTimetable( Id, _workingDayId );
+                _newBusyTime.TimetableId = new TimetableManager().GetAllTimetableByWorkerId(Id).
+                    Find(x => x.WorkingDayId == _workingDayId).Id;
+            }
+            else
+            {
+                _newBusyTime.TimetableId = tmp.Id;
+            }
+            new BusyTimeManager().AddNewBusyTime(_newBusyTime);
+            InvokeAsync(StateHasChanged);
+        }
         BackFromTimetableAdding();
-        
-        //TimetableOutputModel tmp = new TimetableManager().GetAllTimetable().Find(x => x.WorkingDayId == _workingDayId);
-        //if (new TimetableManager().GetAllTimetable().Contains(tmp)
-        //{
-        //    _newBusyTime.TimetableId = tmp.Id;
-        //}
-        //else
-        //{
-            //new TimetableManager().AddNewTimetable()
-            //_newBusyTime.TimetableId = new TimetableManager().GetAllTimetableByWorkerId().Find(x => x.WorkingDayId = _workingDayId).Id;
-        //}
-        //new ServiceManager().AddWorkerService(бебебе);
-
-        InvokeAsync(StateHasChanged);
     }
 }

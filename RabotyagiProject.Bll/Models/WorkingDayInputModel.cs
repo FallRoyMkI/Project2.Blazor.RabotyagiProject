@@ -1,8 +1,14 @@
-﻿namespace RabotyagiProject.Bll.Models
+﻿namespace RabotyagiProject.Bll.Models;
+
+public class WorkingDayInputModel
 {
-    public class WorkingDayInputModel
+    public int Id { get; set; }
+    public DateTime Date { get; set; }
+
+    public override bool Equals(object? obj)
     {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
+        return obj is WorkingDayInputModel model
+               && Id == model.Id &&
+               Date == model.Date;
     }
 }

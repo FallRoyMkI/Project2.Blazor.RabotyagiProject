@@ -1,4 +1,4 @@
-﻿    @page "/workers"
+﻿@page "/workers"
 
 <PageTitle>Workers</PageTitle>
 
@@ -19,7 +19,7 @@
 </div>
 
 @code {
-    private List<WorkerOutputModel> _workers = new List<WorkerOutputModel>();
+    private List<WorkerOutputModel> _workers = new();
 
     protected override void OnInitialized()
     {

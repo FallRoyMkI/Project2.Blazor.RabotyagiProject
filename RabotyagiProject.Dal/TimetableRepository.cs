@@ -26,12 +26,12 @@ public class TimetableRepository : ITimetableRepository
             commandType: CommandType.StoredProcedure).ToList();
     }
 
-    public void AddNewTimetable(TimetableDto newDto)
+    public void AddNewTimetable(int workerId, int workingDayId)
     {
         using var sqlConnection = new SqlConnection(Constants.ConnectionString);
         sqlConnection.Open();
         sqlConnection.Execute(StoredProceduresNames.AddNewTimetable,
-            new { newDto.WorkerId, newDto.WorkingDayId },
+            new { workerId, workingDayId },
             commandType: CommandType.StoredProcedure);
     }
 

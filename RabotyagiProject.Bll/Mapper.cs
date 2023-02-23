@@ -14,6 +14,7 @@ public class MapperX
             cfg =>
             {
                 cfg.CreateMap<BusyTimeDto, BusyTimeOutputModel>();
+                cfg.CreateMap<BusyTimeInputModel, BusyTimeDto>();
                 cfg.CreateMap<ClientDto, ClientOutputModel>();
                 cfg.CreateMap<OrderDto, OrderOutputModel>();
                 cfg.CreateMap<ServiceDto, ServiceOutputModel>();
@@ -21,6 +22,7 @@ public class MapperX
                 cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
                 cfg.CreateMap<TimetableDto, TimetableOutputModel>();
                 cfg.CreateMap<WorkerDto, WorkerOutputModel>();
+                cfg.CreateMap<WorkerInputModel, WorkerDto>();
                 cfg.CreateMap<WorkingDayDto, WorkingDayOutputModel>();
             });
     }
@@ -47,6 +49,11 @@ public class MapperX
     public List<BusyTimeOutputModel> MapBusyTimeDtoListToBusyTimeOutputModelList(List<BusyTimeDto> bts)
     {
         return _configuration.CreateMapper().Map<List<BusyTimeOutputModel>>(bts);
+    }
+
+    public BusyTimeDto MapBusyTimeInputModelToBusyTimeDto(BusyTimeInputModel busyTimeModel)
+    {
+        return _configuration.CreateMapper().Map<BusyTimeDto>(busyTimeModel);
     }
     #endregion
 
@@ -96,6 +103,11 @@ public class MapperX
     {
         return _configuration.CreateMapper().Map<WorkerOutputModel>(worker);
     }
+
+    public WorkerDto MapWorkerInputModelToWorkerDto(WorkerInputModel workerModel)
+    {
+        return _configuration.CreateMapper().Map<WorkerDto>(workerModel);
+    }
     #endregion
 
     #region WorkingDay
@@ -110,10 +122,7 @@ public class MapperX
     }
     #endregion
 
-    public BusyTimeDto MapBusyTimeInputModelToBusyTimeDto(BusyTimeInputModel busyTimeModel)
-    {
-        return new BusyTimeDto();
-    }
+    
 
     public ClientDto MapClientInputModelToClientDto(ClientInputModel clientModel)
     {
@@ -135,10 +144,7 @@ public class MapperX
         return new TimetableDto();
     }
 
-    public WorkerDto MapWorkerInputModelToWorkerDto(WorkerInputModel workerModel)
-    {
-        return new WorkerDto();
-    }
+    
 
     public WorkingDayDto MapWorkingDayInputModelToWorkingDayDto(WorkingDayInputModel workingDayModel)
     {
