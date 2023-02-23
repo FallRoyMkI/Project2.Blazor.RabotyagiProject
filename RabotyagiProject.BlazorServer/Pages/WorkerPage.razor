@@ -225,9 +225,7 @@
     }
     private void CompleteTimetableAdding()
     {
-        if (_workingDayId != 0 && 
-            _newBusyTime.StartTime >= TimeSpan.Parse("00:00:00.0000000") && _newBusyTime.StartTime <= TimeSpan.Parse("23:59:59.9999999") 
-            && _newBusyTime.EndTime >= TimeSpan.Parse("00:00:00.0000000") && _newBusyTime.EndTime <= TimeSpan.Parse("23:59:59.9999999"))
+        if (_workingDayId != 0)
         {
             var tmp = new TimetableManager().GetAllTimetableByWorkerId(Id).
                 Find(x => x.WorkingDayId == _workingDayId);

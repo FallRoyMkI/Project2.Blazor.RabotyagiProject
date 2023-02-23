@@ -2,4 +2,4 @@
 @WorkerId int
 AS
 Select [Id], [WorkerId], [WorkingDayId] from [dbo].[Timetable] 
-Where [WorkerId]= @WorkerId
+Where [WorkerId]= @WorkerId and [IsDeleted] <> 1

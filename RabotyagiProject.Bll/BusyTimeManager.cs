@@ -33,7 +33,25 @@ public class BusyTimeManager
 
     public void AddNewBusyTime(BusyTimeInputModel model)
     {
-        _repository.AddNewBusyTime(_mapperX.MapBusyTimeInputModelToBusyTimeDto(model));
+        if (model.StartTime >= TimeSpan.Parse("00:00:00.0000000") &&
+            model.StartTime <= TimeSpan.Parse("23:59:59.9999999") &&
+            model.EndTime >= TimeSpan.Parse("00:00:00.0000000") &&
+            model.EndTime <= TimeSpan.Parse("23:59:59.9999999") &&
+            model.StartTime < model.EndTime)
+        {
+            var isCrossOtherTime = false;
+            var timeDelay = TimeSpan.Parse("00:30:00");
+            foreach (var time in GetAllBusyTimeByTimetableId(model.TimetableId).
+                         Where(time => !(model.StartTime - timeDelay > time.EndTime || model.EndTime + timeDelay < time.StartTime)))
+            {
+                isCrossOtherTime = true;
+            }
+
+            if (!isCrossOtherTime)
+            {
+                _repository.AddNewBusyTime(_mapperX.MapBusyTimeInputModelToBusyTimeDto(model));
+            }
+        }
     }
 
     public void UpdateBusyTimeById(BusyTimeInputModel model)

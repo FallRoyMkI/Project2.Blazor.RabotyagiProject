@@ -1,0 +1,61 @@
+﻿<tr>
+    <td>
+        <div class="Id-Slot" style="width: 200px">
+            <button @onclick="DeleteOnClick" style="float: left; width: 30px; height: 32px; border: none; background: none; vertical-align: middle">🗑️ </button>
+            <h3 style="text-align: center">
+                @DateOnly.FromDateTime(new WorkingDayManager().GetWorkingDayById(Slot.WorkingDayId).Date) </h3>
+        </div >
+    </td>
+    <td>
+        @if (ReturnNumberOfElements(Slot.Id) != 0)
+        {
+            <div class="Table-Slot" style="width: 400px; height: @(ReturnNumberOfElements(Slot.Id) * 40)px; align-content: center">
+                @foreach (var time in new BusyTimeManager().GetAllBusyTimeByTimetableId(Slot.Id))
+                {
+                    <div style="text-align: center">
+                        <a href="/EWBT/@Id/@time.Id" style="display: inline-block; color: aqua">
+                            <h3> @time.StartTime - @time.EndTime </h3></a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 400px">
+                <h3 style="text-align: center; color: rgb(121, 34, 204)"> Заказов не назначено </h3>
+            </div>
+        }
+    </td>
+</tr>
+
+@code {
+    [Parameter] public TimetableOutputModel Slot { get; set; }
+    [Parameter] public int Id { get; set; }
+    [Parameter] public EventCallback<TimetableInputModel> BtnEvent { get; set; }
+
+    private int ReturnNumberOfElements(int id)
+    {
+        return new BusyTimeManager().GetAllBusyTimeByTimetableId(id).Count;
+    }
+
+    private void DeleteOnClick()
+    {
+        TimetableInputModel model = new();
+        model.Id = Slot.Id;
+        model.WorkerId = Slot.WorkerId;
+        model.WorkingDayId = Slot.WorkerId;
+        model.IsDeleted = true;
+        @foreach (var time in new BusyTimeManager().GetAllBusyTimeByTimetableId(Slot.Id))
+        {
+            BusyTimeInputModel delete = new();
+            delete.Id = time.Id;
+            delete.TimetableId = time.TimetableId;
+            delete.StartTime = time.StartTime;
+            delete.EndTime = time.EndTime;
+            delete.IsDeleted = true;
+            new BusyTimeManager().UpdateBusyTimeById(delete);
+        }
+
+        BtnEvent.InvokeAsync(model);
+    }
+}

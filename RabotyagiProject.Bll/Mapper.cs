@@ -16,14 +16,19 @@ public class MapperX
                 cfg.CreateMap<BusyTimeDto, BusyTimeOutputModel>();
                 cfg.CreateMap<BusyTimeInputModel, BusyTimeDto>();
                 cfg.CreateMap<ClientDto, ClientOutputModel>();
+                cfg.CreateMap<ClientInputModel, ClientDto>();
                 cfg.CreateMap<OrderDto, OrderOutputModel>();
+                cfg.CreateMap<OrderInputModel, OrderDto>();
                 cfg.CreateMap<ServiceDto, ServiceOutputModel>();
                 cfg.CreateMap<ServiceInputModel, ServiceDto>();
                 cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
+                cfg.CreateMap<ServiceWorkerInputModel, ServiceWorkerDto>();
                 cfg.CreateMap<TimetableDto, TimetableOutputModel>();
+                cfg.CreateMap<TimetableInputModel, TimetableDto>();
                 cfg.CreateMap<WorkerDto, WorkerOutputModel>();
                 cfg.CreateMap<WorkerInputModel, WorkerDto>();
                 cfg.CreateMap<WorkingDayDto, WorkingDayOutputModel>();
+                cfg.CreateMap<WorkingDayInputModel, WorkingDayDto>();
             });
     }
 
@@ -38,6 +43,11 @@ public class MapperX
     {
         return _configuration.CreateMapper().Map<ClientOutputModel>(client);
     }
+
+    public ClientDto MapClientInputModelToClientDto(ClientInputModel client)
+    {
+        return _configuration.CreateMapper().Map<ClientDto>(client);
+    }
     #endregion
 
     #region BusyTime
@@ -51,9 +61,9 @@ public class MapperX
         return _configuration.CreateMapper().Map<List<BusyTimeOutputModel>>(bts);
     }
 
-    public BusyTimeDto MapBusyTimeInputModelToBusyTimeDto(BusyTimeInputModel busyTimeModel)
+    public BusyTimeDto MapBusyTimeInputModelToBusyTimeDto(BusyTimeInputModel bt)
     {
-        return _configuration.CreateMapper().Map<BusyTimeDto>(busyTimeModel);
+        return _configuration.CreateMapper().Map<BusyTimeDto>(bt);
     }
     #endregion
 
@@ -66,6 +76,11 @@ public class MapperX
     public OrderOutputModel MapOrderDtoToOrderOutputModel(OrderDto order)
     {
         return _configuration.CreateMapper().Map<OrderOutputModel>(order);
+    }
+
+    public OrderDto MapOrderInputModelToOrderDto(OrderInputModel order)
+    {
+        return _configuration.CreateMapper().Map<OrderDto>(order);
     }
     #endregion
 
@@ -80,9 +95,9 @@ public class MapperX
         return _configuration.CreateMapper().Map<ServiceOutputModel>(service);
     }
 
-    public ServiceDto MapServiceInputModelToServiceDto(ServiceInputModel model)
+    public ServiceDto MapServiceInputModelToServiceDto(ServiceInputModel service)
     {
-        return _configuration.CreateMapper().Map<ServiceDto>(model);
+        return _configuration.CreateMapper().Map<ServiceDto>(service);
     }
     #endregion
 
@@ -90,6 +105,11 @@ public class MapperX
     public List<TimetableOutputModel> MapTimetableDtoListToTimetableOutputModelList(List<TimetableDto> tts)
     {
         return _configuration.CreateMapper().Map<List<TimetableOutputModel>>(tts);
+    }
+
+    public TimetableDto MapTimetableInputModelToTimetableDto(TimetableInputModel tt)
+    {
+        return _configuration.CreateMapper().Map<TimetableDto>(tt);
     }
     #endregion
 
@@ -104,9 +124,9 @@ public class MapperX
         return _configuration.CreateMapper().Map<WorkerOutputModel>(worker);
     }
 
-    public WorkerDto MapWorkerInputModelToWorkerDto(WorkerInputModel workerModel)
+    public WorkerDto MapWorkerInputModelToWorkerDto(WorkerInputModel worker)
     {
-        return _configuration.CreateMapper().Map<WorkerDto>(workerModel);
+        return _configuration.CreateMapper().Map<WorkerDto>(worker);
     }
     #endregion
 
@@ -120,34 +140,15 @@ public class MapperX
     {
         return _configuration.CreateMapper().Map<WorkingDayOutputModel>(wd);
     }
+
+    public WorkingDayDto MapWorkingDayInputModelToWorkingDayDto(WorkingDayInputModel wd)
+    {
+        return _configuration.CreateMapper().Map<WorkingDayDto>(wd);
+    }
     #endregion
 
-    
-
-    public ClientDto MapClientInputModelToClientDto(ClientInputModel clientModel)
+    public ServiceWorkerDto MapServiceWorkerInputModelToServiceWorkerDto(ServiceWorkerInputModel service)
     {
-        return new ClientDto();
-    }
-
-    public OrderDto MapOrderInputModelToOrderDto(OrderInputModel clientModel)
-    {
-        return new OrderDto();
-    }
-    
-    public ServiceWorkerDto MapServiceWorkerInputModelToServiceWorkerDto(ServiceWorkerInputModel clientModel)
-    {
-        return new ServiceWorkerDto();
-    }
-
-    public TimetableDto MapTimetableInputModelToTimetableDto(TimetableInputModel timetableModel)
-    {
-        return new TimetableDto();
-    }
-
-    
-
-    public WorkingDayDto MapWorkingDayInputModelToWorkingDayDto(WorkingDayInputModel workingDayModel)
-    {
-        return new WorkingDayDto();
+        return _configuration.CreateMapper().Map<ServiceWorkerDto>(service);
     }
 }

@@ -6,4 +6,4 @@
 AS
 Update [Worker_Service]
 Set [Cost] = @Cost, [IsDeleted] = @IsDeleted
-Where [WorkerId] = @WorkerId and [ServiceId] = @ServiceId
+Where [WorkerId] = @WorkerId and [ServiceId] = @ServiceId and [IsDeleted] <>1
