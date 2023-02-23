@@ -16,7 +16,7 @@ public class WorkerDto
                Name == dto.Name &&
                Phone == dto.Phone &&
                Mail == dto.Mail &&
-               EqualityComparer<List<ServiceDto>>.Default.Equals(Service, dto.Service) &&
+               Service.SequenceEqual(dto.Service) &&
                IsDeleted == dto.IsDeleted;
     }
 }

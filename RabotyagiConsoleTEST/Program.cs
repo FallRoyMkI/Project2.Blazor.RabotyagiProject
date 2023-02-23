@@ -2,7 +2,7 @@
 using RabotyagiProject.Dal.Models;
 using RabotyagiProject.Dal.Options;
 
-//BusyTimeDto kek = new BusyTimeDto();
+BusyTimeDto kek = new BusyTimeDto();
 //kek.StartTime = DateTime.Parse("12:15:00");
 //kek.EndTime = DateTime.Parse("13:15:00");
 //kek.TimetableId = 2;

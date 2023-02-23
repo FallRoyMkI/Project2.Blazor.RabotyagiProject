@@ -11,7 +11,7 @@ public class OrderDto
     public DateTime Date { get; set; }
     public int? Cost { get; set; }
     public Rate? Rate { get; set; }
-    public string Report { get; set; }
+    public string? Report { get; set; }
     public List<ServiceWorkerDto> Services { get; set; } = new();
     public bool? IsDeleted { get; set; } = false;
 
@@ -26,7 +26,7 @@ public class OrderDto
                Cost == dto.Cost &&
                Rate == dto.Rate &&
                Report == dto.Report &&
-               EqualityComparer<List<ServiceWorkerDto>>.Default.Equals(Services, dto.Services) && 
+               Services.SequenceEqual(dto.Services) && 
                IsDeleted == dto.IsDeleted;
     }
 }

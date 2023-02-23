@@ -25,6 +25,6 @@ public class OrderInputModel
                Cost == model.Cost &&
                Rate == model.Rate &&
                Report == model.Report &&
-               EqualityComparer<List<ServiceWorkerInputModel>>.Default.Equals(Services, model.Services);
+               Services.SequenceEqual(model.Services);
     }
 }

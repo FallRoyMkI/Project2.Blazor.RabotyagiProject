@@ -31,7 +31,7 @@ public class WorkerManagerTests
     }
 
     [TestCaseSource(typeof(GetWorkerByIdTestSources))]
-    public void GetOrderByIdTest(int id, WorkerDto receivedWorker, WorkerOutputModel expectedWorker)
+    public void GetWorkerById(int id, WorkerDto receivedWorker, WorkerOutputModel expectedWorker)
     {
         _mock.Setup(o => o.GetWorkerById(id)).Returns(receivedWorker).Verifiable();
         WorkerOutputModel actual = _manager.GetWorkerById(id);

@@ -16,7 +16,7 @@ public class ClientDto
                Name == dto.Name &&
                Phone == dto.Phone &&
                Mail == dto.Mail &&
-               EqualityComparer<List<OrderDto>>.Default.Equals(Orders, dto.Orders) &&
+               Orders.SequenceEqual(dto.Orders) &&
                IsDeleted == dto.IsDeleted;
     }
 }

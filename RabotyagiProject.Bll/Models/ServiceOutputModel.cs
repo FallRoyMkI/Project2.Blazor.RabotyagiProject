@@ -5,7 +5,7 @@ public class ServiceOutputModel
     public int Id { get; set; }
     public string Type { get; set; }
     public int? Cost { get; set; }
-    public bool? IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; } = false;
 
     public override bool Equals(object? obj)
     {

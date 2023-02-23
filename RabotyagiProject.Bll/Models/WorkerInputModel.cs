@@ -15,6 +15,6 @@ public class WorkerInputModel
                Name == model.Name &&
                Phone == model.Phone &&
                Mail == model.Mail &&
-               EqualityComparer<List<ServiceInputModel>>.Default.Equals(Service, model.Service);
+               Service.SequenceEqual(model.Service);
     }
 }

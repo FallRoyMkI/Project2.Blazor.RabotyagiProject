@@ -10,8 +10,8 @@ using RabotyagiProject.Dal.Models;
                 new BusyTimeDto()
                 {
                     Id = 1,
-                    StartTime = new DateTime(2023, 2, 9, 12, 30, 0),
-                    EndTime = new DateTime(2023, 2, 9, 13, 30, 0),
+                    StartTime = new TimeSpan(12, 30, 0),
+                    EndTime = new TimeSpan( 13, 30, 0),
                     TimetableId = 1,
                     IsDeleted = false
                 }
@@ -31,8 +31,8 @@ using RabotyagiProject.Dal.Models;
                 new BusyTimeDto()
                 {
                     Id = 2,
-                    StartTime = new DateTime(2023, 2, 9, 12, 30, 0),
-                    EndTime = new DateTime(2023, 2, 9, 13, 30, 0),
+                    StartTime = new TimeSpan(12, 30, 0),
+                    EndTime = new TimeSpan(13, 30, 0),
                     TimetableId = 100500,
                     IsDeleted = true
                 }

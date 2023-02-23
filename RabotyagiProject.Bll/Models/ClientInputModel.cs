@@ -15,6 +15,6 @@ public class ClientInputModel
                Name == model.Name &&
                Phone == model.Phone &&
                Mail == model.Mail &&
-               EqualityComparer<List<OrderInputModel>>.Default.Equals(Orders, model.Orders);
+               Orders.SequenceEqual(model.Orders);
     }
 }

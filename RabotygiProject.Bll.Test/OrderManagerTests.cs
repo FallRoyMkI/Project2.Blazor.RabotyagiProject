@@ -24,7 +24,7 @@ public class OrderManagerTests
     public void GetAllOrdersTest(List<OrderDto> receivedOrders, List<OrderOutputModel> expectedOrders)
     {
         _mock.Setup(o => o.GetAllOrders()).Returns(receivedOrders).Verifiable();
-        IEnumerable<OrderOutputModel> actual = _manager.GetAllOrders();
+        List<OrderOutputModel> actual = _manager.GetAllOrders();
         List<OrderOutputModel> expected = expectedOrders;
         _mock.VerifyAll();
         CollectionAssert.AreEqual(expected, actual);
