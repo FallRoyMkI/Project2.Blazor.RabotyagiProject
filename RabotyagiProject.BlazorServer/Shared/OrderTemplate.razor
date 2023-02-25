@@ -1,0 +1,37 @@
+﻿<div style="display: inline-block; text-align: center">
+    <table>
+        <tr style="display: inline-block;">
+            <div class="Id-Slot" style="text-align: center">
+            <h3>@Slot.Id</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px">
+                <h3>@Slot.Date</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px">
+                <h3>@Slot.Cost</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px">
+                <h3>@Slot.Adress</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px">
+                <h3>@Slot.Rate</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px; height: 300px">
+                <h3>@Slot.Report</h3>
+            </div>
+        </tr>
+    </table>
+</div>
+@code {
+    [Parameter] public OrderOutputModel Slot { get; set; }
+}

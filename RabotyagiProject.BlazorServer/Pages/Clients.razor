@@ -1,21 +1,95 @@
 ﻿@page "/clients"
+
 <PageTitle>Clients</PageTitle>
 
-<h1>Clients</h1>
+<div class="@_hideUnhide" style=" text-align: center ">
+    <h1 @onclick="StartClientAdding" style="color: rgb(125, 125, 255); font-family: fantasy; text-decoration: underline"> Clients</h1>
+</div>
+<div class="@_unhideHide">
+    <EditForm Model="@_newClient" OnSubmit="@BackFromClientAdding">
+        <div style="text-align: center; height: 40px">
+            <input class="Id-Slot" @bind="_newClient.Name" placeholder="Наме"
+                   style="width: 300px; font-size: 36px; color: rgb(125, 125, 255)">
+            <button class="Accept-Button" @onclick="CompleteClientAdding" style="vertical-align: super">Done</button>
+            <button class="Accept-Button" type="submit" style="vertical-align: super">Вернуться...</button>
+        </div>
+        <div style="height:10px"></div>
+        <div style="text-align: center;">
+            <div style="display: inline-block">
+                <input class="Id-Slot" type="number" @bind="_newClient.Phone" placeholder="Телефончик"
+                       style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto">
+            </div>
+            <div style="display: inline-block">
+                <input class="Id-Slot" type="email" @bind="_newClient.Mail" placeholder="Почточка))"
+                       style="width: 300px; font-size: 36px;  margin-left: 50px; color: rgb(125, 125, 255)">
+            </div>
+        </div>
+    </EditForm>
+</div>
+
 <div>
     @if (_clients.Count != 0)
     {
-        <PersonsTable Clients="_clients" />
+        <table style=" margin: auto">
+            <tr>
+                <td> <div class="Id-Slot"> <h3 style="text-align: center"> Id </h3> </div> </td>
+                <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Имя </h3> </div> </td>
+                <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Телефон </h3> </div> </td>
+                <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Почта </h3> </div> </td>
+            </tr>
+            @foreach (var client in _clients)
+            {
+                <PersonsTable Client="client" BtnClientEvent="DeleteClient"></PersonsTable>
+            }
+        </table>
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 600px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> Ещё нет клиентов! </h3>
+        </div>
     }
 </div>
 
-
 @code {
-    private List<ClientOutputModel> _clients = new List<ClientOutputModel>();
+    private List<ClientOutputModel> _clients = new();
+    private string _hideUnhide = "Visible-Content";
+    private string _unhideHide = "Hidden-Content";
+    private ClientInputModel _newClient = new();
 
     protected override void OnInitialized()
     {
-        var manager = new ClientManager();
-        _clients = manager.GetAllClients();
+        _clients = new ClientManager().GetAllClients();
+    }
+
+    private void StartClientAdding()
+    {
+        _hideUnhide = "Hidden-Content";
+        _unhideHide = "Visible-Content";
+    }
+
+    private void BackFromClientAdding()
+    {
+        _hideUnhide = "Visible-Content";
+        _unhideHide = "Hidden-Content";
+        _newClient = new();
+    }
+
+    private void CompleteClientAdding()
+    {
+        _hideUnhide = "Visible-Content";
+        _unhideHide = "Hidden-Content";
+        if (_newClient.Name != string.Empty && _newClient.Mail != string.Empty && _newClient.Phone != string.Empty)
+        {
+            new ClientManager().AddClient(_newClient);
+        }
+        _clients = new ClientManager().GetAllClients();
+    }
+
+    private void DeleteClient(ClientInputModel model)
+    {
+        new ClientManager().UpdateClientById(model);
+        _clients = new ClientManager().GetAllClients();
+        InvokeAsync(StateHasChanged);
     }
 }

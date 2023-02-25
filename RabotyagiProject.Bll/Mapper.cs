@@ -14,21 +14,35 @@ public class MapperX
             cfg =>
             {
                 cfg.CreateMap<BusyTimeDto, BusyTimeOutputModel>();
+                cfg.CreateMap<BusyTimeOutputModel, BusyTimeInputModel>();
                 cfg.CreateMap<BusyTimeInputModel, BusyTimeDto>();
+
                 cfg.CreateMap<ClientDto, ClientOutputModel>();
+                cfg.CreateMap<ClientOutputModel, ClientInputModel>();
                 cfg.CreateMap<ClientInputModel, ClientDto>();
+
                 cfg.CreateMap<OrderDto, OrderOutputModel>();
+                cfg.CreateMap<OrderOutputModel, OrderInputModel>();
                 cfg.CreateMap<OrderInputModel, OrderDto>();
+
                 cfg.CreateMap<ServiceDto, ServiceOutputModel>();
                 cfg.CreateMap<ServiceOutputModel, ServiceInputModel>();
                 cfg.CreateMap<ServiceInputModel, ServiceDto>();
+
                 cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
+                cfg.CreateMap<ServiceWorkerOutputModel, ServiceWorkerInputModel>();
                 cfg.CreateMap<ServiceWorkerInputModel, ServiceWorkerDto>();
+
                 cfg.CreateMap<TimetableDto, TimetableOutputModel>();
+                cfg.CreateMap<TimetableOutputModel, TimetableInputModel>();
                 cfg.CreateMap<TimetableInputModel, TimetableDto>();
+
                 cfg.CreateMap<WorkerDto, WorkerOutputModel>();
+                cfg.CreateMap<WorkerOutputModel, WorkerInputModel>();
                 cfg.CreateMap<WorkerInputModel, WorkerDto>();
+
                 cfg.CreateMap<WorkingDayDto, WorkingDayOutputModel>();
+                cfg.CreateMap<WorkingDayOutputModel, WorkingDayInputModel>();
                 cfg.CreateMap<WorkingDayInputModel, WorkingDayDto>();
             });
     }
@@ -82,6 +96,11 @@ public class MapperX
     public OrderDto MapOrderInputModelToOrderDto(OrderInputModel order)
     {
         return _configuration.CreateMapper().Map<OrderDto>(order);
+    }
+
+    public OrderInputModel MapOrderOutputModelToOrderInputModel(OrderOutputModel order)
+    {
+        return _configuration.CreateMapper().Map<OrderInputModel>(order);
     }
     #endregion
 

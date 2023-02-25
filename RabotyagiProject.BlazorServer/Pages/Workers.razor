@@ -4,7 +4,6 @@
 
 <div class="@_hideUnhide" style=" text-align: center ">
     <h1 @onclick="StartWorkerAdding" style="color: rgb(125, 125, 255); font-family: fantasy; text-decoration: underline"> Workers</h1>
-    <h1>@_newWorker.Name @_newWorker.Phone @_newWorker.Mail</h1>
 </div>
 <div class="@_unhideHide">
     <EditForm Model="@_newWorker" OnSubmit="@BackFromWorkerAdding">
@@ -41,7 +40,7 @@
             </tr>
             @foreach (var worker in _workers)
             {
-                <PersonsTable Worker="worker" BtnEvent="DeleteWorker"></PersonsTable>
+                <PersonsTable Worker="worker" BtnWorkerEvent="DeleteWorker"></PersonsTable>
             }
         </table>
     }

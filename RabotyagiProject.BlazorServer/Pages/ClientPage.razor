@@ -1,0 +1,81 @@
+﻿@page "/client/{Id:int}"
+
+<div>
+    <div style="text-align: center">
+        <h1 style="color: rgb(125, 125, 255); font-family: fantasy;display: inline-block">@_client.Name</h1>
+    </div>
+    <div style="text-align: center">
+        <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">@_client.Mail</h1>
+        <h1 style="color: rgb(125, 125, 255); display: inline-block; margin-left: 50px; font-family: fantasy">@_client.Phone</h1>
+    </div>
+</div>
+
+<div>
+    @if (_orders.Count != 0)
+    {
+        if (_orders.Contains(_orders.Find(x => x.IsCompleted == false)))
+        {
+            <div style="text-align: center">
+                <h1 style="color: rgb(125, 125, 255); font-family: fantasy;display: inline-block">Заказы в работе</h1>
+            </div>
+            <div style="display: inline-block; text-align: center;float:left">
+                <table style="height: 240px">
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Номер</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Дата</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Цена</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Адрес</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Оценка</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Отзыв</h3>
+                    </tr>
+                    <tr style="height: 260px"></tr>
+                </table>
+            </div>
+            foreach (var order in _orders.Where(order => !order.IsCompleted))
+            {
+                <OrderTemplate Slot="@order"></OrderTemplate>
+            }
+        }
+
+        if (_orders.Contains(_orders.Find(x => x.IsCompleted == true)))
+        {
+            <div style="text-align: center">
+                <h1 style="color: rgb(125, 125, 255); font-family: fantasy;display: inline-block">Выполненные заказы</h1>
+            </div>
+            foreach (var order in _orders.Where(order => order.IsCompleted))
+            {
+                <OrderTemplate Slot="@order"></OrderTemplate>
+            }
+        }
+        
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
+            <h3 style="text-align: center; color: rgb(121, 34, 204)"> Балбес не удосужился ничего заказывать... (ну это пока😈) </h3>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    public ClientOutputModel _client;
+    public List<OrderOutputModel> _orders;
+
+    protected override void OnInitialized()
+    {
+        _client = new ClientManager().GetClientById(Id);
+        _orders = new OrderManager().GetAllOrdersByClientId(_client.Id);
+    }
+
+}

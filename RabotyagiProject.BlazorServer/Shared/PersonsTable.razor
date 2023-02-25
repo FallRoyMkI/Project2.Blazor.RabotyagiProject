@@ -36,7 +36,8 @@ else
 @code {
     [Parameter] public WorkerOutputModel Worker { get; set; } = null;
     [Parameter] public ClientOutputModel Client { get; set; } = null;
-    [Parameter] public EventCallback<WorkerInputModel> BtnEvent { get; set; }
+    [Parameter] public EventCallback<WorkerInputModel> BtnWorkerEvent { get; set; }
+    [Parameter] public EventCallback<ClientInputModel> BtnClientEvent { get; set; }
 
     private void DeleteWorkerOnClick()
     {
@@ -51,7 +52,7 @@ else
             model.Service.Add(new MapperX().MapServiceOutputModelToServiceInputModel(service));
         }
 
-        BtnEvent.InvokeAsync(model);
+        BtnWorkerEvent.InvokeAsync(model);
     }
 
     private void DeleteClientOnClick()
@@ -61,12 +62,12 @@ else
         model.Name = Client.Name;
         model.Mail = Client.Mail;
         model.Phone = Client.Phone;
-        //model.IsDeleted = true;
+        model.IsDeleted = true;
         foreach (var order in Client.Orders)
         {
-           // model.Service.Add(new MapperX().MapServiceOutputModelToServiceInputModel(service));
+            model.Orders.Add(new MapperX().MapOrderOutputModelToOrderInputModel(order));
         }
 
-        //BtnEvent.InvokeAsync(model);
+        BtnClientEvent.InvokeAsync(model);
     }
 }
