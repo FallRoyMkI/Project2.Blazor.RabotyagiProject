@@ -7,6 +7,7 @@ public class WorkerInputModel
     public string Phone { get; set; }
     public string Mail { get; set; }
     public List<ServiceInputModel> Service { get; set; } = new();
+    public bool IsDeleted { get; set; } = false;
 
     public override bool Equals(object? obj)
     {
@@ -15,6 +16,7 @@ public class WorkerInputModel
                Name == model.Name &&
                Phone == model.Phone &&
                Mail == model.Mail &&
-               Service.SequenceEqual(model.Service);
+               Service.SequenceEqual(model.Service) &&
+               IsDeleted == model.IsDeleted;
     }
 }

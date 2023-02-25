@@ -43,7 +43,7 @@
         TimetableInputModel model = new();
         model.Id = Slot.Id;
         model.WorkerId = Slot.WorkerId;
-        model.WorkingDayId = Slot.WorkerId;
+        model.WorkingDayId = Slot.WorkingDayId;
         model.IsDeleted = true;
         @foreach (var time in new BusyTimeManager().GetAllBusyTimeByTimetableId(Slot.Id))
         {
@@ -55,7 +55,6 @@
             delete.IsDeleted = true;
             new BusyTimeManager().UpdateBusyTimeById(delete);
         }
-
         BtnEvent.InvokeAsync(model);
     }
 }

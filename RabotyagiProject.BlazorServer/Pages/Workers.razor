@@ -2,13 +2,48 @@
 
 <PageTitle>Workers</PageTitle>
 
-<div style=" text-align: center ">
-    <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> Workers</h1>
+<div class="@_hideUnhide" style=" text-align: center ">
+    <h1 @onclick="StartWorkerAdding" style="color: rgb(125, 125, 255); font-family: fantasy; text-decoration: underline"> Workers</h1>
+    <h1>@_newWorker.Name @_newWorker.Phone @_newWorker.Mail</h1>
 </div>
+<div class="@_unhideHide">
+    <EditForm Model="@_newWorker" OnSubmit="@BackFromWorkerAdding">
+        <div style="text-align: center; height: 40px">
+            <input class="Id-Slot" @bind="_newWorker.Name" placeholder="Наме"
+                   style="width: 300px; font-size: 36px; color: rgb(125, 125, 255)">
+            <button class="Accept-Button" @onclick="CompleteWorkerAdding" style="vertical-align: super">Done</button>
+            <button class="Accept-Button" type="submit" style="vertical-align: super">Вернуться...</button>
+        </div>
+        <div style="height:10px"></div>
+        <div style="text-align: center;">
+            <div style="display: inline-block">
+                <input class="Id-Slot" type="number" @bind="_newWorker.Phone" placeholder="Телефончик"
+                       style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto">
+            </div>
+            <div style="display: inline-block">
+                <input class="Id-Slot" type="email" @bind="_newWorker.Mail" placeholder="Почточка))"
+                       style="width: 300px; font-size: 36px;  margin-left: 50px; color: rgb(125, 125, 255)">
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+
 <div >
     @if (_workers.Count != 0)
     {
-        <PersonsTable Workers="_workers"/>
+        <table style=" margin: auto">
+            <tr>
+                <td> <div class="Id-Slot"> <h3 style="text-align: center"> Id </h3> </div> </td>
+                <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Имя </h3> </div> </td>
+                <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Телефон </h3> </div> </td>
+                <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Почта </h3> </div> </td>
+            </tr>
+            @foreach (var worker in _workers)
+            {
+                <PersonsTable Worker="worker" BtnEvent="DeleteWorker"></PersonsTable>
+            }
+        </table>
     }
     else
     {
@@ -20,10 +55,43 @@
 
 @code {
     private List<WorkerOutputModel> _workers = new();
+    private string _hideUnhide = "Visible-Content";
+    private string _unhideHide = "Hidden-Content";
+    private WorkerInputModel _newWorker = new();
 
     protected override void OnInitialized()
     {
-        var manager = new WorkerManager();
-        _workers = manager.GetAllWorkers();
+        _workers = new WorkerManager().GetAllWorkers();
+    }
+
+    private void StartWorkerAdding()
+    {
+        _hideUnhide = "Hidden-Content";
+        _unhideHide = "Visible-Content";
+    }
+
+    private void BackFromWorkerAdding()
+    {
+        _hideUnhide = "Visible-Content";
+        _unhideHide = "Hidden-Content";
+        _newWorker = new();
+    }
+
+    private void CompleteWorkerAdding()
+    {
+        _hideUnhide = "Visible-Content";
+        _unhideHide = "Hidden-Content";
+        if (_newWorker.Name != string.Empty && _newWorker.Mail != string.Empty && _newWorker.Phone != string.Empty)
+        {
+            new WorkerManager().AddNewWorker(_newWorker);
+        }
+        _workers = new WorkerManager().GetAllWorkers();
+    }
+
+    private void DeleteWorker(WorkerInputModel model)
+    {
+        new WorkerManager().UpdateWorkerById(model);
+        _workers = new WorkerManager().GetAllWorkers();
+        InvokeAsync(StateHasChanged);
     }
 }

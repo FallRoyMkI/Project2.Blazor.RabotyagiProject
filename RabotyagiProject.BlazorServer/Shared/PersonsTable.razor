@@ -1,47 +1,72 @@
-﻿<table style=" margin: auto">
+﻿@if (Worker != null)
+{
     <tr>
-        <td> <div class="Id-Slot"> <h3 style="text-align: center"> Id </h3> </div> </td>
-        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Имя </h3> </div> </td>
-        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Телефон </h3> </div> </td>
-        <td> <div class="Id-Slot" style="width: 400px"> <h3 style="text-align: center"> Почта </h3> </div> </td>
+        <td>
+            <div class="Id-Slot">
+                <h3 style="text-align: center">
+                    <a href="/worker/@Worker.Id" style="color: #7922CC"> @Worker.Id </a>
+                </h3>
+            </div>
+        </td>
+        <td> <div class="Table-Slot"> <h3 style="text-align: center"> @Worker.Name </h3> </div> </td>
+        <td> <div class="Table-Slot"> <h3 style="text-align: center"> @Worker.Phone </h3> </div> </td>
+        <td> <div class="Table-Slot"> <h3 style="text-align: center"> @Worker.Mail </h3> </div> </td>
+        <button  @onclick="DeleteWorkerOnClick"
+                 style="float: right;width: 30px; height: 32px; border: none; background: none; vertical-align: middle">🗑️ </button>
+    </tr>    
+}
+else
+{
+    <tr>
+        <td>
+            <div class="Id-Slot">
+                <h3 style="text-align: center">
+                    <a href="/client/@Client.Id" style="color: #7922CC"> @Client.Id</a>
+                </h3>
+            </div>
+        </td>
+        <td><div class="Table-Slot"><h3 style="text-align: center"> @Client.Name </h3> </div> </td>
+        <td><div class="Table-Slot"><h3 style="text-align: center"> @Client.Phone </h3> </div> </td>
+        <td><div class="Table-Slot"><h3 style="text-align: center"> @Client.Mail </h3> </div> </td>
+        <button @onclick="DeleteClientOnClick"
+                style="float: right; width: 30px; height: 32px; border: none; background: none; vertical-align: middle">🗑️ </button>
     </tr>
-    @if (Workers != null)
-    {
-        @foreach (var person in Workers)
-        {
-            <tr>
-                <td>
-                    <div class="Id-Slot">
-                        <h3 style="text-align: center">
-                            <a href="/worker/@person.Id" style="color: #7922CC"> @person.Id </a> </h3>
-                    </div>
-                </td>
-                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Name </h3> </div> </td>
-                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Phone </h3> </div> </td>
-                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Mail </h3> </div> </td>
-            </tr>
-        }
-    }
-    else
-    {
-        @foreach (var person in Clients)
-        {
-            <tr>
-                <td>
-                    <div class="Id-Slot">
-                        <h3 style="text-align: center">
-                             <a href="/client/@person.Id" style="color: #7922CC"> @person.Id</a> </h3>
-                    </div>
-                </td>
-                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Name </h3> </div> </td>
-                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Phone </h3> </div> </td>
-                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @person.Mail </h3> </div> </td>
-            </tr>
-        }
-    }
-</table>
+}
 
 @code {
-    [Parameter] public List<WorkerOutputModel> Workers { get; set; } = null;
-    [Parameter] public List<ClientOutputModel> Clients { get; set; } = null;
+    [Parameter] public WorkerOutputModel Worker { get; set; } = null;
+    [Parameter] public ClientOutputModel Client { get; set; } = null;
+    [Parameter] public EventCallback<WorkerInputModel> BtnEvent { get; set; }
+
+    private void DeleteWorkerOnClick()
+    {
+        WorkerInputModel model = new();
+        model.Id = Worker.Id;
+        model.Name = Worker.Name;
+        model.Mail = Worker.Mail;
+        model.Phone = Worker.Phone;
+        model.IsDeleted = true;
+        foreach (var service in Worker.Service)
+        {
+            model.Service.Add(new MapperX().MapServiceOutputModelToServiceInputModel(service));
+        }
+
+        BtnEvent.InvokeAsync(model);
+    }
+
+    private void DeleteClientOnClick()
+    {
+        ClientInputModel model = new();
+        model.Id = Client.Id;
+        model.Name = Client.Name;
+        model.Mail = Client.Mail;
+        model.Phone = Client.Phone;
+        //model.IsDeleted = true;
+        foreach (var order in Client.Orders)
+        {
+           // model.Service.Add(new MapperX().MapServiceOutputModelToServiceInputModel(service));
+        }
+
+        //BtnEvent.InvokeAsync(model);
+    }
 }

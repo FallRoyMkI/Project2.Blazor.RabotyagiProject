@@ -4,7 +4,7 @@
     <div class="@_workerClass">
         <div style="text-align: center">
             <h1 @onclick="StartWorkerEdit" style="color: rgb(125, 125, 255); font-family: fantasy;
-                                            display: inline-block; text-decoration: underline">@_worker.Name</h1>
+                                                  display: inline-block; text-decoration: underline">@_worker.Name</h1>
         </div>
         <div style="text-align: center">
             <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">@_worker.Mail</h1>
@@ -21,17 +21,18 @@
             <div style="height:10px"></div>
             <div style="text-align: center;">
                 <div style="display: inline-block">
-                    <input class="Id-Slot" @onchange="ChangingMail" placeholder="@_editedWorker.Mail"
+                    <input class="Id-Slot" type="email" @onchange="ChangingMail" placeholder="@_editedWorker.Mail"
                            style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto">
                 </div>
                 <div style="display: inline-block">
-                <input class="Id-Slot" @onchange="ChangingPhone" placeholder="@_editedWorker.Phone"
+                    <input class="Id-Slot" type="number" @onchange="ChangingPhone" placeholder="@_editedWorker.Phone"
                            style="width: 300px; font-size: 36px;  margin-left: 50px; color: rgb(125, 125, 255)">
                 </div>
             </div>
         </EditForm>
     </div>
 </div>
+
 <div style=" text-align: center">
     <div class="@_serviceClass" style="text-align: center">
         <h1 @onclick="StartWorkerServiceAdding" 
@@ -56,17 +57,18 @@
                           display: inline-block; vertical-align: top; padding-bottom: 0;padding-top: 0">
         </EditForm>
     </div>
-        @if (_worker.Service.Count > 0)
-        {
-            <WorkerServiceTemplate Services="_worker.Service" Id="_worker.Id" />
-        }
-        else
-        {
-            <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
-                <h3 style="text-align: center; color:rgb(121,34,204)"> Этот работяга пока ещё не предоставляет услуг! </h3>
-            </div>
-        }
-    </div>
+    @if (_worker.Service.Count > 0)
+    {
+        <WorkerServiceTemplate Services="_worker.Service" Id="_worker.Id" />
+    }
+    else
+    {
+        <div class="Table-Slot" style="background: rgb(238, 221, 255); width: 800px; margin: auto">
+            <h3 style="text-align: center; color:rgb(121,34,204)"> Этот работяга пока ещё не предоставляет услуг! </h3>
+        </div>
+    }
+</div>
+
 <div style="text-align: center">
     <div class="@_timetableClass" style="text-align: center">
         <h1 @onclick="StartTimetableAdding" style="color: blueviolet; display: inline-block; 
@@ -96,7 +98,20 @@
         </div>
     @if (new TimetableManager().GetAllTimetableByWorkerId(_worker.Id).Count > 0)
     {
-        <WorkerWorkTimeTemplate Timetable="new TimetableManager().GetAllTimetableByWorkerId(_worker.Id)" Id="_worker.Id"/>
+        <table style="margin: auto">
+                <tr>
+                    <td>
+                        <div class="Id-Slot" style="width: 200px">
+                            <h3 style="text-align: center"> Рабочий день </h3> </div> </td>
+                    <td>
+                        <div class="Id-Slot" style="width: 400px">
+                            <h3 style="text-align: center"> Занятое время </h3> </div> </td>
+                </tr>
+                @foreach (var slot in new TimetableManager().GetAllTimetableByWorkerId(_worker.Id))
+                {
+                    <OneDayWorkerWorkTimeTemplate Id="_worker.Id" Slot="slot" BtnEvent="DeleteWorkingDay"></OneDayWorkerWorkTimeTemplate>
+                }
+            </table>
     }
     else
     {
@@ -152,6 +167,12 @@
         {
             _daysForNewBusyTime.Add(day);
         }
+    }
+
+    private void DeleteWorkingDay(TimetableInputModel model)
+    {
+        new TimetableManager().UpdateTimetableById(model);
+        InvokeAsync(StateHasChanged);
     }
 
     private void StartWorkerEdit()
@@ -242,6 +263,5 @@
             new BusyTimeManager().AddNewBusyTime(_newBusyTime);
             InvokeAsync(StateHasChanged);
         }
-        BackFromTimetableAdding();
     }
 }

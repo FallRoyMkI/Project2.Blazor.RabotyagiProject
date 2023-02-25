@@ -20,6 +20,7 @@ public class MapperX
                 cfg.CreateMap<OrderDto, OrderOutputModel>();
                 cfg.CreateMap<OrderInputModel, OrderDto>();
                 cfg.CreateMap<ServiceDto, ServiceOutputModel>();
+                cfg.CreateMap<ServiceOutputModel, ServiceInputModel>();
                 cfg.CreateMap<ServiceInputModel, ServiceDto>();
                 cfg.CreateMap<ServiceWorkerDto, ServiceWorkerOutputModel>();
                 cfg.CreateMap<ServiceWorkerInputModel, ServiceWorkerDto>();
@@ -150,5 +151,10 @@ public class MapperX
     public ServiceWorkerDto MapServiceWorkerInputModelToServiceWorkerDto(ServiceWorkerInputModel service)
     {
         return _configuration.CreateMapper().Map<ServiceWorkerDto>(service);
+    }
+
+    public ServiceInputModel MapServiceOutputModelToServiceInputModel(ServiceOutputModel service)
+    {
+        return _configuration.CreateMapper().Map<ServiceInputModel>(service);
     }
 }
