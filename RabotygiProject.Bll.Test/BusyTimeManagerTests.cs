@@ -1,10 +1,9 @@
 ﻿using Moq;
+using NUnit.Framework;
 using RabotyagiProject.Bll;
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Interface;
 using RabotyagiProject.Dal.Models;
-using RabotygiProject.Bll.Test.TestCaseSourse;
-using NUnit.Framework;
 
 namespace RabotygiProject.Bll.Test
 {
@@ -14,7 +13,7 @@ namespace RabotygiProject.Bll.Test
         private Mock<IBusyTimeRepository> _mock;
 
         [SetUp]
-            public void SetUp()
+        public void SetUp()
         {
             _mock = new Mock<IBusyTimeRepository>();
             _manager = new BusyTimeManager(_mock.Object);
@@ -30,5 +29,16 @@ namespace RabotygiProject.Bll.Test
             _mock.VerifyAll();
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        //[TearDown]
+
+        //public void GetAllBusyTimeByTimetableId (int id)
+        //
+
+        //    List<BusyTimeDto> expected = new List<BusyTimeDto>();
+        //    List<BusyTimeOutputModel> actual = _manager.GetAllBusyTimeByTimetableId(id);
+        //    CollectionAssert.AreEqual(expected, actual);
+        //}
+
     }
 }
