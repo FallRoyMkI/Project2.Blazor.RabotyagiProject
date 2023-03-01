@@ -1,0 +1,43 @@
+﻿@page "/addOrder"
+
+<h3>AddOrder</h3>
+
+
+
+    <table style=" margin: auto">
+        <tr><td><div class="Id-Slot" style="width: 400px">
+    Id Клиента:<input type="number" @bind="Order.ClientId"/> <br />
+    </div></td></tr>
+        <tr><td><div class="Id-Slot" style="width: 400px">
+    Цена:<input type="number" @bind="Order.Cost"/> <br />
+    </div></td></tr>
+        <tr><td><div class="Id-Slot" style="width: 400px">
+    Дата и время начало работы:<input type="datetime-local" @bind="Order.Date"/> <br />
+    </div> </td> </tr>
+        <tr><td><div class="Id-Slot" style="width: 400px">
+    Адрес:<input type="text" @bind="Order.Adress"/> <br />
+    </div></td></tr>
+        <tr><td><div class="Id-Slot" style="width: 400px">
+    <button @onclick="CreateOrder">Создать</button>
+    </div></td></tr>
+    </table>
+
+
+@code {
+    public OrderInputModel Order;
+
+    protected override void OnInitialized()
+    {
+        Order=new OrderInputModel();
+    }
+
+    private void CreateOrder()
+    {
+        if(Order.ClientId!=null)
+        {
+            var om = new OrderManager();
+            om.AddNewOrder(Order);
+            Order=new OrderInputModel();
+        }
+    }
+}
