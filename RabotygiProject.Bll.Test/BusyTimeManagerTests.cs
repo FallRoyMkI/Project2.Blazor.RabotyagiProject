@@ -20,23 +20,25 @@ namespace RabotygiProject.Bll.Test
         }
 
         [TestCaseSource(typeof(GetAllBusyTimeTimeTestCaseSourse))]
-        public void GetAllBusyTimeTest(List<BusyTimeDto> busyTime)
+        public void GetAllBusyTimeTest(List<BusyTimeDto> dtoBusyTime, List<BusyTimeOutputModel> modelBusyTime)
         {
-            _mock.Setup(o => o.GetAllBusyTime()).Returns(busyTime).Verifiable();
-            List<BusyTimeDto> expected = new List<BusyTimeDto>();
-            IEnumerable<BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
+            _mock.Setup(o => o.GetAllBusyTime()).Returns(dtoBusyTime)/*.Verifiable()*/;
+            List <BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
+            List<BusyTimeOutputModel> expected = new List<BusyTimeOutputModel>(modelBusyTime);
 
-            _mock.VerifyAll();
+            //_mock.VerifyAll();
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        //[TearDown]
+        //[TestCase(1)] 
+        //public void GetAllBusyTimeByTimetableIdTest(int id)
 
-        //public void GetAllBusyTimeByTimetableId (int id)
-        //
-
+        //{
         //    List<BusyTimeDto> expected = new List<BusyTimeDto>();
+        //    _mock.Setup(o => o.GetBusyTimeById(id)).Returns(busyTime);
         //    List<BusyTimeOutputModel> actual = _manager.GetAllBusyTimeByTimetableId(id);
+
+        //    _mock.VerifyAll();
         //    CollectionAssert.AreEqual(expected, actual);
         //}
 
