@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Models;
-
 namespace RabotygiProject.Bll.Test.TestCaseSourse
 {
     public class GetAllServicesTestSources : IEnumerable

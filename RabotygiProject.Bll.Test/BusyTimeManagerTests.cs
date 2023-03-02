@@ -4,6 +4,8 @@ using RabotyagiProject.Bll;
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Interface;
 using RabotyagiProject.Dal.Models;
+using RabotygiProject.Bll.Test.TestCaseSourse;
+
 
 namespace RabotygiProject.Bll.Test
 {
@@ -19,28 +21,28 @@ namespace RabotygiProject.Bll.Test
             _manager = new BusyTimeManager(_mock.Object);
         }
 
-        [TestCaseSource(typeof(GetAllBusyTimeTimeTestCaseSourse))]
+        [TestCaseSource(typeof(GetAllBusyTimeTestCaseSourse))]
         public void GetAllBusyTimeTest(List<BusyTimeDto> dtoBusyTime, List<BusyTimeOutputModel> modelBusyTime)
         {
-            _mock.Setup(o => o.GetAllBusyTime()).Returns(dtoBusyTime)/*.Verifiable()*/;
-            List <BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
+            _mock.Setup(o => o.GetAllBusyTime()).Returns(dtoBusyTime).Verifiable();
+            List<BusyTimeOutputModel> actual = _manager.GetAllBusyTime();
             List<BusyTimeOutputModel> expected = new List<BusyTimeOutputModel>(modelBusyTime);
 
-            //_mock.VerifyAll();
+            _mock.VerifyAll();
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        //[TestCase(1)] 
-        //public void GetAllBusyTimeByTimetableIdTest(int id)
+        [TestCaseSource(typeof(GetAllBusyTimeByTimetableIdTestCaseSourse))]
+        public void GetAllBusyTimeByTimetableIdTest(List<BusyTimeDto> dtoBusyTime, List<BusyTimeOutputModel> modelBusyTime, int tableId)
 
-        //{
-        //    List<BusyTimeDto> expected = new List<BusyTimeDto>();
-        //    _mock.Setup(o => o.GetBusyTimeById(id)).Returns(busyTime);
-        //    List<BusyTimeOutputModel> actual = _manager.GetAllBusyTimeByTimetableId(id);
+        {
+            _mock.Setup(o => o.GetAllBusyTimeByTimetableId(tableId)).Returns(dtoBusyTime).Verifiable();
+            List<BusyTimeOutputModel> actual = _manager.GetAllBusyTimeByTimetableId(tableId);
+            List<BusyTimeOutputModel> expected = new List<BusyTimeOutputModel>(modelBusyTime);
 
-        //    _mock.VerifyAll();
-        //    CollectionAssert.AreEqual(expected, actual);
-        //}
+            _mock.VerifyAll();
+            CollectionAssert.AreEqual(expected, actual);
+        }
 
     }
 }
