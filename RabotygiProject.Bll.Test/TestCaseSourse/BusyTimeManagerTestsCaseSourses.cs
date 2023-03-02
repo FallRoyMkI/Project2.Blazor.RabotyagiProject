@@ -211,9 +211,28 @@ public class UpdateBusyTimeByIdTestCaseSourse : IEnumerable
             IsDeleted = false
         };
         yield return new Object[] { dtoBusyTime, modelBusyTime };
-
-        BusyTimeDto dtoBusyTime2 = new BusyTimeDto();
-        BusyTimeInputModel modelBusyTime2 = new BusyTimeInputModel();
-        yield return new Object[] { dtoBusyTime2, modelBusyTime2};
+    }
+}
+    public class AddNewBusyTimeTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        BusyTimeDto dtoBusyTime = new BusyTimeDto()
+        {
+            Id = 5,
+            StartTime = new TimeSpan(12, 30, 0),
+            EndTime = new TimeSpan(13, 30, 0),
+            TimetableId = 1,
+            IsDeleted = false
+        };
+        BusyTimeInputModel modelBusyTime = new BusyTimeInputModel()
+        {
+            Id = 5,
+            StartTime = new TimeSpan(12, 30, 0),
+            EndTime = new TimeSpan(13, 30, 0),
+            TimetableId = 1,
+            IsDeleted = false
+        };
+        yield return new Object[] { dtoBusyTime, modelBusyTime };
     }
 }

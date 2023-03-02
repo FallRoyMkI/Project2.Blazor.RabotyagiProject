@@ -61,5 +61,14 @@ namespace RabotygiProject.Bll.Test
             _manager.UpdateBusyTimeById(modelBusyTime);
             _mock.Verify();
         }
+        
+        [TestCaseSource(typeof(AddNewBusyTimeTestCaseSourse))]
+        public void AddNewBusyTimeTest(BusyTimeDto dtoBusyTime, BusyTimeInputModel modelBusyTime)
+        {
+            BusyTimeDto expected = dtoBusyTime;
+            _mock.Setup(o => o.AddNewBusyTime(dtoBusyTime)).Verifiable();
+            _manager.AddNewBusyTime(modelBusyTime);
+            _mock.Verify();
+        }
     }
 }
