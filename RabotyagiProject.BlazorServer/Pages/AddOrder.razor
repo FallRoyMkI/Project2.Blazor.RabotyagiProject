@@ -2,8 +2,7 @@
 
 <h3>AddOrder</h3>
 
-
-
+<div createorder>
     <table style=" margin: auto">
         <tr><td><div class="Id-Slot" style="width: 400px">
     Id Клиента:<input type="number" @bind="Order.ClientId"/> <br />
@@ -21,14 +20,70 @@
     <button @onclick="CreateOrder">Создать</button>
     </div></td></tr>
     </table>
+</div>
 
+<div list service>
+    @if (_services != null)
+{
+    <table style=" margin: auto">
+        <tr>
+            <td><div class="Id-Slot"><h3 style="text-align: center"> Id </h3> </div> </td>
+            <td><div class="Id-Slot" style="width: 400px"><h3 style="text-align: center"> Наименование </h3> </div> </td>
+            <td><div class="Id-Slot" style="width: 400px"><h3 style="text-align: center"> Добавить в заказ? </h3> </div> </td>
+        </tr>
+        @foreach (var service in _services)
+        {
+            <tr>
+                <td><div class="Id-Slot"><h3 style="text-align: center"> @service.Id</h3></div></td>
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @service.Type </h3> </div> </td>
+                <td> <div> <h3 style="text-align: center"><button @onclick="AddToList">Добавить в заказ</button>    
+                </h3> </div> </td>
+            </tr>
+        }
+    </table>
+}
+else
+{      
+    <div class="Table-Slot"></div>
+    <h3>Нет доступных услуг</h3>                   
+}
+</div>
+
+<div services in order>
+    @if (_servicesInOrder != null)
+{
+    <table style=" margin: auto">
+        <tr>            
+            <td><div class="Id-Slot" style="width: 400px"><h3 style="text-align: center"> Наименование </h3> </div> </td>            
+        </tr>
+        @foreach (var service in _servicesInOrder)
+        {
+            <tr>               
+                <td> <div class="Table-Slot"> <h3 style="text-align: center"> @service.Type </h3> </div> </td>                
+            </tr>
+        }
+    </table>
+}
+else
+{      
+    <div class="Table-Slot"></div>
+    <h3>Нет доступных услуг</h3>                   
+}
+</div>
 
 @code {
+    public int Id { get; set; }
     public OrderInputModel Order;
+    private List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+    private List<ServiceOutputModel> _servicesInOrder = new List<ServiceOutputModel>();
+
 
     protected override void OnInitialized()
     {
         Order=new OrderInputModel();
+
+        var manager = new ServiceManager();
+        _services = manager.GetAllServices();
     }
 
     private void CreateOrder()
@@ -39,5 +94,14 @@
             om.AddNewOrder(Order);
             Order=new OrderInputModel();
         }
+    }
+
+    private void AddToList()
+    {
+        //var Id = service.Id;
+        var manager = new ServiceManager();
+        var s = manager.GetServiceById(Id);
+        _servicesInOrder.Add(s);
+        InvokeAsync(StateHasChanged);
     }
 }
