@@ -159,6 +159,61 @@ public class GetAllBusyTimeByTimetableIdTestCaseSourse : IEnumerable
                 },
             };
         yield return new Object[] { dtoBusyTime, modelBusyTime, tableId };
+    }
 
+}
+public class GetBusyTimeByIdTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        int Id = 1;
+        BusyTimeDto dtoBusyTime = new BusyTimeDto()
+        {
+            Id = 5,
+            StartTime = new TimeSpan(12, 30, 0),
+            EndTime = new TimeSpan(13, 30, 0),
+            TimetableId = 1,
+            IsDeleted = false
+        };
+        BusyTimeOutputModel modelBusyTime = new BusyTimeOutputModel()
+        {
+            Id = 5,
+            StartTime = new TimeSpan(12, 30, 0),
+            EndTime = new TimeSpan(13, 30, 0),
+            TimetableId = 1,
+            IsDeleted = false
+        };
+        yield return new Object[] { dtoBusyTime, modelBusyTime, Id };
+        int Id2 = 2;
+        BusyTimeDto dtoBusyTime2 = new BusyTimeDto();
+        BusyTimeOutputModel modelBusyTime2 = new BusyTimeOutputModel();
+        yield return new Object[] { dtoBusyTime2, modelBusyTime2, Id2 };
+    }
+}
+public class UpdateBusyTimeByIdTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        BusyTimeDto dtoBusyTime = new BusyTimeDto()
+        {
+            Id = 5,
+            StartTime = new TimeSpan(12, 30, 0),
+            EndTime = new TimeSpan(13, 30, 0),
+            TimetableId = 1,
+            IsDeleted = false
+        };
+        BusyTimeInputModel modelBusyTime = new BusyTimeInputModel()
+        {
+            Id = 5,
+            StartTime = new TimeSpan(12, 30, 0),
+            EndTime = new TimeSpan(13, 30, 0),
+            TimetableId = 1,
+            IsDeleted = false
+        };
+        yield return new Object[] { dtoBusyTime, modelBusyTime };
+
+        BusyTimeDto dtoBusyTime2 = new BusyTimeDto();
+        BusyTimeInputModel modelBusyTime2 = new BusyTimeInputModel();
+        yield return new Object[] { dtoBusyTime2, modelBusyTime2};
     }
 }
