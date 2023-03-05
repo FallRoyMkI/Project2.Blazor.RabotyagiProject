@@ -2,12 +2,9 @@
     <table>
         <tr style="display: inline-block;">
             <div class="Id-Slot" style="text-align: center">
-            <h3>@Slot.Id</h3>
-            </div>
-        </tr>
-        <tr>
-            <div class="Table-Slot" style="text-align: center; width: 350px">
-                <h3>@Slot.Date</h3>
+                <h3 style="text-align: center">
+                    <a href="/order/@Slot.Id" style="color: #7922CC"> @Slot.Id </a>
+                </h3>
             </div>
         </tr>
         <tr>
@@ -17,16 +14,11 @@
         </tr>
         <tr>
             <div class="Table-Slot" style="text-align: center; width: 350px">
-                <h3>@Slot.Adress</h3>
-            </div>
-        </tr>
-        <tr>
-            <div class="Table-Slot" style="text-align: center; width: 350px">
                 <h3>@Slot.Rate</h3>
             </div>
         </tr>
         <tr>
-            <div class="Table-Slot" style="text-align: center; width: 350px; height: 300px">
+            <div class="Table-Slot" style="text-align: center; width: 350px; height: auto">
                 <h3>@Slot.Report</h3>
             </div>
         </tr>
