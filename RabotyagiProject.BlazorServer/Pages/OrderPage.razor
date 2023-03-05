@@ -1,5 +1,203 @@
 ﻿@page "/order/{Id:int}"
+@using RabotyagiProject.Dal.Options
+@inject NavigationManager Navigator
+
+
+<div style="text-align: center">
+    <h1 @onclick="StartEditing" style="color: rgb(125, 125, 255); display: inline-block; 
+                                       font-family: fantasy;text-decoration: underline">ЗАКАЗ @_order.Id</h1>
+</div>
+    <div style="text-align: center">
+        <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">ОТ КЛИЕНТА</h1>
+    <a href="/client/@_client.Id" style="color: #7922CC;margin-left: 50px;font-family: fantasy; font-size: 36px"> @_client.Id @_client.Name </a>
+    </div>
+<div class="@_kek">
+<div style="text-align: center">
+    <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy"> ЖЕЛАЕМАЯ ДАТА:   @DateOnly.FromDateTime(_order.Date)</h1>
+</div>
+<div style="text-align: center">
+    <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">АДРЕС:   @_order.Adress </h1>
+</div>
+<div style="text-align: center">
+    @if (_order.IsCompleted)
+    {
+            <h1 style="color: #7922CC; display: inline-block; font-family: fantasy"> ВЫПОЛНЕН </h1>
+    }
+    else
+    {
+            <h1 style="color: #7922CC; display: inline-block; font-family: fantasy"> HE ВЫПОЛНЕН </h1>
+    }
+</div>
+<div style="text-align: center">
+    <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">СТОИМОСТЬ:   @_order.Cost </h1>
+</div>
+<div style="text-align: center">
+    <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">РЕЙТИНГ:   @_order.Rate </h1>
+</div>
+<div style="text-align: center">
+    <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">ОТЗЫВ:</h1> <br/>
+        <h1 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">@_order.Report</h1> <br />
+</div>
+    <div style="text-align: center">
+        <h1 style="color: #7922CC; display: inline-block; font-family: fantasy">УСЛУГИ</h1> <br />
+        @foreach (var service in _order.Services)
+        {
+            <h3 style="color: rgb(125, 125, 255); display: inline-block; font-family: fantasy">
+                @GetServiceName(service) с нагрузкой @service.Workload для работяги @GetWorkerName(service)
+            </h3>
+            <br/>
+        }
+    </div>
+    <div style="text-align: center">
+        <EditForm Model="_updatedOrder" OnSubmit="AddNewServiceToOrder">
+            <InputSelect class="Table-Slot" @bind-Value="_orderService.ServiceId"
+                         style="width: 400px; display: inline-block; vertical-align: super; font-size: 28px">
+                <option value="0">Произведите выбор...</option>
+                @foreach (var service in _services)
+                {
+                    <option value="@service.Id">@service.Type</option>
+                }
+            </InputSelect>
+            <input class="Table-Slot" @bind="_orderService.Workload" type="number"
+                   style="width: 80px; display: inline-block; vertical-align: super; font-size: 28px" />
+            <button class="Id-Slot" style="display: inline-block; vertical-align: super">Добавить</button>
+        </EditForm>
+    </div>
+</div>
+
+<div class="@_pep" style="text-align: center">
+    <EditForm Model="_updatedOrder" OnSubmit="BackFromEditing">
+        <input class="Id-Slot" type="text" @onchange="ChangingAdress" placeholder="@_updatedOrder.Adress"
+               style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto"> <br />
+        <input class="Id-Slot" type="date" @bind="_updatedOrder.Date"
+               style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto"> <br />
+        <input class="Id-Slot" type="number" @onchange="SetRate" placeholder="Оценка"
+               style="width: 300px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto"> <br />
+        <input class="Id-Slot" type="text" @onchange="ChangingReport" placeholder="Отзыв"
+               style="width: 1500px; font-size: 36px; color: rgb(125, 125, 255); margin: 0 auto"> <br />
+        <div class="Accept-Button">
+            <InputRadioGroup @bind-Value="_updatedOrder.IsCompleted">
+                <InputRadio Value="true" style="vertical-align:middle; margin:0; outline: 0" /> ВЫПОЛНЕН!!!!...
+                <InputRadio Value="false" style="vertical-align:middle;margin:0; outline: 0;" checked /> в АктИвНоЙ РАбоТЕ))!!...
+            </InputRadioGroup> 
+        </div>
+        <br />
+        <button class="Accept-Button" @onclick="CompleteEditing" style="vertical-align: super">Done</button>
+        <button class="Accept-Button" type="submit" style="vertical-align: super">Back</button> <br />
+    </EditForm>
+    @foreach (var service in _updatedOrder.Services)
+    {
+        <OrderServiceEditForm Slot="service" BtnEvent="EditService"></OrderServiceEditForm>
+    }
+</div>
+
 
 @code {
     [Parameter] public int Id { get; set; }
+    private OrderOutputModel _order;
+    private OrderInputModel _updatedOrder= new();
+    private ClientOutputModel _client;
+    private ServiceWorkerInputModel _orderService = new();
+    private List<ServiceOutputModel> _services = new();
+    private string _kek = "Visible-Content";
+    private string _pep = "Hidden-Content";
+
+    protected override void OnInitialized()
+    {
+        _order = new OrderManager().GetOrderById(Id);
+        _client = new ClientManager().GetClientById(_order.ClientId);
+        foreach (var service in new ServiceManager().GetAllServices().
+            Where(service => !_order.Services.Contains(_order.Services.Find(x => x.ServiceId == service.Id))))
+        {
+            _services.Add(service);
+        }
+        _updatedOrder.Id = _order.Id;
+        _updatedOrder.Date = _order.Date;
+        _updatedOrder.Cost = _order.Cost;
+        _updatedOrder.ClientId = _order.ClientId;
+        _updatedOrder.Adress = _order.Adress;
+        _updatedOrder.IsCompleted = _order.IsCompleted;
+        _updatedOrder.Report = _order.Report;
+        _updatedOrder.Rate = _order.Rate;
+        foreach (var service in _order.Services)
+        {
+            _updatedOrder.Services.Add(new MapperX().MapServiceWorkerOutputModelToServiceWorkerInputModel(service));
+        }
+    }
+
+    private void AddNewServiceToOrder()
+    {
+        new OrderManager().AddNewServiceToOrder(Id,_orderService.ServiceId,_orderService.Workload);
+        new OrderManager().UpdateOrderServiceById(Id,_orderService);
+        Navigator.NavigateTo($"/order/{Id}", true);
+    }
+
+    private string GetServiceName(ServiceWorkerOutputModel model)
+    {
+        return new ServiceManager().GetServiceById(model.ServiceId).Type;
+    }
+    private string GetWorkerName(ServiceWorkerOutputModel model)
+    {
+        return model.WorkerId is not null ? new WorkerManager().GetWorkerById((int)model.WorkerId).Name : "НЕ НАЗНАЧЕН0";
+    }
+
+    private void StartEditing()
+    {
+        _kek = "Hidden-Content";
+        _pep = "Visible-Content";
+    }
+    private void BackFromEditing()
+    {
+        Navigator.NavigateTo($"/order/{Id}", true);
+    }
+    private void CompleteEditing()
+    {
+        new OrderManager().UpdateOrderById(_updatedOrder);
+    }
+
+    private void ChangingAdress(ChangeEventArgs e)
+    {
+        _updatedOrder.Adress = e.Value == string.Empty ? _order.Adress : e.Value.ToString();
+    }
+    private void ChangingReport(ChangeEventArgs e)
+    {
+        _updatedOrder.Report = e.Value == string.Empty ? _order.Report : e.Value.ToString();
+    }
+    private void SetRate(ChangeEventArgs e)
+    {
+        if (Convert.ToInt32(e.Value.ToString()) >= 0 && Convert.ToInt32(e.Value.ToString()) < 5)
+        {
+            _updatedOrder.Rate = (Rate)Convert.ToInt32(e.Value.ToString());
+        }
+        else
+        {
+            _updatedOrder.Rate = null;
+        }
+    }
+
+    private void EditService(ServiceWorkerInputModel model)
+    {
+        if (model.WorkerId != 0)
+        {
+            new OrderManager().UpdateOrderServiceById(Id,model);
+            InvokeAsync(StateHasChanged);
+            RecountCost();
+            CompleteEditing();
+        }
+        else
+        {
+            Navigator.NavigateTo($"/order/{Id}",true);  
+        }
+    }
+
+    private void RecountCost()
+    {
+        _updatedOrder.Cost = 0;
+        foreach (var service in _updatedOrder.Services.Where(service => service.WorkerId is not null))
+        {
+            int costPerUnit = (int)new WorkerManager().GetWorkerById((int)service.WorkerId).Service.
+                    Find(x => x.Id == service.ServiceId).Cost;
+            _updatedOrder.Cost += service.Workload * costPerUnit;
+        }
+    }
 }

@@ -101,12 +101,12 @@ public class OrderRepository : IOrderRepository
             commandType: CommandType.StoredProcedure);
     }
 
-    public void UpdateOrderServiceById(int id, int orderId, ServiceWorkerDto updatedDto)
+    public void UpdateOrderServiceById( int orderId, ServiceWorkerDto updatedDto)
     {
         using var sqlConnection = new SqlConnection(Constants.ConnectionString);
         sqlConnection.Open();
-        sqlConnection.Execute(StoredProceduresNames.UpdateOrderServiceById,
-            new { id, orderId, updatedDto.ServiceId, updatedDto.WorkerId, updatedDto.Workload }, 
+        sqlConnection.Execute(StoredProceduresNames.UpdateOrderServiceByOrderIdAndServiceId,
+            new { orderId, updatedDto.ServiceId, updatedDto.WorkerId, updatedDto.Workload }, 
             commandType: CommandType.StoredProcedure);
     }
 

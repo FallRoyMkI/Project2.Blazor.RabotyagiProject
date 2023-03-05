@@ -1,5 +1,79 @@
 ﻿@page "/orders"
+@inject NavigationManager Navigator
+
 <PageTitle>Orders</PageTitle>
 
-<h1>Orders</h1>
+<EditForm Model="_newOrder" OnSubmit="CreateOrder">
+    <div style="text-align: center">
+        <div class="Id-Slot" style="width: 400px; margin: auto">
+            <h6 style="color: blueviolet; float: left; height: 40px;padding-top: 6px;
+                       padding-left: 5px;margin: auto">Id Клиента:</h6>
+            <input style="background: none; border: none; color: blueviolet; text-align: center; width: 300px;padding-top: 6px"
+                   type="number" @bind="_newOrder.ClientId" />
+        </div>
+        <div class="Id-Slot" style="width: 400px;margin: auto">
+            <h6 style="color: blueviolet; float: left; height: 40px;padding-top: 6px;
+                       padding-left: 5px;margin: auto">Желаемая дата:</h6>
+            <input style="background: none; border: none; color: blueviolet; text-align: center; width: 250px;padding-top: 6px"
+                   type="date" @bind="_newOrder.Date" />
+        </div>
+        <div class="Id-Slot" style="width: 400px;margin: auto">
+            <h6 style="color: blueviolet; float: left; height: 40px;padding-top: 6px;
+                       padding-left: 5px; margin: auto">Адрес:</h6>
+            <input style="background: none; border: none; color: blueviolet; text-align: center; width: 300px;padding-top: 6px"
+                   type="text" @bind="_newOrder.Adress" />
+        </div>
+    </div>
+    <br/>
+    <div style ="text-align: center">
+        <button class="Id-Slot" type="submit">Создать</button>
+    </div>
+</EditForm>
+<div style="text-align: center">
+    <h1 style="color: blueviolet; font-family: fantasy">ВЫПОЛНЕННЫЕ ЗАКАЗЫ</h1>
+    @foreach (var order in _completedOrders)
+    {
+        <CompletedOrderTemplate Slot="order" BtnEvent="DeleteOrder"></CompletedOrderTemplate>
+    }
+</div>
+<div style ="text-align: center">
+    <h1 style="color: blueviolet; font-family: fantasy">НЕ ВЫПОЛНЕННЫЕ ЗАКАЗЫ</h1>
+    @foreach (var order in _notCompletedOrders)
+    {
+        <NotCompletedOrderTemplate Slot="order" BtnEvent="DeleteOrder"></NotCompletedOrderTemplate>
+    }
+</div>
 
+
+
+@code {
+    private OrderInputModel _newOrder = new();
+    private List<OrderOutputModel> _completedOrders = new();
+    private List<OrderOutputModel> _notCompletedOrders = new();
+
+
+    protected override void OnInitialized()
+    {
+        _completedOrders = new OrderManager().GetAllCompletedOrders();
+        _notCompletedOrders = new OrderManager().GetAllNotCompletedOrders();
+    }
+
+    private void CreateOrder() 
+    {
+        try
+        {
+            new OrderManager().AddNewOrder(_newOrder);
+        }
+        catch (Exception e)
+        {
+            Console.Write(e);
+        }
+        Navigator.NavigateTo("/orders", true);
+    }
+
+    private void DeleteOrder(OrderInputModel model)
+    {
+        new OrderManager().UpdateOrderById(model);
+        Navigator.NavigateTo("/orders", true);
+    }
+}

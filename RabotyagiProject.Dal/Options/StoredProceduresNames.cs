@@ -20,7 +20,7 @@ public static class StoredProceduresNames
     public const string GetOrderById = "Order_GetById";
     public const string GetAllOrderServicesByOrderId = "Order_GetAllServiceByOrderId";
     public const string UpdateOrderById = "Order_UpdateById";
-    public const string UpdateOrderServiceById = "Order_UpdateServiceById";
+    public const string UpdateOrderServiceByOrderIdAndServiceId = "Order_UpdateServiceByOrderIdAndServiceId";
     public const string AddNewService = "Service_AddNew";
     public const string GetAllServices = "Service_GetAll";
     public const string GetServiceById = "Service_GetById";

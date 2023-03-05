@@ -78,13 +78,20 @@
 
 @code {
     [Parameter] public int Id { get; set; }
-    public ClientOutputModel _client;
-    public List<OrderOutputModel> _orders;
+    public ClientOutputModel _client = new();
+    public List<OrderOutputModel> _orders = new ();
 
     protected override void OnInitialized()
     {
-        _client = new ClientManager().GetClientById(Id);
-        _orders = new OrderManager().GetAllOrdersByClientId(_client.Id);
+        try
+        {
+            _client = new ClientManager().GetClientById(Id);
+            _orders = new OrderManager().GetAllOrdersByClientId(_client.Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
 }

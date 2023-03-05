@@ -123,7 +123,7 @@
 
 @code {
     [Parameter] public int Id { get; set; }
-    private WorkerOutputModel _worker;
+    private WorkerOutputModel _worker = new();
     private readonly WorkerInputModel _editedWorker = new();
     private readonly List<ServiceOutputModel> _newServicesForWorker = new();
     private readonly List<WorkingDayOutputModel> _daysForNewBusyTime = new();
@@ -139,20 +139,17 @@
 
     protected override void OnInitialized()
     {
-        _worker = new WorkerManager().GetWorkerById(Id);
-
-        _editedWorker.Id = _worker.Id;
-        _editedWorker.Name = _worker.Name;
-        _editedWorker.Mail = _worker.Mail;
-        _editedWorker.Phone = _worker.Phone;
-        foreach (var service in _worker.Service)
+        try
         {
-            _newService.Id = service.Id;
-            _newService.Type = service.Type;
-            _newService.Cost = service.Cost;
-            _newService.IsDeleted = service.IsDeleted;
-            _editedWorker.Service.Add(_newService);
+            _worker = new WorkerManager().GetWorkerById(Id);
+            CopyOutputModelToInput();
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
+        
         _newService = new();
 
         foreach (var service in new ServiceManager().GetAllServices().
@@ -160,7 +157,6 @@
         {
             _newServicesForWorker.Add(service);
         }
-
         var today = DateTime.Today;
         foreach (var day in new WorkingDayManager().GetAllWorkingDays().
             Where(day => (day.Date > today && day.Date < today.AddDays(500))))
@@ -262,6 +258,22 @@
             }
             new BusyTimeManager().AddNewBusyTime(_newBusyTime);
             InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void CopyOutputModelToInput()
+    {
+        _editedWorker.Id = _worker.Id;
+        _editedWorker.Name = _worker.Name;
+        _editedWorker.Mail = _worker.Mail;
+        _editedWorker.Phone = _worker.Phone;
+        foreach (var service in _worker.Service)
+        {
+            _newService.Id = service.Id;
+            _newService.Type = service.Type;
+            _newService.Cost = service.Cost;
+            _newService.IsDeleted = service.IsDeleted;
+            _editedWorker.Service.Add(_newService);
         }
     }
 }

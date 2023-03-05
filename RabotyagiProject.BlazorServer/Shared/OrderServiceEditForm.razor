@@ -1,0 +1,32 @@
+﻿
+<div style="text-align: center;font-family: fantasy; color: #7922CC;">
+    <h3> УСЛУГА @_sm.GetServiceById(Slot.ServiceId).Type </h3>
+</div>
+
+<EditForm Model="Slot" OnSubmit="CompleteEditingOnClick">
+    <InputSelect class="Table-Slot" @bind-Value="Slot.WorkerId"
+                 style="width: 400px; display: inline-block; vertical-align: super; font-size: 28px">
+        <option value="0">Произведите выбор...</option>
+        @foreach (var worker in new WorkerManager().GetAllWorkers().
+        Where(worker => worker.Service.Contains(worker.Service.Find(x=>x.Id == Slot.ServiceId))))
+        {
+            <option value="@worker.Id">@worker.Id @worker.Name</option>
+        }
+    </InputSelect>
+    <input class="Table-Slot" @bind="Slot.Workload" type="number"
+           style="width: 80px; display: inline-block; vertical-align: super; font-size: 28px" />
+    <button class="Id-Slot" type="submit" style="display: inline-block; vertical-align: super">Применить</button>
+</EditForm>
+
+
+@code {
+    [Parameter] public ServiceWorkerInputModel Slot { get; set; }
+    [Parameter] public EventCallback<ServiceWorkerInputModel> BtnEvent { get; set; }
+    private ServiceManager _sm = new();
+
+
+    private void CompleteEditingOnClick()
+    {
+        BtnEvent.InvokeAsync(Slot);
+    }
+}

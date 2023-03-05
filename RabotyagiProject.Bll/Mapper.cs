@@ -172,6 +172,12 @@ public class MapperX
         return _configuration.CreateMapper().Map<ServiceWorkerDto>(service);
     }
 
+    public ServiceWorkerInputModel MapServiceWorkerOutputModelToServiceWorkerInputModel(
+        ServiceWorkerOutputModel service)
+    {
+        return _configuration.CreateMapper().Map<ServiceWorkerInputModel>(service);
+    }
+
     public ServiceInputModel MapServiceOutputModelToServiceInputModel(ServiceOutputModel service)
     {
         return _configuration.CreateMapper().Map<ServiceInputModel>(service);
