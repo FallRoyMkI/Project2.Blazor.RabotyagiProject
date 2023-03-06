@@ -50,7 +50,7 @@ namespace RabotygiProject.Bll.Test
         }
 
         [TestCaseSource(typeof(AddNewClientTestCaseSourse))]
-        public void AddNewClientTestCase(ClientDto clientDto, ClientInputModel modelClient, int id)
+        public void AddNewClientTestCase(ClientDto clientDto, ClientInputModel modelClient)
         {
             ClientDto expected = clientDto;
             _mock.Setup(o => o.AddNewClient(clientDto)).Verifiable();

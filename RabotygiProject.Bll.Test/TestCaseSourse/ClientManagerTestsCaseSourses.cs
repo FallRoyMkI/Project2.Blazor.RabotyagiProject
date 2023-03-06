@@ -9,7 +9,6 @@ public class GetAllClientsTestCaseSourse : IEnumerable
     {
         List<ClientDto> clientDto = new List<ClientDto>();
         List<ClientOutputModel> modelClient = new List<ClientOutputModel>();
-        List<ServiceWorkerOutputModel> Services;
         List<OrderDto> OrderDto = new List<OrderDto>()
         {
             new OrderDto()
@@ -171,7 +170,6 @@ public class GetClientByIdTestCaseSourse : IEnumerable
     {
         ClientDto clientDto = new ClientDto();
         ClientOutputModel modelClient = new ClientOutputModel();
-        List<ServiceWorkerOutputModel> Services;
         List<OrderDto> OrderDto1 = new List<OrderDto>()
         {
             new OrderDto()
@@ -279,8 +277,7 @@ public class AddNewClientTestCaseSourse : IEnumerable
             Mail = "iii@gmail.ru"
 
         };
-        int id = 10;
-        yield return new Object[] { clientDto, modelClient, id };
+        yield return new Object[] { clientDto, modelClient};
     }
 }
 
@@ -290,7 +287,6 @@ public class UpdateClientByIdTestCaseSourse : IEnumerable
     {
         ClientDto clientDto = new ClientDto();
         ClientInputModel modelClient = new ClientInputModel();
-        List<ServiceWorkerInputModel> Services;
         List<OrderDto> OrderDto = new List<OrderDto>()
         {
             new OrderDto()

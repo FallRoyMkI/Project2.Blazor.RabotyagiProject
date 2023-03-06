@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Models;
+
 namespace RabotygiProject.Bll.Test.TestCaseSourse
 {
     public class GetAllServicesTestSources : IEnumerable
@@ -81,5 +82,46 @@ namespace RabotygiProject.Bll.Test.TestCaseSourse
             yield return new Object[] { id, receivedService, expectedService };
         }
     }
+}
 
+public class UpdateServiceByIdTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        ServiceDto dtoService = new ServiceDto()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+            IsDeleted = false
+        };
+        ServiceInputModel serviceModel = new ServiceInputModel()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+        };
+        yield return new Object[] { dtoService, serviceModel };
+    }
+}
+
+public class AddNewServiceTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        ServiceDto dtoService = new ServiceDto()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+            IsDeleted = false
+        };
+        ServiceInputModel serviceModel = new ServiceInputModel()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+        };
+        yield return new Object[] { dtoService, serviceModel };
+    }
 }
