@@ -258,7 +258,7 @@ public class GetClientByIdTestCaseSourse : IEnumerable
     }
 }
 
-public class AddClientTestCaseSourse : IEnumerable
+public class AddNewClientTestCaseSourse : IEnumerable
 {
     IEnumerator IEnumerable.GetEnumerator()
     {

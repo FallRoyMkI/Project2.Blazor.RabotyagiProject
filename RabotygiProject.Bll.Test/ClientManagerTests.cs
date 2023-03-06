@@ -49,14 +49,14 @@ namespace RabotygiProject.Bll.Test
         //    _mock.Verify();
         //}
 
-        //[TestCaseSource(typeof(AddClientTestCaseSourse))]
-        //public void AddClientTestCase(ClientDto clientDto, ClientInputModel modelClient, int id)
-        //{
-        //    ClientDto expected = clientDto;
-        //    _mock.Setup(o => o.AddClient(clientDto)).Verifiable();
-        //    _manager.AddClient(modelClient);
-        //    _mock.Verify();
-        //}
+        [TestCaseSource(typeof(AddNewClientTestCaseSourse))]
+        public void AddNewClientTestCase(ClientDto clientDto, ClientInputModel modelClient, int id)
+        {
+            ClientDto expected = clientDto;
+            _mock.Setup(o => o.AddNewClient(clientDto)).Verifiable();
+            _manager.AddClient(modelClient);
+            _mock.Verify();
+        }
     }
 }
 
