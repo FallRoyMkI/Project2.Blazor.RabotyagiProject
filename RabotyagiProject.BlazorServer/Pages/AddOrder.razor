@@ -23,7 +23,7 @@
 </div>
 
 <div list service>
-    @if (_services != null)
+    @if (Services != null)
 {
     <table style=" margin: auto">
         <tr>
@@ -31,7 +31,7 @@
             <td><div class="Id-Slot" style="width: 400px"><h3 style="text-align: center"> Наименование </h3> </div> </td>
             <td><div class="Id-Slot" style="width: 400px"><h3 style="text-align: center"> Добавить в заказ? </h3> </div> </td>
         </tr>
-        @foreach (var service in _services)
+        @foreach (var service in Services)
         {
             <tr>
                 <td><div class="Id-Slot"><h3 style="text-align: center"> @service.Id</h3></div></td>
@@ -72,18 +72,18 @@ else
 </div>
 
 @code {
+    [Parameter] public EventCallback<ServiceOutputModel>BtnEvent { get; set; }
     public int Id { get; set; }
     public OrderInputModel Order;
-    private List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+    public List<ServiceOutputModel> Services = new List<ServiceOutputModel>();
     private List<ServiceOutputModel> _servicesInOrder = new List<ServiceOutputModel>();
-
 
     protected override void OnInitialized()
     {
         Order=new OrderInputModel();
 
         var manager = new ServiceManager();
-        _services = manager.GetAllServices();
+        Services = manager.GetAllServices();
     }
 
     private void CreateOrder()
@@ -98,7 +98,7 @@ else
 
     private void AddToList()
     {
-        //var Id = service.Id;
+        BtnEvent.InvokeAsync(service);
         var manager = new ServiceManager();
         var s = manager.GetServiceById(Id);
         _servicesInOrder.Add(s);
