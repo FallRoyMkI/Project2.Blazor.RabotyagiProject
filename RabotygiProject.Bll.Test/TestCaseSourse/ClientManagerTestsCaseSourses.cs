@@ -165,20 +165,14 @@ public class GetAllClientsTestCaseSourse : IEnumerable
     }
 }
 
-
-
-
-
-
-
 public class GetClientByIdTestCaseSourse : IEnumerable
 {
     IEnumerator IEnumerable.GetEnumerator()
     {
         ClientDto clientDto = new ClientDto();
         ClientOutputModel modelClient = new ClientOutputModel();
-        List <ServiceWorkerOutputModel> Services;
-        List <OrderDto> OrderDto1 = new List <OrderDto>()
+        List<ServiceWorkerOutputModel> Services;
+        List<OrderDto> OrderDto1 = new List<OrderDto>()
         {
             new OrderDto()
             {
@@ -207,7 +201,7 @@ public class GetClientByIdTestCaseSourse : IEnumerable
                 }
             }
         };
-        List <OrderOutputModel> OrderModel1 = new List <OrderOutputModel>()
+        List<OrderOutputModel> OrderModel1 = new List<OrderOutputModel>()
         {
             new OrderOutputModel()
             {
@@ -237,8 +231,8 @@ public class GetClientByIdTestCaseSourse : IEnumerable
             }
         };
 
-    int Id = 1;
-    clientDto = new ClientDto()
+        int Id = 1;
+        clientDto = new ClientDto()
         {
             Id = 1,
             Name = "Ivanov Ivan Ivanovich",
@@ -246,7 +240,7 @@ public class GetClientByIdTestCaseSourse : IEnumerable
             Mail = "iii@gmail.ru",
             IsDeleted = false,
             Orders = OrderDto1
-    };
+        };
         ClientOutputModel clientOutputModel = new ClientOutputModel()
         {
             Id = 1,
@@ -255,13 +249,36 @@ public class GetClientByIdTestCaseSourse : IEnumerable
             Mail = "iii@gmail.ru",
             Orders = OrderModel1
         };
-yield return new Object[] { clientDto, clientOutputModel, Id };
+        yield return new Object[] { clientDto, clientOutputModel, Id };
 
-int Id2 = 2;
-ClientDto clientDto2 = new ClientDto();
-ClientOutputModel сlientOutputModel2 = new ClientOutputModel();
-yield return new Object[] { clientDto2, сlientOutputModel2, Id2 };
+        int Id2 = 2;
+        ClientDto clientDto2 = new ClientDto();
+        ClientOutputModel сlientOutputModel2 = new ClientOutputModel();
+        yield return new Object[] { clientDto2, сlientOutputModel2, Id2 };
     }
 }
-    
 
+public class AddClientTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        ClientDto clientDto = new ClientDto()
+        {
+            Id = 1,
+            Name = "Ivanov Ivan Ivanovich",
+            Phone = "79159999999",
+            Mail = "iii@gmail.ru",
+            IsDeleted = false
+        };
+
+        ClientInputModel modelClient = new ClientInputModel()
+        {
+            Id = 1,
+            Name = "Ivanov Ivan Ivanovich",
+            Phone = "79159999999",
+            Mail = "iii@gmail.ru"
+
+        };
+        yield return new Object[] { clientDto, modelClient };
+    }
+}

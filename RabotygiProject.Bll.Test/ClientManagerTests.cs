@@ -49,12 +49,12 @@ namespace RabotygiProject.Bll.Test
         //    _mock.Verify();
         //}
 
-        //[TestCaseSource(typeof(AddNewBusyTimeTestCaseSourse))]
-        //public void AddNewBusyTimeTest(BusyTimeDto dtoBusyTime, BusyTimeInputModel modelBusyTime)
+        //[TestCaseSource(typeof(AddClientTestCaseSourse))]
+        //public void AddClientTestCase(ClientDto clientDto, ClientInputModel modelClient, int id)
         //{
-        //    BusyTimeDto expected = dtoBusyTime;
-        //    _mock.Setup(o => o.AddNewBusyTime(dtoBusyTime)).Verifiable();
-        //    _manager.AddNewBusyTime(modelBusyTime);
+        //    ClientDto expected = clientDto;
+        //    _mock.Setup(o => o.AddClient(clientDto)).Verifiable();
+        //    _manager.AddClient(modelClient);
         //    _mock.Verify();
         //}
     }
