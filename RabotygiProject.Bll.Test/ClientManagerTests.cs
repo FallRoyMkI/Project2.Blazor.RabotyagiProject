@@ -40,14 +40,14 @@ namespace RabotygiProject.Bll.Test
             Assert.AreEqual(expected, actual);
         }
 
-        //[TestCaseSource(typeof(UpdateBusyTimeByIdTestCaseSourse))]
-        //public void UpdateBusyTimeByIdTest(BusyTimeDto dtoBusyTime, BusyTimeInputModel modelBusyTime)
-        //{
-        //    BusyTimeDto expected = dtoBusyTime;
-        //    _mock.Setup(o => o.UpdateBusyTimeById(dtoBusyTime)).Verifiable();
-        //    _manager.UpdateBusyTimeById(modelBusyTime);
-        //    _mock.Verify();
-        //}
+        [TestCaseSource(typeof(UpdateClientByIdTestCaseSourse))]
+        public void UpdateClientByIdTest(ClientDto clientDto, ClientInputModel modelClient)
+        {
+            ClientDto expected = clientDto;
+            _mock.Setup(o => o.UpdateClientById(clientDto)).Verifiable();
+            _manager.UpdateClientById(modelClient);
+            _mock.Verify();
+        }
 
         [TestCaseSource(typeof(AddNewClientTestCaseSourse))]
         public void AddNewClientTestCase(ClientDto clientDto, ClientInputModel modelClient, int id)

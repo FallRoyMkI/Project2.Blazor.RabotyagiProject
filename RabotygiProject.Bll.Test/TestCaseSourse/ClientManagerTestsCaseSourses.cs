@@ -264,7 +264,7 @@ public class AddNewClientTestCaseSourse : IEnumerable
     {
         ClientDto clientDto = new ClientDto()
         {
-            Id = 1,
+            Id = 10,
             Name = "Ivanov Ivan Ivanovich",
             Phone = "79159999999",
             Mail = "iii@gmail.ru",
@@ -273,12 +273,149 @@ public class AddNewClientTestCaseSourse : IEnumerable
 
         ClientInputModel modelClient = new ClientInputModel()
         {
-            Id = 1,
+            Id = 10,
             Name = "Ivanov Ivan Ivanovich",
             Phone = "79159999999",
             Mail = "iii@gmail.ru"
 
         };
+        int id = 10;
+        yield return new Object[] { clientDto, modelClient, id };
+    }
+}
+
+public class UpdateClientByIdTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        ClientDto clientDto = new ClientDto();
+        ClientInputModel modelClient = new ClientInputModel();
+        List<ServiceWorkerInputModel> Services;
+        List<OrderDto> OrderDto = new List<OrderDto>()
+        {
+            new OrderDto()
+            {
+                Id=2,
+                ClientId = 2,
+                IsCompleted =true,
+                Adress = "Ulitsa 1905 goda, 5, 2, 121",
+                Date = DateTime.Parse("10.02.2023"),
+                Cost = 120001,
+                Rate = (RabotyagiProject.Dal.Options.Rate?)4,
+                Report = "klass",
+                Services = new List <ServiceWorkerDto>()
+                {
+                    new ServiceWorkerDto()
+                    {
+                        ServiceId=1,
+                        WorkerId =null,
+                        Workload =3
+                    },
+                    new ServiceWorkerDto()
+                    {
+                        ServiceId =1,
+                        WorkerId =2,
+                        Workload =3
+                    }
+                },
+            },
+            new OrderDto()
+            {
+                    Id=2,
+                    ClientId = 2,
+                    IsCompleted =false,
+                    Adress = "Ulitsa Lenina, 3, 10, 1",
+                    Date = DateTime.Parse("15.10.2023"),
+                    Cost = 30000,
+                    Rate = null,
+                    Report = null,
+
+            }
+        };
+        List<OrderInputModel> OrderModel = new List<OrderInputModel>()
+        {
+            new OrderInputModel()
+            {
+                Id=2,
+                ClientId = 2,
+                IsCompleted =true,
+                Adress = "Ulitsa 1905 goda, 5, 2, 121",
+                Date = DateTime.Parse("10.02.2023"),
+                Cost = 120001,
+                Rate = (RabotyagiProject.Dal.Options.Rate?)4,
+                Report = "klass",
+                Services = new List <ServiceWorkerInputModel>()
+                {
+                    new ServiceWorkerInputModel()
+                    {
+                        ServiceId=1,
+                        WorkerId =null,
+                        Workload =3
+                    },
+                    new ServiceWorkerInputModel()
+                    {
+                        ServiceId =1,
+                        WorkerId =2,
+                        Workload =3
+                    }
+                },
+            },
+            new OrderInputModel()
+            {
+                    Id=2,
+                    ClientId = 2,
+                    IsCompleted =false,
+                    Adress = "Ulitsa Lenina, 3, 10, 1",
+                    Date = DateTime.Parse("15.10.2023"),
+                    Cost = 30000,
+                    Rate = null,
+                    Report = null,
+                    Services = new List<ServiceWorkerInputModel>(),
+            }
+        };
+
+        clientDto = new ClientDto()
+            {
+                Id = 1,
+                Name = "Ivanov Ivan Ivanovich",
+                Phone = "79159999999",
+                Mail = "iii@gmail.ru",
+                IsDeleted = false,
+                Orders =OrderDto
+        };
+
+        modelClient = new ClientInputModel ()
+            {
+                Id = 1,
+                Name = "Ivanov Ivan Ivanovich",
+                Phone = "79159999999",
+                Mail = "iii@gmail.ru",
+                Orders = OrderModel
+            };
+        yield return new Object[] { clientDto, modelClient };
+
+        yield return new Object[]
+        {
+            clientDto = new ClientDto(),
+            modelClient = new ClientInputModel()
+        };
+
+        clientDto = new ClientDto()
+        {
+                     Id = 1,
+                     Name = "Ivanov Ivan Ivanovich",
+                     Phone = "79159999999",
+                     Mail = "iii@gmail.ru",
+                     IsDeleted =false
+                    
+        };
+        modelClient = new ClientInputModel()
+                {
+                     Id = 1,
+                     Name = "Ivanov Ivan Ivanovich",
+                     Phone = "79159999999",
+                     Mail = "iii@gmail.ru",
+                };
         yield return new Object[] { clientDto, modelClient };
     }
 }
