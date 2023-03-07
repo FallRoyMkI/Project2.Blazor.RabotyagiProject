@@ -123,3 +123,21 @@ public class UpdateTimetableByIdTestCaseSourse : IEnumerable
     }
 }
 
+public class AddNewTimetableTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+
+        int workerId = 4;
+        int workingDayId = 15;
+        TimetableDto dtoTimetable = new TimetableDto()
+        {
+            Id = 1,
+            WorkerId = 4,
+            WorkingDayId = 15,
+            IsDeleted = false
+        };
+        yield return new Object[] {dtoTimetable, workerId, workingDayId };
+    }
+}
+

@@ -6,7 +6,6 @@ using RabotygiProject.Bll.Test.TestCaseSourse;
 using RabotyagiProject.Dal.Interface;
 using RabotyagiProject.Dal.Models;
 
-
 namespace RabotygiProject.Bll.Test
 {
     public class BusyTimeManagerTests

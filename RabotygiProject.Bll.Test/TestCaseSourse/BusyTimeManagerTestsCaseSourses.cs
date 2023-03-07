@@ -19,7 +19,6 @@ public class GetAllBusyTimeTestCaseSourse : IEnumerable
                     IsDeleted = false
                 }
             };
-
         modelBusyTime = new List<BusyTimeOutputModel>()
             {
                 new BusyTimeOutputModel()
@@ -32,8 +31,6 @@ public class GetAllBusyTimeTestCaseSourse : IEnumerable
                 }
             };
         yield return new Object[] { dtoBusyTime, modelBusyTime };
-
-
         yield return new Object[]
         {
             dtoBusyTime = new List<BusyTimeDto>(),
@@ -59,7 +56,6 @@ public class GetAllBusyTimeTestCaseSourse : IEnumerable
                         IsDeleted = false
                     }
                 };
-
         modelBusyTime = new List<BusyTimeOutputModel>()
                 {
                     new BusyTimeOutputModel()
@@ -80,9 +76,9 @@ public class GetAllBusyTimeTestCaseSourse : IEnumerable
                     }
                 };
         yield return new Object[] { dtoBusyTime, modelBusyTime };
-
     }
 }
+
 public class GetAllBusyTimeByTimetableIdTestCaseSourse : IEnumerable
 {
     IEnumerator IEnumerable.GetEnumerator()
@@ -101,7 +97,6 @@ public class GetAllBusyTimeByTimetableIdTestCaseSourse : IEnumerable
                     IsDeleted = false
                 },
             };
-
         modelBusyTime = new List<BusyTimeOutputModel>()
             {
                 new BusyTimeOutputModel()
@@ -114,11 +109,9 @@ public class GetAllBusyTimeByTimetableIdTestCaseSourse : IEnumerable
                 }
             };
         yield return new Object[] { dtoBusyTime, modelBusyTime, tableId };
-
         dtoBusyTime = new List<BusyTimeDto>();
         modelBusyTime = new List<BusyTimeOutputModel>();
         yield return new Object[] { dtoBusyTime, modelBusyTime, tableId };
-
         dtoBusyTime = new List<BusyTimeDto>()
             {
                 new BusyTimeDto()
@@ -138,7 +131,6 @@ public class GetAllBusyTimeByTimetableIdTestCaseSourse : IEnumerable
                     IsDeleted = false
                 },
             };
-
         modelBusyTime = new List<BusyTimeOutputModel>()
             {
                 new BusyTimeOutputModel()

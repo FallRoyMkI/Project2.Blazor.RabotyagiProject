@@ -47,7 +47,6 @@ public class GetAllClientsTestCaseSourse : IEnumerable
                     Cost = 30000,
                     Rate = null,
                     Report = null,
-
             }
         };
         List<OrderOutputModel> OrderModel = new List<OrderOutputModel>()
@@ -104,7 +103,6 @@ public class GetAllClientsTestCaseSourse : IEnumerable
                 Orders =OrderDto
                 }
         };
-
         modelClient = new List<ClientOutputModel>()
             {
                 new ClientOutputModel()
@@ -123,7 +121,6 @@ public class GetAllClientsTestCaseSourse : IEnumerable
             clientDto = new List<ClientDto>(),
             modelClient = new List<ClientOutputModel>()
         };
-
         clientDto = new List<ClientDto>()
                 {
                     new ClientDto()
@@ -228,7 +225,6 @@ public class GetClientByIdTestCaseSourse : IEnumerable
                 },
             }
         };
-
         int Id = 1;
         clientDto = new ClientDto()
         {
@@ -325,7 +321,6 @@ public class UpdateClientByIdTestCaseSourse : IEnumerable
                     Cost = 30000,
                     Rate = null,
                     Report = null,
-
             }
         };
         List<OrderInputModel> OrderModel = new List<OrderInputModel>()

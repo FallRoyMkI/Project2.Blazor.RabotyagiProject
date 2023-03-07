@@ -17,7 +17,7 @@ namespace RabotygiProject.Bll.Test
         public void SetUp()
         {
             _mock = new Mock<ITimetableRepository>();
-             _manager = new TimetableManager(_mock.Object);
+            _manager = new TimetableManager(_mock.Object);
         }
 
         [TestCaseSource(typeof(GetAllTimetableTestCaseSourse))]
@@ -47,6 +47,15 @@ namespace RabotygiProject.Bll.Test
             TimetableDto expected = dtoTimetable;
             _mock.Setup(o => o.UpdateTimetableById(dtoTimetable)).Verifiable();
             _manager.UpdateTimetableById(timetableModel);
+            _mock.Verify();
+        }
+
+        [TestCaseSource(typeof(AddNewTimetableTestCaseSourse))]
+        public void AddNewTimetableTest(TimetableDto dtoTimetable, int workerId, int workingDayId)
+        {
+            TimetableDto expected = dtoTimetable;
+            _mock.Setup(o => o.AddNewTimetable(workerId, workingDayId)).Verifiable();
+            _manager.AddNewTimetable(workerId, workingDayId);
             _mock.Verify();
         }
     }

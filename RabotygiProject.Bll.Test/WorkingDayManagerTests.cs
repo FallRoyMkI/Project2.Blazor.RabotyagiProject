@@ -6,7 +6,6 @@ using RabotyagiProject.Dal.Models;
 using RabotygiProject.Bll.Test.TestCaseSourse;
 using NUnit.Framework;
 
-
 namespace RabotygiProject.Bll.Test
 {
     public class WorkingDayManagerTests
@@ -30,7 +29,6 @@ namespace RabotygiProject.Bll.Test
             CollectionAssert.AreEqual(expected, actual);
         }
 
-
         [TestCaseSource(typeof(GetWorkingDayByIdTestCaseSourse))]
         public void GetWorkingDayByIdTest(int id, WorkingDayDto dtoWorkingDay, WorkingDayOutputModel workingDayOutputModel)
         {
@@ -41,6 +39,7 @@ namespace RabotygiProject.Bll.Test
             _mock.VerifyAll();
             Assert.AreEqual(expected, actual);
         }
+
         [TestCaseSource(typeof(UpdateWorkingDayByIdTestCaseSourse))]
         public void UpdateWorkingDayByIdTest(WorkingDayDto dtoWorkingDay, WorkingDayInputModel workingDayInputModel)
         {
@@ -49,11 +48,6 @@ namespace RabotygiProject.Bll.Test
             _manager.UpdateWorkingDayById(workingDayInputModel);
             _mock.Verify();
         }
-        
-
-        //List<WorkingDayDto> dtoWorkingDay= new List<WorkingDayDto>();
-        //List<WorkingDayOutputModel> workingDayOutputModels = new List<WorkingDayOutputModel>();
-        
 
         [TestCaseSource(typeof(AddNewWorkingDayTestCaseSourse))]
         public void AddNewWorkingDayTest(WorkingDayDto dtoWorkingDay, WorkingDayInputModel workingDayInputModel, DateTime date)
