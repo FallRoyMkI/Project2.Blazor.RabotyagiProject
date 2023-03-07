@@ -293,7 +293,98 @@ public class UpdateWorkerByIdTestCaseSourse : IEnumerable
             Phone = "123456789",
             Service = new List<ServiceInputModel>()
         };
-
         yield return new Object[] { workerDto, workerInputModel };
+    }
+}
+
+public class UpdateWorkerServiceTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        int workerId = 2;
+        ServiceDto serviceDto = new ServiceDto()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+            IsDeleted = false
+        };
+        ServiceInputModel serviceInputModel = new ServiceInputModel()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+        };
+
+        WorkerDto dtoWorker = new WorkerDto()
+        {
+            Id = workerId,
+            Name = "Name1",
+            Mail = "Mail1",
+            Phone = "123456789",
+            Service = new List<ServiceDto>()
+            {
+                serviceDto,
+            },
+            IsDeleted = false
+        };
+        WorkerInputModel workerInputModel = new WorkerInputModel()
+        {
+            Id = workerId,
+            Name = "Name1",
+            Mail = "Mail1",
+            Phone = "123456789",
+            Service = new List<ServiceInputModel>()
+            {
+                serviceInputModel
+            }
+        };
+        yield return new Object[] {workerId, serviceDto, dtoWorker, serviceInputModel };
+    }
+}
+
+public class AddNewServiceToWorkerTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        int workerId = 2;
+        ServiceDto serviceDto = new ServiceDto()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+            IsDeleted = false
+        };
+        ServiceInputModel serviceInputModel = new ServiceInputModel()
+        {
+            Id = 2,
+            Type = "Хотьба по потолоку",
+            Cost = 1999,
+        };
+
+        WorkerDto dtoWorker = new WorkerDto()
+        {
+            Id = workerId,
+            Name = "Name1",
+            Mail = "Mail1",
+            Phone = "123456789",
+            Service = new List<ServiceDto>()
+            {
+                serviceDto,
+            },
+            IsDeleted = false
+        };
+        WorkerInputModel workerInputModel = new WorkerInputModel()
+        {
+            Id = workerId,
+            Name = "Name1",
+            Mail = "Mail1",
+            Phone = "123456789",
+            Service = new List<ServiceInputModel>()
+            {
+                serviceInputModel
+            }
+        };
+        yield return new Object[] { workerId, serviceDto, dtoWorker, serviceInputModel };
     }
 }

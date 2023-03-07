@@ -57,11 +57,22 @@ public class WorkerManagerTests
         _manager.AddNewWorker(workerInputModel);
         _mock.Verify();
     }
+
+    [TestCaseSource(typeof(UpdateWorkerServiceTestCaseSourse))]
+    public void UpdateWorkerServiceTest(int workerId, ServiceDto serviceDto, WorkerDto dtoWorker, ServiceInputModel serviceInputModel)
+    {
+        WorkerDto expected = dtoWorker;
+        _mock.Setup(o => o.UpdateWorkerService(workerId, serviceDto)).Verifiable();
+        _manager.UpdateWorkerService(workerId, serviceInputModel);
+        _mock.Verify();
+    }
+
+    [TestCaseSource(typeof(AddNewServiceToWorkerTestCaseSourse))]
+    public void AddNewServiceToWorkerTest(int workerId, ServiceDto serviceDto, WorkerDto dtoWorker, ServiceInputModel serviceInputModel)
+    {
+        WorkerDto expected = dtoWorker;
+        _mock.Setup(o => o.AddNewServiceToWorker(workerId, serviceDto)).Verifiable();
+        _manager.AddNewServiceToWorker(workerId, serviceInputModel);
+        _mock.Verify();
+    }
 }
-
-
-//public void UpdateWorkerById(WorkerDto updatedDto);
-//public void AddNewWorker(WorkerDto newDto);
-
-//public void AddNewServiceToWorker(int workerId, ServiceDto newDto);
-//public void UpdateWorkerService(int workerId, ServiceDto updatedDto);

@@ -20,11 +20,6 @@ namespace RabotygiProject.Bll.Test
             _manager = new WorkingDayManager(_mock.Object);
         }
 
-        //public List<WorkingDayDto> GetAllWorkingDays();
-        //public WorkingDayDto GetWorkingDayById(int id);
-        //public void UpdateWorkingDayById(WorkingDayDto updatedDto);
-        //public void AddNewWorkingDay(DateTime date);
-
         [TestCaseSource(typeof(GetAllWorkingDaysTestCaseSourse))]
         public void GetAllWorkingDaysTest(List<WorkingDayDto> dtoWorkingDay, List<WorkingDayOutputModel> workingDayOutputModels)
         {
@@ -47,7 +42,7 @@ namespace RabotygiProject.Bll.Test
             Assert.AreEqual(expected, actual);
         }
         [TestCaseSource(typeof(UpdateWorkingDayByIdTestCaseSourse))]
-        public void UpdateWorkingDayByIdTest(int id, WorkingDayDto dtoWorkingDay, WorkingDayInputModel workingDayInputModel)
+        public void UpdateWorkingDayByIdTest(WorkingDayDto dtoWorkingDay, WorkingDayInputModel workingDayInputModel)
         {
             WorkingDayDto expected = dtoWorkingDay;
             _mock.Setup(o => o.UpdateWorkingDayById(dtoWorkingDay)).Verifiable();

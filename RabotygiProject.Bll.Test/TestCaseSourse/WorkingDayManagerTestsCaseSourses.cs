@@ -95,18 +95,18 @@ public class UpdateWorkingDayByIdTestCaseSourse : IEnumerable
 {
     IEnumerator IEnumerable.GetEnumerator()
     {
-        int id = 1;
-        WorkingDayDto dtoWorkingDay = new WorkingDayDto()
-        {
-            Id = 1,
-            Date = DateTime.Parse("10.10.2023")
-        };
+        int id=1;
         WorkingDayInputModel workingDayInputModels = new WorkingDayInputModel()
         {
             Id = 1,
             Date = DateTime.Parse("10.10.2023")
         };
-        yield return new Object[] {id, dtoWorkingDay, workingDayInputModels };
+        WorkingDayDto dtoWorkingDay = new WorkingDayDto()
+        {
+            Id = 1,
+            Date = DateTime.Parse("10.10.2023")
+        };
+        yield return new Object[] {dtoWorkingDay, workingDayInputModels };
     }
 }
 
