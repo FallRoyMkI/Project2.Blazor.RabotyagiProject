@@ -27,23 +27,16 @@
                         <h3 class="Id-Slot" style="width: 100px; margin: 0">Дата</h3>
                     </tr>
                     <tr>
-                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Цена</h3>
-                    </tr>
-                    <tr>
                         <h3 class="Id-Slot" style="width: 100px; margin: 0">Адрес</h3>
                     </tr>
                     <tr>
-                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Оценка</h3>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Услуги</h3>
                     </tr>
-                    <tr>
-                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Отзыв</h3>
-                    </tr>
-                    <tr style="height: 260px"></tr>
                 </table>
             </div>
             foreach (var order in _orders.Where(order => !order.IsCompleted))
             {
-                <OrderTemplate Slot="@order"></OrderTemplate>
+                <NotCompletedOrderTemplate Slot="@order"></NotCompletedOrderTemplate>
             }
         }
 
@@ -52,9 +45,25 @@
             <div style="text-align: center">
                 <h1 style="color: rgb(125, 125, 255); font-family: fantasy;display: inline-block">Выполненные заказы</h1>
             </div>
+            <div style="display: inline-block; text-align: center;float:left">
+                <table style="height: 240px">
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Номер</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Цена</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Рейтинг</h3>
+                    </tr>
+                    <tr>
+                        <h3 class="Id-Slot" style="width: 100px; margin: 0">Отзыв</h3>
+                    </tr>
+                </table>
+            </div>
             foreach (var order in _orders.Where(order => order.IsCompleted))
             {
-                <OrderTemplate Slot="@order"></OrderTemplate>
+                <CompletedOrderTemplate Slot="@order"></CompletedOrderTemplate>
             }
         }
         
@@ -69,13 +78,20 @@
 
 @code {
     [Parameter] public int Id { get; set; }
-    public ClientOutputModel _client;
-    public List<OrderOutputModel> _orders;
+    public ClientOutputModel _client = new();
+    public List<OrderOutputModel> _orders = new ();
 
     protected override void OnInitialized()
     {
-        _client = new ClientManager().GetClientById(Id);
-        _orders = new OrderManager().GetAllOrdersByClientId(_client.Id);
+        try
+        {
+            _client = new ClientManager().GetClientById(Id);
+            _orders = new OrderManager().GetAllOrdersByClientId(_client.Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
 }

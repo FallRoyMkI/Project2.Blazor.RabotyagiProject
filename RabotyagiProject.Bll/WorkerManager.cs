@@ -1,6 +1,7 @@
 using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal.Interface;
 using RabotyagiProject.Dal;
+using System.Reflection;
 
 namespace RabotyagiProject.Bll;
 
@@ -20,9 +21,9 @@ public class WorkerManager
         return _mapperX.MapWorkerDtoListToWorkerOutputModelList(_repository.GetAllWorkers());
     }
 
-    public WorkerOutputModel GetWorkerById(int Id)
+    public WorkerOutputModel GetWorkerById(int id)
     {
-        return _mapperX.MapWorkerDtoToWorkerOutputModel(_repository.GetWorkerById(Id));
+        return _mapperX.MapWorkerDtoToWorkerOutputModel(_repository.GetWorkerById(id));
     }
 
     public void AddNewWorker(WorkerInputModel model)

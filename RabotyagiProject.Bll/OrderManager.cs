@@ -42,7 +42,10 @@ public class OrderManager
 
     public void AddNewOrder(OrderInputModel model)
     {
-        _repository.AddNewOrder(_mapperX.MapOrderInputModelToOrderDto(model));
+        if (new ClientRepository().GetClientById(model.ClientId).IsDeleted == false)
+        {
+            _repository.AddNewOrder(_mapperX.MapOrderInputModelToOrderDto(model));
+        }
     }
 
     public void AddNewServiceToOrder(int orderId, int serviceId, int workload)
@@ -55,8 +58,8 @@ public class OrderManager
         _repository.UpdateOrderById(_mapperX.MapOrderInputModelToOrderDto(model));
     }
 
-    public void UpdateOrderServiceById(int id, int orderId, ServiceWorkerInputModel model)
+    public void UpdateOrderServiceById(int orderId, ServiceWorkerInputModel model)
     {
-        _repository.UpdateOrderServiceById(id,orderId, _mapperX.MapServiceWorkerInputModelToServiceWorkerDto(model));
+        _repository.UpdateOrderServiceById(orderId, _mapperX.MapServiceWorkerInputModelToServiceWorkerDto(model));
     }
 }

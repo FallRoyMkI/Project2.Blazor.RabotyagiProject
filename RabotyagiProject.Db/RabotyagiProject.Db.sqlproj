@@ -91,7 +91,7 @@
     <Build Include="dbo\Stored Procedures\Order_UpdateById.sql" />
     <Build Include="dbo\Stored Procedures\Service_UpdateById.sql" />
     <Build Include="dbo\Stored Procedures\Order_AddNewService.sql" />
-    <Build Include="dbo\Stored Procedures\Order_UpdateServiceById.sql" />
+    <Build Include="dbo\Stored Procedures\Order_UpdateServiceByOrderIdAndServiceId.sql" />
     <Build Include="dbo\Stored Procedures\Client_GetById.sql" />
     <Build Include="dbo\Stored Procedures\Order_GetAllCompleted.sql" />
     <Build Include="dbo\Stored Procedures\Order_GetAllNotCompleted.sql" />

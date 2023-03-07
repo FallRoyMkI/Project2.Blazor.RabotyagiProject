@@ -12,6 +12,7 @@ public class OrderInputModel
     public int? Cost { get; set; }
     public Rate? Rate { get; set; }
     public string Report { get; set; }
+    public bool IsDeleted { get; set; }
     public List<ServiceWorkerInputModel> Services { get; set; } = new();
 
     public override bool Equals(object? obj)
@@ -25,6 +26,7 @@ public class OrderInputModel
                Cost == model.Cost &&
                Rate == model.Rate &&
                Report == model.Report &&
+               IsDeleted == model.IsDeleted &&
                Services.SequenceEqual(model.Services);
     }
 }

@@ -1,4 +1,37 @@
 ﻿@page "/timetable"
 <PageTitle>Timetable</PageTitle>
 
-<h1>Timetable</h1>
+<EditForm Model="_newDay" OnSubmit="AddWorkingDay">
+    <div style="text-align: center">
+        <div class="Id-Slot" style="width: 400px; margin: auto">
+            <h6 style="color: blueviolet; float: left; height: 40px;padding-top: 6px;
+                       padding-left: 5px;margin: auto">
+                Рабочий день:
+            </h6>
+            <input style="background: none; border: none; color: blueviolet; text-align: center; width: 250px;padding-top: 6px"
+                   type="date" @bind="_newDay" />
+        </div>
+
+    </div>
+    <br />
+    <div style="text-align: center">
+        <button class="Id-Slot" type="submit">Добавить</button>
+    </div>
+</EditForm>
+
+<div style="margin: auto; text-align: center;display: table">
+    @foreach (var day in new WorkingDayManager().GetAllWorkingDays())
+    {
+        <div class="Table-Slot"> @DateOnly.FromDateTime(day.Date)</div>
+    }
+</div>
+
+@code {
+    private DateTime _newDay;
+
+    private void AddWorkingDay()
+    {
+        new WorkingDayManager().AddNewWorkingDay(_newDay);
+    }
+
+}

@@ -1,0 +1,54 @@
+﻿<div style="display: inline-block; vertical-align: top; text-align: center">
+    <table>
+        <tr style="display: inline-block;">
+            <div class="Id-Slot" style="text-align: center">
+                <h3 style="text-align: center">
+                    <a href="/order/@Slot.Id" style="color: #7922CC"> @Slot.Id </a>
+                </h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px">
+                <h3>@Slot.Cost</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px">
+                <h3>@Slot.Rate</h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="Table-Slot" style="text-align: center; width: 350px; height: auto">
+                <h3>@Slot.Report</h3>
+            </div>
+        </tr>
+    </table>
+    <button @onclick="DeleteOrderOnClick"
+            style="width: 30px; height: 32px; border: none; background: none; vertical-align: middle">
+        🗑️
+    </button>
+</div>
+@code {
+    [Parameter] public OrderOutputModel Slot { get; set; }
+    [Parameter] public EventCallback<OrderInputModel> BtnEvent { get; set; }
+
+    private void DeleteOrderOnClick()
+    {
+        OrderInputModel model = new();
+        model.Id = Slot.Id;
+        model.Date = Slot.Date;
+        model.Cost = Slot.Cost;
+        model.ClientId = Slot.ClientId;
+        model.Adress = Slot.Adress;
+        model.IsCompleted = Slot.IsCompleted;
+        model.Report = Slot.Report;
+        model.Rate = Slot.Rate;
+        model.IsDeleted = true;
+        foreach (var service in Slot.Services)
+        {
+            model.Services.Add(new MapperX().MapServiceWorkerOutputModelToServiceWorkerInputModel(service));
+        }
+
+        BtnEvent.InvokeAsync(model);
+    }
+}
