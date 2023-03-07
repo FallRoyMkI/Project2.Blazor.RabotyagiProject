@@ -1,6 +1,7 @@
 ﻿using RabotyagiProject.Bll.Models;
 using RabotyagiProject.Dal;
 using RabotyagiProject.Dal.Interface;
+using System.Linq;
 
 namespace RabotyagiProject.Bll;
 
@@ -27,7 +28,11 @@ public class WorkingDayManager
 
     public void AddNewWorkingDay(DateTime date)
     {
-        _repository.AddNewWorkingDay(date);
+        if (!new WorkingDayManager().GetAllWorkingDays()
+                .Contains(new WorkingDayManager().GetAllWorkingDays().Find(x => x.Date == date)))
+        {
+            _repository.AddNewWorkingDay(date);
+        }
     }
 
     public void UpdateWorkingDayById(WorkingDayInputModel model)

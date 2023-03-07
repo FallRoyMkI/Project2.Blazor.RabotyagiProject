@@ -1,22 +1,31 @@
 ﻿@page "/services/{Id:int}"
+@inject NavigationManager Navigator
 
-<h3>EditService</h3>
-
-<div>
-    <span>Наименование:</span><input type="text" @bind="_service.Type"/> <br /><br />
-    <span>Цена:</span><input type="number" @bind="_service.Cost"/> <br /><br />
-    <span>Удалить(пока не работает):</span><label><input type="checkbox"/>Да</label><br /><br />
-    <button @onclick="SaveChanges">Сохранить измененеия</button><br /><br />
+<div class="Update-Button">
+    <h3> Наименование: </h3>
+    <input type="text" @bind="_service.Type"  
+           style="background-color: rgba(238,221,255,0.8); border: 3px solid rgba(121,34,204,0.8);
+                                   border-radius: 15px; text-align: center; color: indigo"><br />
+    <EditForm Model="_isDeleted">
+        <InputRadioGroup @bind-Value="_isDeleted">
+            <InputRadio Value="true" style="vertical-align:middle; margin:0; outline: 0px" /> УДОЛИТЬ
+            <InputRadio Value="false" style="vertical-align:middle; margin:0; outline: 0px" checked /> ОСТАВИТЬ УСЛУГУ!
+        </InputRadioGroup> <br />
+    </EditForm> 
+    <button @onclick="SaveChanges">Сохранить изменения</button><br/><br/>
 </div>
 
 @code {
 	[Parameter] public int Id { get; set; }
 
 	private ServiceOutputModel _service;
+    private bool _isDeleted;
+    
 
 	protected override void OnInitialized()
 	{
 		_service = new ServiceManager().GetServiceById(Id);
+	    
 	}
 
 	private void SaveChanges()
@@ -25,9 +34,9 @@
 			{
 				Id = _service.Id,
 				Type = _service.Type,
-				Cost = _service.Cost,
-				IsDeleted = _service.IsDeleted
+				IsDeleted = _isDeleted
 			};
 			new ServiceManager().UpdateServiceById(s);
+	    Navigator.NavigateTo("/services", true);
 	}
 }

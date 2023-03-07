@@ -1,6 +1,25 @@
 ﻿@page "/services"
+@inject NavigationManager Navigator
 
 <PageTitle>Services</PageTitle>
+
+<EditForm Model="_newService" OnSubmit="CreateService">
+    <div style="text-align: center">
+        <div class="Id-Slot" style="width: 400px; margin: auto">
+            <h6 style="color: blueviolet; float: left; height: 40px;padding-top: 6px;
+                       padding-left: 5px;margin: auto">
+                Вид услуги:
+            </h6>
+            <input style="background: none; border: none; color: blueviolet; text-align: center; width: 300px;padding-top: 6px"
+                   type="text" @bind="_newService.Type" />
+        </div>
+        
+    </div>
+    <br />
+    <div style="text-align: center">
+        <button class="Id-Slot" type="submit">Создать</button>
+    </div>
+</EditForm>
 
 <div style=" text-align: center ">
     <h1 style="color: rgb(125, 125, 255);font-family: fantasy"> Services</h1>
@@ -19,11 +38,18 @@
 </div>
 
 @code {
-    private List<ServiceOutputModel> _services = new List<ServiceOutputModel>();
+    private List<ServiceOutputModel> _services = new();
+    private ServiceInputModel _newService = new();
 
     protected override void OnInitialized()
     {
         var manager = new ServiceManager();
         _services = manager.GetAllServices();
+    }
+
+    private void CreateService()
+    {
+        new ServiceManager().AddNewService(_newService);
+        Navigator.NavigateTo("/services", true);
     }
 }

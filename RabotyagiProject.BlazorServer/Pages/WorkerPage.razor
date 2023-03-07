@@ -159,7 +159,7 @@
         }
         var today = DateTime.Today;
         foreach (var day in new WorkingDayManager().GetAllWorkingDays().
-            Where(day => (day.Date > today && day.Date < today.AddDays(500))))
+            Where(day => (day.Date > today && day.Date < today.AddDays(14))))
         {
             _daysForNewBusyTime.Add(day);
         }

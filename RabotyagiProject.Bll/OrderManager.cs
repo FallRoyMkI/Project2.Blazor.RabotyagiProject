@@ -42,7 +42,7 @@ public class OrderManager
 
     public void AddNewOrder(OrderInputModel model)
     {
-        if (new ClientRepository().GetClientById(model.ClientId).IsDeleted != false)
+        if (new ClientRepository().GetClientById(model.ClientId).IsDeleted == false)
         {
             _repository.AddNewOrder(_mapperX.MapOrderInputModelToOrderDto(model));
         }
