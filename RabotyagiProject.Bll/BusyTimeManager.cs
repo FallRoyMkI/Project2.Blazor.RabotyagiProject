@@ -22,8 +22,7 @@ public class BusyTimeManager
 
     public List<BusyTimeOutputModel> GetAllBusyTimeByTimetableId(int timetableId)
     {
-        return _mapperX.MapBusyTimeDtoListToBusyTimeOutputModelList(
-            _repository.GetAllBusyTimeByTimetableId(timetableId));
+        return _mapperX.MapBusyTimeDtoListToBusyTimeOutputModelList(_repository.GetAllBusyTimeByTimetableId(timetableId));
     }
 
     public BusyTimeOutputModel GetBusyTimeById(int id)

@@ -39,5 +39,25 @@ public class ServiceManagerTests
         _mock.VerifyAll();
         Assert.AreEqual(expected, actual);
     }
+
+    [TestCaseSource(typeof(UpdateServiceByIdTestCaseSourse))]
+    public void UpdateServiceByIdTest(ServiceDto dtoService, ServiceInputModel serviceModel)
+    {
+        ServiceDto expected = dtoService;
+        _mock.Setup(o => o.UpdateServiceById(dtoService)).Verifiable();
+        _manager.UpdateServiceById(serviceModel);
+        _mock.Verify();
+    }
+
+    [TestCaseSource(typeof(AddNewServiceTestCaseSourse))]
+    public void AddNewServiceTest(ServiceDto dtoService, ServiceInputModel serviceModel)
+    {
+        ServiceDto expected = dtoService;
+        _mock.Setup(o => o.AddNewService(dtoService)).Verifiable();
+        _manager.AddNewService(serviceModel);
+        _mock.Verify();
+    }
 }
+
+
 
