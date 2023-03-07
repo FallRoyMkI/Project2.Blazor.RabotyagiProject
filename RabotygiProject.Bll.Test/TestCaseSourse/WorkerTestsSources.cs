@@ -244,3 +244,56 @@ public class GetWorkerByIdTestSources : IEnumerable
         yield return new Object[] { id, receivedWorker, expectedWorker };
     }
 }
+public class AddNewWorkerTestCaseSourse : IEnumerable
+{
+    public IEnumerator GetEnumerator()
+    {
+        WorkerDto receivedWorkers = new WorkerDto();
+        WorkerInputModel expectedWorkers = new WorkerInputModel();
+        yield return new Object[] { receivedWorkers, expectedWorkers };
+        receivedWorkers = new WorkerDto()
+        {
+                Id = 1,
+                Name = "Name1",
+                Mail = "Mail1",
+                Phone = "123456789",
+                Service = new List<ServiceDto>(),
+                IsDeleted = false
+        };
+        expectedWorkers = new WorkerInputModel()
+        {
+                Id = 1,
+                Name = "Name1",
+                Mail = "Mail1",
+                Phone = "123456789",
+                Service = new List<ServiceInputModel>()
+        };
+        yield return new Object[] { receivedWorkers, expectedWorkers };
+    }
+}
+
+public class UpdateWorkerByIdTestCaseSourse : IEnumerable
+{
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        WorkerDto workerDto = new WorkerDto()
+        {
+            Id = 1,
+            Name = "Name1",
+            Mail = "Mail1",
+            Phone = "123456789",
+            Service = new List<ServiceDto>(),
+            IsDeleted = false
+        };
+        WorkerInputModel workerInputModel = new WorkerInputModel()
+        {
+            Id = 1,
+            Name = "Name1",
+            Mail = "Mail1",
+            Phone = "123456789",
+            Service = new List<ServiceInputModel>()
+        };
+
+        yield return new Object[] { workerDto, workerInputModel };
+    }
+}

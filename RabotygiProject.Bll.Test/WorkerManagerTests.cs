@@ -39,4 +39,29 @@ public class WorkerManagerTests
         _mock.VerifyAll();
         Assert.AreEqual(expected, actual);
     }
+
+    [TestCaseSource(typeof(UpdateWorkerByIdTestCaseSourse))]
+    public void UpdateWorkerByIdTest(WorkerDto dtoWorker, WorkerInputModel workerInputModel)
+    {
+        WorkerDto expected = dtoWorker;
+        _mock.Setup(o => o.UpdateWorkerById(dtoWorker)).Verifiable();
+        _manager.UpdateWorkerById(workerInputModel);
+        _mock.Verify();
+    }
+
+    [TestCaseSource(typeof(AddNewWorkerTestCaseSourse))]
+    public void AddNewWorkerTest(WorkerDto dtoWorker, WorkerInputModel workerInputModel)
+    {
+        WorkerDto expected = dtoWorker;
+        _mock.Setup(o => o.AddNewWorker(dtoWorker)).Verifiable();
+        _manager.AddNewWorker(workerInputModel);
+        _mock.Verify();
+    }
 }
+
+
+//public void UpdateWorkerById(WorkerDto updatedDto);
+//public void AddNewWorker(WorkerDto newDto);
+
+//public void AddNewServiceToWorker(int workerId, ServiceDto newDto);
+//public void UpdateWorkerService(int workerId, ServiceDto updatedDto);
